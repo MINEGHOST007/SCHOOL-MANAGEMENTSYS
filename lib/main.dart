@@ -1,18 +1,30 @@
+import 'package:edusphere/presentation/screens/auth.dart';
+import 'package:edusphere/presentation/screens/home.dart';
+import 'package:edusphere/presentation/screens/load.dart';
+import 'package:edusphere/presentation/screens/signin.dart';
+import 'package:edusphere/presentation/screens/signup.dart';
 import 'package:flutter/material.dart';
+import 'firebase_options.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:edusphere/presentation/screens/splashscreen.dart';
-void main() {
+import 'package:firebase_auth/firebase_auth.dart';
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(MaterialApp(
     initialRoute :'/splash',
     routes: {
-      // '/'       : (context)=> (),//loading
+      '/'       : (context)=> Loading(),//loading
 
-      '/splash' : (context)=> Splash(),//just not necessary to login everytime check whether logged in or not local storage.....
+      '/splash' : (context)=> AuthPage(),//just not necessary to login everytime check whether logged in or not local storage.....
       //
-      //     '/createaccount': (context)=>(),// splash screen has two choices create login
+           '/createaccount': (context)=>Signup(),// splash screen has two choices create login
       //
-      // '/login'  : (context)=> (),//if not logged in after splash screen to login even adding google login
+       '/login'  : (context)=> Signin(),//if not logged in after splash screen to login even adding google login
       //
-      // '/home'   : (context)=> (),// side bar with logout option list of subjects a search option  and below a constant menu.
+      '/home'   : (context)=> HomePage(),// side bar with logout option list of subjects a search option  and below a constant menu.
       //
       // '/tasks'  : (context)=> (),//assignments with below constant menu : teacher will have an option to add tasks here and veiw attendance of any student with name
       //                           //principal can also add task to only teachers / both teachers and student and principal can see attendance of any teacher and any student
