@@ -16,6 +16,7 @@ class _SplashState extends State<Splash> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     final double width = MediaQuery.of(context).size.width;
     return Scaffold(
+      resizeToAvoidBottomInset : false,
       //backgroundColor: const Color.fromRGBO(210, 218, 255, 1),
       backgroundColor: const Color.fromRGBO(156, 126, 215, 0.25),
       //backgroundColor:const Color.fromRGBO(215, 169, 255, 0.25) ,

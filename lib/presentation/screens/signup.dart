@@ -33,9 +33,10 @@ class _SignupState extends State<Signup> {
       return const AlertDialog(
         backgroundColor: Colors.deepPurpleAccent,
         title: Center(
-          child: Text('Account created',
+          child: Text(' ✅ Account created',
             style: TextStyle(
               color: Colors.white,
+              fontSize: 14,
             ),
           ),
         ),
@@ -45,10 +46,12 @@ class _SignupState extends State<Signup> {
   void showerror(){
     showDialog(context: context, builder: (context) {
       return const AlertDialog(
+
         backgroundColor: Colors.deepPurpleAccent,
         title: Center(
-          child: Text('Account already exists',
+          child: Text(' 🚫 Account already exists',
             style: TextStyle(
+              fontSize: 14,
               color: Colors.white,
             ),
           ),
@@ -61,8 +64,9 @@ class _SignupState extends State<Signup> {
       return const AlertDialog(
         backgroundColor: Colors.deepPurpleAccent,
         title: Center(
-          child: Text('passwords do not match',
+          child: Text(' 🚫 passwords do not match',
             style: TextStyle(
+              fontSize: 14,
               color: Colors.white,
             ),
           ),

@@ -1,4 +1,5 @@
 import 'package:edusphere/presentation/screens/auth.dart';
+import 'package:edusphere/presentation/screens/forgot.dart';
 import 'package:edusphere/presentation/screens/home.dart';
 import 'package:edusphere/presentation/screens/load.dart';
 import 'package:edusphere/presentation/screens/signin.dart';
@@ -25,6 +26,7 @@ void main() async{
        '/login'  : (context)=> Signin(),//if not logged in after splash screen to login even adding google login
       //
       '/home'   : (context)=> HomePage(),// side bar with logout option list of subjects a search option  and below a constant menu.
+      '/fp'     : (context)=> forgot() // forgot password page ..
       //
       // '/tasks'  : (context)=> (),//assignments with below constant menu : teacher will have an option to add tasks here and veiw attendance of any student with name
       //                           //principal can also add task to only teachers / both teachers and student and principal can see attendance of any teacher and any student

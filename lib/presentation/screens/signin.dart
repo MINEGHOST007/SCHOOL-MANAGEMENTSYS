@@ -200,10 +200,13 @@ class _SigninState extends State<Signin> {
                       ),
                     ),
                     const SizedBox(height: 15,),
-                    const Text("Forgot Password?",
-                      style: TextStyle(
-                        color: Color.fromRGBO(143, 148, 251, 1),
-                        fontWeight: FontWeight.bold,
+                    GestureDetector(
+                      onTap: (){Navigator.pushNamed(context, '/fp');},
+                      child: const Text("Forgot Password?",
+                        style: TextStyle(
+                          color: Color.fromRGBO(143, 148, 251, 1),
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                     const SizedBox(height:15,),

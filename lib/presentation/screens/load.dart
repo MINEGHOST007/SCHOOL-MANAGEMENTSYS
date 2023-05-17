@@ -43,8 +43,9 @@ class _LoadingState extends State<Loading> {
       return const AlertDialog(
         backgroundColor: Colors.deepPurpleAccent,
         title: Center(
-          child: Text('Incorrect Email',
+          child: Text('🚫 Incorrect Email',
           style: TextStyle(
+            fontSize: 14,
             color: Colors.white,
           ),
           ),
@@ -58,8 +59,9 @@ class _LoadingState extends State<Loading> {
       return const AlertDialog(
         backgroundColor: Colors.deepPurpleAccent,
         title: Center(
-          child: Text('Incorrect password',
+          child: Text('🚫 Incorrect password',
             style: TextStyle(
+              fontSize: 14,
               color: Colors.white,
             ),
           ),
