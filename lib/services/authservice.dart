@@ -53,7 +53,13 @@ class Authservice {
 
   Future<void> signInWithGoogle(BuildContext context) async {
     // Sign out the user to clear the cached sign-in information
-    await _googleSignIn.signOut();
+    try{
+      await _googleSignIn.signOut();
+    }
+    catch(e){
+      print("new google login");
+    }
+    //await _googleSignIn.signOut();
 
     final GoogleSignInAccount? guser = await _googleSignIn.signIn();
 
@@ -63,9 +69,10 @@ class Authservice {
       accessToken: gAuth.accessToken,
       idToken: gAuth.idToken,
     );
+    Navigator.pushNamed(context, '/');
     await FirebaseAuth.instance.signInWithCredential(credential);
-
-    Navigator.popAndPushNamed(context, '/home');
+    Navigator.pushNamed(context, '/home');
+    //Navigator.pushNamed(context, '/',arguments: {'email':null,'password':null, 'credential' : credential});
 
   }
 }

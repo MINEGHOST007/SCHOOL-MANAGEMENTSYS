@@ -15,25 +15,57 @@ class _LoadingState extends State<Loading> {
     ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
     final String email = arguments['email'];
     final String password = arguments['password'];
-    final credential = arguments['credential'];
-    print(credential);
+    //final OAuthCredential credential = arguments['credential'];
     try {
         await FirebaseAuth.instance.signInWithEmailAndPassword(
           email: email,
           password: password,
         );
+      // else if(credential != null){
+      //   await FirebaseAuth.instance.signInWithCredential(credential);
+      // }
       Navigator.popAndPushNamed(context, '/home');
-      // Handle the authentication success
-      // You can navigate to the desired screen or perform any other actions here
     } on FirebaseAuthException catch (e) {
-      if(e.code=='user-not-found')
-        print("email not found");
-      if(e.code=='wrong-password')
-        print("wrong password");
       Navigator.popAndPushNamed(context, '/login');
-      // Handle the authentication failure
-      // You can show an error message or perform any other error handling here
+      if(e.code=='user-not-found'){
+        wrongemail();
+        print('wrong email');
+      }
+
+      if(e.code=='wrong-password')
+        wrongpassword();
+
     }
+  }
+
+  void wrongemail() {
+    showDialog(context: context, builder: (context) {
+      return const AlertDialog(
+        backgroundColor: Colors.deepPurpleAccent,
+        title: Center(
+          child: Text('Incorrect Email',
+          style: TextStyle(
+            color: Colors.white,
+          ),
+          ),
+        ),
+      );
+    });
+  }
+
+  void wrongpassword() {
+    showDialog(context: context, builder: (context) {
+      return const AlertDialog(
+        backgroundColor: Colors.deepPurpleAccent,
+        title: Center(
+          child: Text('Incorrect password',
+            style: TextStyle(
+              color: Colors.white,
+            ),
+          ),
+        ),
+      );
+    });
   }
 
   @override
