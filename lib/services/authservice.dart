@@ -71,7 +71,8 @@ class Authservice {
     );
     Navigator.pushNamed(context, '/');
     await FirebaseAuth.instance.signInWithCredential(credential);
-    Navigator.pushNamed(context, '/home');
+    Navigator.pushNamedAndRemoveUntil(context, '/home', (route) => false);
+    //Navigator.pushNamed(context, '/home');
     //Navigator.pushNamed(context, '/',arguments: {'email':null,'password':null, 'credential' : credential});
 
   }

@@ -12,7 +12,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   void signUserout(){
     FirebaseAuth.instance.signOut();
-    Navigator.popAndPushNamed(context, '/splash');
+    Navigator.pushNamedAndRemoveUntil(context, '/splash', (route) => false);
   }
   @override
   Widget build(BuildContext context) {

@@ -24,7 +24,8 @@ class _LoadingState extends State<Loading> {
       // else if(credential != null){
       //   await FirebaseAuth.instance.signInWithCredential(credential);
       // }
-      Navigator.popAndPushNamed(context, '/home');
+        Navigator.pushNamedAndRemoveUntil(context, '/home', (route) => false);
+      //Navigator.popAndPushNamed(context,'/home' );
     } on FirebaseAuthException catch (e) {
       Navigator.popAndPushNamed(context, '/login');
       if(e.code=='user-not-found'){
