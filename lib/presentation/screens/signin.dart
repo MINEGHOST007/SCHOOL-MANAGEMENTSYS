@@ -7,6 +7,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:edusphere/main.dart';
 import 'package:edusphere/firebase_options.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+
 class Signin extends StatefulWidget {
   const Signin({Key? key}) : super(key: key);
 
@@ -17,15 +18,41 @@ class Signin extends StatefulWidget {
 class _SigninState extends State<Signin> {
   final usernameController = TextEditingController();
   final passwordController = TextEditingController();
+  Color _contcolor1 = const Color.fromRGBO(183, 194, 255, 1);
+  Color _contcolor2 = Color.fromARGB(255, 255, 255, 255);
+  void signUserIn() async {
+    Navigator.pushNamed(
+      context,
+      '/load',
+      arguments: {
+        'email': usernameController.text,
+        'password': passwordController.text,
+        'credential': null
+      },
+    );
+  }
 
-  void signUserIn() async{
-    Navigator.pushNamed(context, '/',arguments: { 'email': usernameController.text, 'password':passwordController.text ,'credential': null },);
+  void changeColor1() {
+    setState(() {
+    _contcolor2 = const Color.fromARGB(255, 255, 255, 255);
+    _contcolor1 = const Color.fromRGBO(183, 194, 255, 1);
+
+    });
+    
+    print("CREATE ACCOUYNT");
+  }
+    void changeColor2() {
+      setState(() {
+        _contcolor1 = Color.fromARGB(255, 255, 255, 255);
+        _contcolor2 = const Color.fromRGBO(183, 194, 255, 1);
+      });
+    print("CREATE ACCOUYNT");
   }
   @override
   Widget build(BuildContext context) {
     print("CREATE ACCOUYNT");
     return Scaffold(
-      resizeToAvoidBottomInset : false,
+      resizeToAvoidBottomInset: false,
       backgroundColor: Colors.white,
       body: Container(
         width: MediaQuery.of(context).size.width,
@@ -35,7 +62,6 @@ class _SigninState extends State<Signin> {
               Container(
                 height: 350,
                 decoration: const BoxDecoration(
-
                   image: DecorationImage(
                     fit: BoxFit.fill,
                     image: AssetImage('assets/images/four.png'),
@@ -48,49 +74,55 @@ class _SigninState extends State<Signin> {
                       width: 60,
                       height: 200,
                       top: -45,
-                      child: FadeAnimation(1,Container(
-                        decoration: const BoxDecoration(
-                          image: DecorationImage(
-                            fit: BoxFit.fill,
-                            image: AssetImage('assets/images/light-1.png'),
+                      child: FadeAnimation(
+                          1,
+                          Container(
+                            decoration: const BoxDecoration(
+                              image: DecorationImage(
+                                fit: BoxFit.fill,
+                                image: AssetImage('assets/images/light-1.png'),
+                              ),
+                            ),
                           ),
-                        ),
-                      ), context),
+                          context),
                     ),
                     Positioned(
                       left: 130,
                       width: 60,
                       height: 150,
                       top: -45,
-                      child: FadeAnimation(1.3,Container(
-
-                        decoration: const BoxDecoration(
-
-                          image: DecorationImage(
-                            fit: BoxFit.fill,
-                            image: AssetImage('assets/images/light-2.png'),
+                      child: FadeAnimation(
+                          1.3,
+                          Container(
+                            decoration: const BoxDecoration(
+                              image: DecorationImage(
+                                fit: BoxFit.fill,
+                                image: AssetImage('assets/images/light-2.png'),
+                              ),
+                            ),
                           ),
-                        ),
-                      ), context),
+                          context),
                     ),
                     Positioned(
                       right: 40,
                       width: 60,
                       height: 150,
-                      child: FadeAnimation(1.5,Container(
-
-                        decoration: const BoxDecoration(
-
-                          image: DecorationImage(
-                            image: AssetImage('assets/images/clock.png'),
+                      child: FadeAnimation(
+                          1.5,
+                          Container(
+                            decoration: const BoxDecoration(
+                              image: DecorationImage(
+                                image: AssetImage('assets/images/clock.png'),
+                              ),
+                            ),
                           ),
-                        ),
-                      ), context),
+                          context),
                     ),
                     const Positioned(
                       child: Center(
-                        child: Text("Login",
-                          style:TextStyle(
+                        child: Text(
+                          "Login",
+                          style: TextStyle(
                             // fontFamily: 'Tinos',
                             fontSize: 40,
                             fontWeight: FontWeight.bold,
@@ -106,14 +138,17 @@ class _SigninState extends State<Signin> {
                 padding: const EdgeInsets.all(10.0),
                 child: Column(
                   children: [
-                    Text('Welcome back you\'ve been missed!',
-                    style: TextStyle(
-                      color: Colors.grey[700],
-                      fontSize: 14,
-                      fontFamily: 'Tinos',
+                    Text(
+                      'Welcome back you\'ve been missed!',
+                      style: TextStyle(
+                        color: Colors.grey[700],
+                        fontSize: 14,
+                        fontFamily: 'Tinos',
+                      ),
                     ),
+                    const SizedBox(
+                      height: 15,
                     ),
-                    const SizedBox(height: 15,),
                     Container(
                       margin: const EdgeInsets.symmetric(horizontal: 15.0),
                       child: Container(
@@ -125,16 +160,107 @@ class _SigninState extends State<Signin> {
                             BoxShadow(
                               color: Color.fromRGBO(143, 148, 251, 0.8),
                               blurRadius: 20.0,
-                              offset: Offset(0,10),
+                              offset: Offset(0, 10),
                             ),
                           ],
                         ),
                         child: Column(
                           children: [
+         const SizedBox(
+                      height: 15,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const SizedBox(
+                                    width: 25.0,
+                                  ),
+                        Expanded(
+                          child: Center(
+                            child: Container(
+                              padding: const EdgeInsets.all(8),
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(50),
+                                boxShadow: const [
+                                  BoxShadow(
+                                    color: Color.fromRGBO(143, 148, 251, 0.8),
+                                    blurRadius: 20.0,
+                                    offset: Offset(10, 10),
+                                  ),
+                                ],
+                              ),
+                              child: Row(
+                                children: [
+                                  const SizedBox(
+                                    width: 10.0,
+                                  ),
+                                  Expanded(
+                                    child: GestureDetector(
+                                      onTap: () => {changeColor1()},
+                                      child: Container(
+                                        padding: const EdgeInsets.all(10),
+                                        decoration: BoxDecoration(
+                                          color: _contcolor1,
+                                          borderRadius:
+                                              BorderRadius.circular(40.0),
+                                        ),
+                                        child: const Center(
+                                          child: Text(
+                                            "Student",
+                                            style: TextStyle(
+                                              fontFamily: 'Tinos',
+                                              fontWeight: FontWeight.w300,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    width: 40.0,
+                                  ),
+                                  Expanded(
+                                    child: GestureDetector(
+                                      onTap: ()=>{changeColor2()},
+                                      child: Container(
+                                        padding: const EdgeInsets.all(10),
+                                        decoration: BoxDecoration(
+                                          color: _contcolor2,
+                                          borderRadius:
+                                              BorderRadius.circular(40.0),
+                                        ),
+                                        child: const Center(
+                                          child: Text(
+                                            "Teacher",
+                                            style: TextStyle(
+                                              fontFamily: 'Tinos',
+                                              fontWeight: FontWeight.w300,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    width: 10.0,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(width: 25.0,),
+                      ],
+                    ),
+                    const SizedBox(height: 20.0,),
                             Container(
-                              padding: const EdgeInsets.all(6.0),
+                              padding: const EdgeInsets.all(4.0),
                               decoration: const BoxDecoration(
-                                border: Border(bottom: BorderSide(color: Color(0xFFBDBDBD),)),
+                                border: Border(
+                                    bottom: BorderSide(
+                                  color: Color(0xFFBDBDBD),
+                                )),
                               ),
                               child: TextField(
                                 controller: usernameController,
@@ -148,9 +274,12 @@ class _SigninState extends State<Signin> {
                               ),
                             ),
                             Container(
-                              padding: const EdgeInsets.all(6.0),
+                              padding: const EdgeInsets.all(4.0),
                               decoration: const BoxDecoration(
-                                border: Border(bottom: BorderSide(color: Color(0xFFBDBDBD),)),
+                                border: Border(
+                                    bottom: BorderSide(
+                                  color: Color(0xFFBDBDBD),
+                                )),
                               ),
                               child: TextField(
                                 controller: passwordController,
@@ -160,7 +289,6 @@ class _SigninState extends State<Signin> {
                                   hintStyle: TextStyle(
                                     color: Colors.grey[400],
                                   ),
-
                                 ),
                                 obscureText: true,
                               ),
@@ -169,15 +297,15 @@ class _SigninState extends State<Signin> {
                         ),
                       ),
                     ),
-                    const SizedBox(height:35),
+                    const SizedBox(height: 30),
                     GestureDetector(
-                      onTap: (){
+                      onTap: () {
                         print("tried to sign in");
                         signUserIn();
                       },
                       child: Container(
                         margin: const EdgeInsets.symmetric(horizontal: 15.0),
-                        height: 50,
+                        height: 45,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
                           gradient: const LinearGradient(
@@ -188,7 +316,8 @@ class _SigninState extends State<Signin> {
                           ),
                         ),
                         child: const Center(
-                          child: Text("Login",
+                          child: Text(
+                            "Login",
                             style: TextStyle(
                               fontSize: 18,
                               color: Colors.white,
@@ -199,17 +328,24 @@ class _SigninState extends State<Signin> {
                         ),
                       ),
                     ),
-                    const SizedBox(height: 15,),
+                    const SizedBox(
+                      height: 15,
+                    ),
                     GestureDetector(
-                      onTap: (){Navigator.pushNamed(context, '/fp');},
-                      child: const Text("Forgot Password?",
+                      onTap: () {
+                        Navigator.pushNamed(context, '/fp');
+                      },
+                      child: const Text(
+                        "Forgot Password?",
                         style: TextStyle(
                           color: Color.fromRGBO(143, 148, 251, 1),
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                     ),
-                    const SizedBox(height:15,),
+                    const SizedBox(
+                      height: 15,
+                    ),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 25.0),
                       child: Row(
@@ -218,50 +354,58 @@ class _SigninState extends State<Signin> {
                             child: Divider(
                               thickness: 0.5,
                               color: Colors.grey[400],
-
                             ),
                           ),
                           const Padding(
                             padding: EdgeInsets.symmetric(horizontal: 25.0),
-                            child: Text('Or continue with',
-                            style: TextStyle(
-                            ),
+                            child: Text(
+                              'Or continue with',
+                              style: TextStyle(),
                             ),
                           ),
                           Expanded(
                             child: Divider(
                               thickness: 0.5,
                               color: Colors.grey[400],
-
                             ),
                           ),
                         ],
                       ),
                     ),
-                    const SizedBox(height:15,),
+                    const SizedBox(
+                      height: 15,
+                    ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        SquareTile(imagePath: 'assets/images/google.png', onTap: ()=> Authservice().signInWithGoogle(context),),
+                        SquareTile(
+                          imagePath: 'assets/images/google.png',
+                          onTap: () => Authservice().signInWithGoogle(context),
+                        ),
                         //SizedBox(width:25),
                         //SquareTile(imagePath: 'assets/images/google.png'),
                       ],
                     ),
-                    const SizedBox(height: 10,),
+                    const SizedBox(
+                      height: 10,
+                    ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         const Text('Not a member?'),
-                        SizedBox(width: 4,),
+                        const SizedBox(
+                          width: 4,
+                        ),
                         GestureDetector(
-                          onTap: (){
+                          onTap: () {
                             Navigator.pushNamed(context, '/createaccount');
-                            },
-                          child: const Text("Register now",
-                          style: TextStyle(
-                            color: Color.fromRGBO(143, 148, 251, 1),
-                            fontWeight: FontWeight.bold,
-                          ),
+                          },
+                          child: const Text(
+                            "Register now",
+                            style: TextStyle(
+                              color: Color.fromRGBO(143, 148, 251, 1),
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
                       ],

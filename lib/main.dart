@@ -15,15 +15,17 @@ void main() async{
     options: DefaultFirebaseOptions.currentPlatform,
   );
   runApp(MaterialApp(
+    debugShowCheckedModeBanner: false,
     initialRoute :'/splash',
     routes: {
-      '/'       : (context)=> Loading(),//loading
 
-      '/splash' : (context)=> AuthPage(),//just not necessary to login everytime check whether logged in or not local storage.....
+
+      '/splash' : (context)=> AuthPage(), //just not necessary to login everytime check whether logged in or not local storage.....
+      '/load'       : (context)=> Loading(),//loading
       //
-           '/createaccount': (context)=>Signup(),// splash screen has two choices create login
+      '/createaccount': (context)=>Signup(),// splash screen has two choices create login
       //
-       '/login'  : (context)=> Signin(),//if not logged in after splash screen to login even adding google login
+      '/login'  : (context)=> Signin(),//if not logged in after splash screen to login even adding google login
       //
       '/home'   : (context)=> HomePage(),// side bar with logout option list of subjects a search option  and below a constant menu.
       '/fp'     : (context)=> forgot() // forgot password page ..
@@ -33,7 +35,7 @@ void main() async{
       //
       // '/profile': (context)=> (),//attendance of yourself your name , grade , contact information... option to update...
       //
-      // //'/tests': (context)=> (),//teacher can add tests
+      // //'/academic calender': (context)=> (),//teacher can add tests
     },
   ));
 }

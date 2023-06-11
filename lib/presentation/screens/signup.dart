@@ -12,6 +12,24 @@ class _SignupState extends State<Signup> {
   final emailcontroller = TextEditingController();
   final pcontroller = TextEditingController();
   final cpcontroller = TextEditingController();
+  Color _contcolor1 = const Color.fromRGBO(183, 194, 255, 1);
+  Color _contcolor2 = Color.fromARGB(255, 255, 255, 255);
+    void changeColor1() {
+    setState(() {
+    _contcolor2 = const Color.fromARGB(255, 255, 255, 255);
+    _contcolor1 = const Color.fromRGBO(183, 194, 255, 1);
+
+    });
+    
+    print("CREATE ACCOUYNT");
+  }
+    void changeColor2() {
+      setState(() {
+        _contcolor1 = Color.fromARGB(255, 255, 255, 255);
+        _contcolor2 = const Color.fromRGBO(183, 194, 255, 1);
+      });
+    print("CREATE ACCOUYNT");
+  }
   void createAccount() async{
     try {
       if(pcontroller.text == cpcontroller.text){
@@ -76,7 +94,7 @@ class _SignupState extends State<Signup> {
   }
   @override
   Widget build(BuildContext context) {
-    print("CREATE ACCOUYNT");
+    print("CREATE ACCOUNT");
     return Scaffold(
       resizeToAvoidBottomInset : false,
       backgroundColor: Colors.white,
@@ -156,7 +174,7 @@ class _SignupState extends State<Signup> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.all(30.0),
+                padding: EdgeInsets.only(left: 30, top: 10, right: 30, bottom: 25),
                 child: Column(
                   children: [
                     Container(
@@ -174,6 +192,96 @@ class _SignupState extends State<Signup> {
                       ),
                       child: Column(
                         children: [
+                          const SizedBox(
+                      height: 15,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const SizedBox(
+                                    width: 25.0,
+                                  ),
+                        Expanded(
+                          child: Center(
+                            child: Container(
+                              padding: const EdgeInsets.all(8),
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(50),
+                                boxShadow: const [
+                                  BoxShadow(
+                                    color: Color.fromRGBO(143, 148, 251, 0.8),
+                                    blurRadius: 20.0,
+                                    offset: Offset(10, 10),
+                                  ),
+                                ],
+                              ),
+                              child: Row(
+                                children: [
+                                  const SizedBox(
+                                    width: 10.0,
+                                  ),
+                                  Expanded(
+                                    child: GestureDetector(
+                                      onTap: () => {changeColor1()},
+                                      child: Container(
+                                        padding: const EdgeInsets.all(10),
+                                        decoration: BoxDecoration(
+                                          color: _contcolor1,
+                                          borderRadius:
+                                              BorderRadius.circular(40.0),
+                                        ),
+                                        child: const Center(
+                                          child: Text(
+                                            "Student",
+                                            style: TextStyle(
+                                              fontFamily: 'Tinos',
+                                              fontWeight: FontWeight.w300,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    width: 40.0,
+                                  ),
+                                  Expanded(
+                                    child: GestureDetector(
+                                      onTap: ()=>{changeColor2()},
+                                      child: Container(
+                                        padding: const EdgeInsets.all(10),
+                                        decoration: BoxDecoration(
+                                          color: _contcolor2,
+                                          borderRadius:
+                                              BorderRadius.circular(40.0),
+                                        ),
+                                        child: const Center(
+                                          child: Text(
+                                            "Teacher",
+                                            style: TextStyle(
+                                              fontFamily: 'Tinos',
+                                              fontWeight: FontWeight.w300,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    width: 10.0,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(width: 25.0,),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 15,
+                    ),
                           Container(
                             padding: const EdgeInsets.all(8.0),
                             decoration: const BoxDecoration(
@@ -257,7 +365,7 @@ class _SignupState extends State<Signup> {
                         ),
                       ),
                     ),
-                    const SizedBox(height: 70,),
+                    const SizedBox(height: 50,),
                     // const Text("Already have an account Sign in?",
                     //   style: TextStyle(
                     //     color: Color.fromRGBO(143, 148, 251, 1),
@@ -268,7 +376,7 @@ class _SignupState extends State<Signup> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         const Text('Already have an account?'),
-                        SizedBox(width: 4,),
+                        const SizedBox(width: 4,),
                         GestureDetector(
                           onTap: (){
                             Navigator.popAndPushNamed(context, '/login');

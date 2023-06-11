@@ -1,4 +1,5 @@
 import 'package:edusphere/presentation/screens/home.dart';
+import 'package:edusphere/presentation/screens/load.dart';
 import 'package:edusphere/presentation/screens/signin.dart';
 import 'package:edusphere/presentation/screens/splashscreen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -9,7 +10,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 class AuthPage extends StatelessWidget {
   const AuthPage({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

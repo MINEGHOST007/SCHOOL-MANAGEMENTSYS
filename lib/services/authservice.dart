@@ -69,7 +69,7 @@ class Authservice {
       accessToken: gAuth.accessToken,
       idToken: gAuth.idToken,
     );
-    Navigator.pushNamed(context, '/');
+    Navigator.pushNamed(context, '/load');
     await FirebaseAuth.instance.signInWithCredential(credential);
     Navigator.pushNamedAndRemoveUntil(context, '/home', (route) => false);
     //Navigator.pushNamed(context, '/home');
