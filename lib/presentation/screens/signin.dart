@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:edusphere/common/utils.dart';
 import 'package:edusphere/presentation/screens/auth.dart';
 import 'package:edusphere/presentation/widgets/animations.dart';
@@ -18,6 +19,7 @@ class Signin extends StatefulWidget {
 class _SigninState extends State<Signin> {
   final usernameController = TextEditingController();
   final passwordController = TextEditingController();
+  var category = 0;
   Color _contcolor1 = const Color.fromRGBO(183, 194, 255, 1);
   Color _contcolor2 = Color.fromARGB(255, 255, 255, 255);
   void signUserIn() async {
@@ -27,27 +29,31 @@ class _SigninState extends State<Signin> {
       arguments: {
         'email': usernameController.text,
         'password': passwordController.text,
-        'credential': null
+        'credential': null,
+        'category': category,
       },
     );
   }
 
   void changeColor1() {
+    category = 0;
     setState(() {
-    _contcolor2 = const Color.fromARGB(255, 255, 255, 255);
-    _contcolor1 = const Color.fromRGBO(183, 194, 255, 1);
-
+      _contcolor2 = const Color.fromARGB(255, 255, 255, 255);
+      _contcolor1 = const Color.fromRGBO(183, 194, 255, 1);
     });
-    
+
     print("CREATE ACCOUYNT");
   }
-    void changeColor2() {
-      setState(() {
-        _contcolor1 = Color.fromARGB(255, 255, 255, 255);
-        _contcolor2 = const Color.fromRGBO(183, 194, 255, 1);
-      });
+
+  void changeColor2() {
+    category = 1;
+    setState(() {
+      _contcolor1 = Color.fromARGB(255, 255, 255, 255);
+      _contcolor2 = const Color.fromRGBO(183, 194, 255, 1);
+    });
     print("CREATE ACCOUYNT");
   }
+
   @override
   Widget build(BuildContext context) {
     print("CREATE ACCOUYNT");
@@ -166,94 +172,105 @@ class _SigninState extends State<Signin> {
                         ),
                         child: Column(
                           children: [
-         const SizedBox(
-                      height: 15,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const SizedBox(
-                                    width: 25.0,
-                                  ),
-                        Expanded(
-                          child: Center(
-                            child: Container(
-                              padding: const EdgeInsets.all(8),
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(50),
-                                boxShadow: const [
-                                  BoxShadow(
-                                    color: Color.fromRGBO(143, 148, 251, 0.8),
-                                    blurRadius: 20.0,
-                                    offset: Offset(10, 10),
-                                  ),
-                                ],
-                              ),
-                              child: Row(
-                                children: [
-                                  const SizedBox(
-                                    width: 10.0,
-                                  ),
-                                  Expanded(
-                                    child: GestureDetector(
-                                      onTap: () => {changeColor1()},
-                                      child: Container(
-                                        padding: const EdgeInsets.all(10),
-                                        decoration: BoxDecoration(
-                                          color: _contcolor1,
-                                          borderRadius:
-                                              BorderRadius.circular(40.0),
-                                        ),
-                                        child: const Center(
-                                          child: Text(
-                                            "Student",
-                                            style: TextStyle(
-                                              fontFamily: 'Tinos',
-                                              fontWeight: FontWeight.w300,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  const SizedBox(
-                                    width: 40.0,
-                                  ),
-                                  Expanded(
-                                    child: GestureDetector(
-                                      onTap: ()=>{changeColor2()},
-                                      child: Container(
-                                        padding: const EdgeInsets.all(10),
-                                        decoration: BoxDecoration(
-                                          color: _contcolor2,
-                                          borderRadius:
-                                              BorderRadius.circular(40.0),
-                                        ),
-                                        child: const Center(
-                                          child: Text(
-                                            "Teacher",
-                                            style: TextStyle(
-                                              fontFamily: 'Tinos',
-                                              fontWeight: FontWeight.w300,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  const SizedBox(
-                                    width: 10.0,
-                                  ),
-                                ],
-                              ),
+                            const SizedBox(
+                              height: 15,
                             ),
-                          ),
-                        ),
-                        const SizedBox(width: 25.0,),
-                      ],
-                    ),
-                    const SizedBox(height: 20.0,),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const SizedBox(
+                                  width: 25.0,
+                                ),
+                                Expanded(
+                                  child: Center(
+                                    child: Container(
+                                      padding: const EdgeInsets.all(8),
+                                      decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius: BorderRadius.circular(50),
+                                        boxShadow: const [
+                                          BoxShadow(
+                                            color: Color.fromRGBO(
+                                                143, 148, 251, 0.8),
+                                            blurRadius: 20.0,
+                                            offset: Offset(10, 10),
+                                          ),
+                                        ],
+                                      ),
+                                      child: Row(
+                                        children: [
+                                          const SizedBox(
+                                            width: 10.0,
+                                          ),
+                                          Expanded(
+                                            child: GestureDetector(
+                                              onTap: () => {changeColor1()},
+                                              child: Container(
+                                                padding:
+                                                    const EdgeInsets.all(10),
+                                                decoration: BoxDecoration(
+                                                  color: _contcolor1,
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          40.0),
+                                                ),
+                                                child: const Center(
+                                                  child: Text(
+                                                    "Student",
+                                                    style: TextStyle(
+                                                      fontFamily: 'Tinos',
+                                                      fontWeight:
+                                                          FontWeight.w300,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                          const SizedBox(
+                                            width: 40.0,
+                                          ),
+                                          Expanded(
+                                            child: GestureDetector(
+                                              onTap: () => {changeColor2()},
+                                              child: Container(
+                                                padding:
+                                                    const EdgeInsets.all(10),
+                                                decoration: BoxDecoration(
+                                                  color: _contcolor2,
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          40.0),
+                                                ),
+                                                child: const Center(
+                                                  child: Text(
+                                                    "Teacher",
+                                                    style: TextStyle(
+                                                      fontFamily: 'Tinos',
+                                                      fontWeight:
+                                                          FontWeight.w300,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                          const SizedBox(
+                                            width: 10.0,
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(
+                                  width: 25.0,
+                                ),
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 20.0,
+                            ),
                             Container(
                               padding: const EdgeInsets.all(4.0),
                               decoration: const BoxDecoration(
@@ -380,7 +397,10 @@ class _SigninState extends State<Signin> {
                       children: [
                         SquareTile(
                           imagePath: 'assets/images/google.png',
-                          onTap: () => Authservice().signInWithGoogle(context),
+                          onTap: () {
+                            Authservice(category: category).signInWithGoogle(context);
+                            //User? user = FirebaseAuth.instance.currentUser;
+                          },
                         ),
                         //SizedBox(width:25),
                         //SquareTile(imagePath: 'assets/images/google.png'),

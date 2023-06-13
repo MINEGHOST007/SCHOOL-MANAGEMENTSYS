@@ -129,6 +129,9 @@
 //   }
 // }
 
+// ignore_for_file: use_build_context_synchronously
+
+import 'package:edusphere/presentation/screens/auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:edusphere/presentation/screens/acadcal.dart';
@@ -146,6 +149,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  navigate() {}
   PersistentTabController _controller =
       PersistentTabController(initialIndex: 0);
   @override
@@ -191,44 +195,48 @@ class _HomePageState extends State<HomePage> {
     return Padding(
       padding: const EdgeInsets.only(left: 0.0, right: 0.0, top: 0, bottom: 0),
       child: ClipRRect(
-          borderRadius: const BorderRadius.only(
-            topLeft: Radius.circular(30),
-            topRight: Radius.circular(30),
-          ),
-          child: PersistentTabView(
-                context,
-                controller: _controller,
-                screens: _buildScreens(),
-                items: _navBarsItems(),
-                confineInSafeArea: true,
-                backgroundColor: Color.fromARGB(255, 255, 255, 255), // Default is Colors.white.
-                handleAndroidBackButtonPress: true, // Default is true.
-                resizeToAvoidBottomInset:
-                    true, // This needs to be true if you want to move up the screen when keyboard appears. Default is true.
-                stateManagement: true, // Default is true.
-                hideNavigationBarWhenKeyboardShows:
-                    true, // Recommended to set 'resizeToAvoidBottomInset' as true while using this argument. Default is true.
-                decoration: const NavBarDecoration(
-                  borderRadius: BorderRadius.only(topLeft: Radius.circular(30),topRight: Radius.circular(30),),
-                  colorBehindNavBar: Color.fromARGB(255, 255, 255, 255),
-                ),
-                popAllScreensOnTapOfSelectedTab: true,
-                popActionScreens: PopActionScreensType.all,
-                itemAnimationProperties: ItemAnimationProperties(
-                  // Navigation Bar's items animation properties.
-                  duration: Duration(milliseconds: 200),
-                  curve: Curves.ease,
-                ),
-                screenTransitionAnimation: ScreenTransitionAnimation(
-                  // Screen transition animation on change of selected tab.
-                  animateTabTransition: true,
-                  curve: Curves.ease,
-                  duration: Duration(milliseconds: 200),
-                ),
-                navBarStyle: NavBarStyle
-                    .style1, // Choose the nav bar style with this property.
-              ),
+        borderRadius: const BorderRadius.only(
+          topLeft: Radius.circular(30),
+          topRight: Radius.circular(30),
+        ),
+        child: PersistentTabView(
+          context,
+          controller: _controller,
+          screens: _buildScreens(),
+          items: _navBarsItems(),
+          confineInSafeArea: true,
+          backgroundColor:
+              Color.fromARGB(255, 255, 255, 255), // Default is Colors.white.
+          handleAndroidBackButtonPress: true, // Default is true.
+          resizeToAvoidBottomInset:
+              true, // This needs to be true if you want to move up the screen when keyboard appears. Default is true.
+          stateManagement: true, // Default is true.
+          hideNavigationBarWhenKeyboardShows:
+              true, // Recommended to set 'resizeToAvoidBottomInset' as true while using this argument. Default is true.
+          decoration: const NavBarDecoration(
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(30),
+              topRight: Radius.circular(30),
             ),
+            colorBehindNavBar: Color.fromARGB(255, 255, 255, 255),
+          ),
+          popAllScreensOnTapOfSelectedTab: true,
+          popActionScreens: PopActionScreensType.all,
+          itemAnimationProperties: ItemAnimationProperties(
+            // Navigation Bar's items animation properties.
+            duration: Duration(milliseconds: 200),
+            curve: Curves.ease,
+          ),
+          screenTransitionAnimation: ScreenTransitionAnimation(
+            // Screen transition animation on change of selected tab.
+            animateTabTransition: true,
+            curve: Curves.ease,
+            duration: Duration(milliseconds: 200),
+          ),
+          navBarStyle: NavBarStyle
+              .style1, // Choose the nav bar style with this property.
+        ),
+      ),
     );
   }
 }
@@ -241,10 +249,32 @@ class HomePage1 extends StatefulWidget {
 }
 
 class _HomePage1State extends State<HomePage1> {
-  void signUserout() {
-    FirebaseAuth.instance.signOut();
-    Navigator.pushNamedAndRemoveUntil(context, '/splash', (route) => false);
+  void signUserOut() async {
+    try {
+      await FirebaseAuth.instance.signOut();
+      // Navigator.pushNamedAndRemoveUntil(
+      //           context,
+      //           '/splash',
+      //           (route) => false,
+      //           arguments: RouteSettings(
+      //             name: '/splash',
+      //             arguments: 'Remove History',
+      //           ),
+      //         );
+      // popAllScreens(context);
+      //Navigator.pushNamedAndRemoveUntil(context, '/splash', (route) => false);
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => AuthPage()));
+      pushNewScreen(context, screen: AuthPage(), withNavBar: false);
+    } catch (e) {
+      print('Error signing out: $e');
+    }
   }
+
+  // print("logout");
+  // FirebaseAuth.instance.signOut();
+
+  //Navigator.pushNamedAndRemoveUntil(context, '/login', (route) => false);
+  //Navigator.pushNamed(context, '/splash');
 
   @override
   Widget build(BuildContext context) {
@@ -253,7 +283,7 @@ class _HomePage1State extends State<HomePage1> {
         backgroundColor: Color.fromARGB(226, 119, 56, 255),
         actions: [
           IconButton(
-              onPressed: signUserout, icon: const Icon(Icons.logout_rounded))
+              onPressed: signUserOut, icon: const Icon(Icons.logout_rounded))
         ],
       ),
       backgroundColor: Color.fromARGB(176, 196, 195, 195),
