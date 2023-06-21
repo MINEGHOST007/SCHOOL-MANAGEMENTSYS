@@ -43,6 +43,8 @@
 //   }
 // }
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:edusphere/data/providers.dart';
 import 'package:edusphere/presentation/screens/acadcal.dart';
 import 'package:edusphere/presentation/screens/home.dart';
 import 'package:edusphere/presentation/screens/profile.dart';
@@ -171,12 +173,12 @@ class _BottomNavBarState extends State<BottomNavBar> {
         ),
         popAllScreensOnTapOfSelectedTab: true,
         popActionScreens: PopActionScreensType.all,
-        itemAnimationProperties: ItemAnimationProperties(
+        itemAnimationProperties: const ItemAnimationProperties(
           // Navigation Bar's items animation properties.
           duration: Duration(milliseconds: 200),
           curve: Curves.ease,
         ),
-        screenTransitionAnimation: ScreenTransitionAnimation(
+        screenTransitionAnimation: const ScreenTransitionAnimation(
           // Screen transition animation on change of selected tab.
           animateTabTransition: true,
           curve: Curves.ease,
@@ -184,6 +186,107 @@ class _BottomNavBarState extends State<BottomNavBar> {
         ),
         navBarStyle:
             NavBarStyle.style1, // Choose the nav bar style with this property.
+      ),
+    );
+  }
+}
+
+class Cardclass extends StatelessWidget {
+  Cardclass({super.key, required this.subs});
+  String subs;
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () => {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context)=>GetSyllabus(collecti: subs)),
+        ),
+      },
+      child: Container(
+        padding: EdgeInsets.only(top: 10, left: 18, right: 18, bottom: 20),
+        height: 170,
+        width: 120,
+        margin: EdgeInsets.only(right: 15),
+        alignment: Alignment.topCenter,
+        decoration: const BoxDecoration(
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(10),
+            topRight: Radius.circular(10),
+            bottomLeft: Radius.circular(10),
+            bottomRight: Radius.circular(10),
+          ),
+          gradient: LinearGradient(colors: [
+            Color.fromRGBO(143, 148, 251, 1),
+            Color.fromRGBO(143, 148, 251, 0.6),
+          ]),
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Image.asset(
+              'assets/images/${subs}.png',
+              fit: BoxFit.contain,
+            ),
+            Text(
+              subs,
+              style: const TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class list extends StatelessWidget {
+  DocumentSnapshot doc;
+  list({super.key, required this.doc});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.only(bottom: 10),
+      width: 500,
+      height: 75,
+      padding: EdgeInsets.all(5),
+      decoration: BoxDecoration(
+        border: Border.all(color: Color.fromARGB(0, 0, 0, 0),style: BorderStyle.solid)
+      ),
+      child: Row(
+        children: [
+          Image.asset('assets/images/teacher.png',
+          fit: BoxFit.fitHeight,
+          ),
+          SizedBox(width: 10,),
+          Expanded(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(doc['first_name'],
+                    style: TextStyle(
+                      fontFamily: 'Poppins'
+                    ),),
+                    SizedBox(width: 6,),
+                    Text(doc['second_name'],
+                    style: TextStyle(
+                      fontFamily: 'Poppins'
+                    ),
+                    ),
+                  ],
+                ),
+                SizedBox(height: 8,),
+                Text(doc['email']),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }

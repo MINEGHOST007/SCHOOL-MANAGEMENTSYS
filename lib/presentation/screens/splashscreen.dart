@@ -90,7 +90,7 @@ class _SplashState extends State<Splash> with TickerProviderStateMixin {
                         const Text(
                           'Welcome to',
                           style: TextStyle(
-                            fontFamily: 'Tinos',
+                            fontFamily: 'Poppins',
                             color: Color.fromRGBO(11, 36, 71, 0.6),
                             height: 1.4,
                             fontSize: 25,
@@ -105,9 +105,9 @@ class _SplashState extends State<Splash> with TickerProviderStateMixin {
                         Text(
                           'EduSphere',
                           style: TextStyle(
-                            fontFamily: 'Tinos',
+                            fontFamily: 'Poppins',
                             color: Color.fromRGBO(11, 36, 71, 1),
-                            fontSize: 50,
+                            fontSize: 45,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -128,8 +128,8 @@ class _SplashState extends State<Splash> with TickerProviderStateMixin {
                     const Text(
                       'A School Management App',
                       style: TextStyle(
-                        fontFamily: 'Tinos',
-                        fontSize: 30,
+                        fontFamily: 'Poppins',
+                        fontSize: 25,
                         color: Color.fromRGBO(12, 19, 79, 0.4),
                         height: 1.4,
                         fontWeight: FontWeight.bold,
@@ -185,7 +185,7 @@ class _SplashState extends State<Splash> with TickerProviderStateMixin {
                                       child: Text(
                                         "SIGN UP",
                                         style: TextStyle(
-                                          fontFamily: 'Tinos',
+                                          fontFamily: 'Poppins',
                                           color: Colors.white,
                                           fontSize: 17,
                                           letterSpacing: 1.4,
@@ -244,7 +244,7 @@ class _SplashState extends State<Splash> with TickerProviderStateMixin {
                                           fontSize: 17,
                                           letterSpacing: 1.4,
                                           fontWeight: FontWeight.bold,
-                                          fontFamily: 'Tinos',
+                                          fontFamily: 'Poppins',
                                         ),
                                       ),
                                     ),

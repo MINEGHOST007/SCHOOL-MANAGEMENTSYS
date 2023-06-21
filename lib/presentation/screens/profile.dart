@@ -56,7 +56,9 @@ import 'package:edusphere/presentation/screens/load.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent-tab-view.dart';
+import 'package:pie_chart/pie_chart.dart';
 
 class Profilepage extends StatefulWidget {
   const Profilepage({Key? key}) : super(key: key);
@@ -69,6 +71,7 @@ class _ProfilepageState extends State<Profilepage> {
   List<String> docIDs = [];
 
   String? role = "letsgetoutofhere";
+  double? present = 0.0;
 
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
   User? user = FirebaseAuth.instance.currentUser;
@@ -85,6 +88,11 @@ class _ProfilepageState extends State<Profilepage> {
         );
   }
 
+  Map<String, double> dataMap = {
+    'Present': 75,
+    'Absent': 100 - 75,
+  };
+
   int count = 0;
   Future getDocId2() async {
     String? roleee;
@@ -94,15 +102,22 @@ class _ProfilepageState extends State<Profilepage> {
             //docIDs.add(element.reference.id);
             // GetUserNamee getuser =
             //     GetUserNamee(documentId: element.reference.id);
-            GetUserNamee getuser =
-                GetUserNamee();
+            GetUserNamee getuser = GetUserNamee();
+            role = await getuser.getRole();
+            Getattendance ga = Getattendance();
+            present = await ga.getRole();
             role = await getuser.getRole();
             print(
                 'letsssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss');
             print(role);
+            print(present);
             if (role != "letsgetoutofhere" && count == 0) {
               setState(() {
                 role = role;
+                dataMap = {
+                  'Present': present!/1,
+                  'Absent' : 100 - present!/1,
+                };
                 count = 1;
               });
             }
@@ -116,6 +131,18 @@ class _ProfilepageState extends State<Profilepage> {
     //getDocId2();
   }
 
+  // void mostsensiblemethod() async {
+  //   myprofiledoc = await ga.getRole();
+  //   if (myprofiledoc != null) {
+  //     setState(() {
+  //       print("outtttttttttttttttttttttttttt");
+  //       dataMap =
+  //       role = myprofiledoc?['role'];
+  //       count = 1;
+  //     });
+  //   }
+  // }
+
   @override
   Widget build(BuildContext context) {
     // String? email = user!.email;
@@ -126,15 +153,255 @@ class _ProfilepageState extends State<Profilepage> {
       return Loading();
     }
     print('letsssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss');
-    print(role);
+    print(present);
     if (role == "student") {
-      return const Scaffold(
-        body: Center(
-          child: Text("You are logged in as Student"),
+      return Scaffold(
+        resizeToAvoidBottomInset: false,
+        appBar: AppBar(
+          elevation: 0,
+          toolbarHeight: 160,
+          backgroundColor: Color.fromARGB(176, 196, 195, 195),
+          flexibleSpace: Container(
+            padding: EdgeInsets.only(top: 80, left: 25),
+            decoration: const BoxDecoration(
+              borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(50),
+                bottomRight: Radius.circular(50),
+              ),
+              gradient: LinearGradient(
+                colors: [
+                  Color.fromRGBO(104, 112, 255, 1),
+                  Color.fromRGBO(114, 120, 243, 0.6),
+                ],
+              ),
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text(
+                  "Hello,",
+                  style: TextStyle(
+                    fontFamily: 'Poppins',
+                    fontSize: 22.5,
+                    color: Color.fromARGB(164, 255, 255, 255),
+                  ),
+                ),
+                SizedBox(
+                  height: 3,
+                ),
+                Text(
+                  user!.email as String,
+                  style: const TextStyle(
+                    fontFamily: 'Poppins',
+                    fontWeight: FontWeight.w500,
+                    fontSize: 25.5,
+                    color: Colors.white,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+        backgroundColor: Color.fromARGB(176, 196, 195, 195),
+        body: Column(
+          children: [
+            SizedBox(
+              height: 10,
+            ),
+            Center(
+              child: Container(
+                padding: EdgeInsets.all(10),
+                height: 100,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.all(Radius.circular(50)),
+                  border: Border.all(
+                      color: Color.fromARGB(255, 255, 255, 255), width: 3),
+                ),
+                child: Image.asset(
+                  'assets/images/student.png',
+                  fit: BoxFit.fitHeight,
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Center(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(Icons.star_border_purple500),
+                  Text(
+                    "You are logged in as Student",
+                    style: TextStyle(
+                      fontFamily: 'Poppins',
+                    ),
+                  ),
+                  Icon(Icons.star_border_purple500),
+                ],
+              ),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Center(
+              child: Container(
+                width: 240,
+                height: 40,
+                decoration: BoxDecoration(
+                  gradient: const LinearGradient(
+                    colors: [
+                      Color.fromRGBO(143, 148, 251, 1),
+                      Color.fromRGBO(143, 148, 251, 0.6),
+                    ],
+                  ),
+                  borderRadius: BorderRadius.all(Radius.circular(10)),
+                  border: Border.all(color: Colors.white, width: 2),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      "Edit Profile",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontFamily: 'Poppins',
+                        fontSize: 16,
+                      ),
+                    ),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Icon(
+                      Icons.edit,
+                      color: Colors.white,
+                      size: 20,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            Container(
+              width: 500,
+              margin: EdgeInsets.all(20),
+              padding: EdgeInsets.all(15),
+              decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(10),
+                    topRight: Radius.circular(10),
+                    bottomLeft: Radius.circular(10),
+                    bottomRight: Radius.circular(10),
+                  )),
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "First Name : ",
+                        style: TextStyle(fontFamily: 'Poppins'),
+                      ),
+                      SizedBox(
+                        width: 6,
+                      ),
+                      SizedBox(
+                        width: 6,
+                      ),
+                      Text(
+                        "Last Name : ",
+                        style: TextStyle(fontFamily: 'Poppins'),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "Class : ",
+                        style: TextStyle(fontFamily: 'Poppins'),
+                      ),
+                      SizedBox(
+                        width: 6,
+                      ),
+                      SizedBox(
+                        width: 6,
+                      ),
+                      Text(
+                        "Roll No : ",
+                        style: TextStyle(fontFamily: 'Poppins'),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 25,
+                  ),
+                  Container(
+                    width: 500,
+                    height: 150,
+                    child: PieChart(dataMap: dataMap),
+                  )
+                ],
+              ),
+            ),
+          ],
         ),
       );
     } else {
       return Scaffold(
+        resizeToAvoidBottomInset: false,
+        appBar: AppBar(
+          elevation: 0,
+          toolbarHeight: 160,
+          backgroundColor: Color.fromARGB(176, 196, 195, 195),
+          flexibleSpace: Container(
+            padding: EdgeInsets.only(top: 80, left: 25),
+            decoration: const BoxDecoration(
+              borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(50),
+                bottomRight: Radius.circular(50),
+              ),
+              gradient: LinearGradient(
+                colors: [
+                  Color.fromRGBO(104, 112, 255, 1),
+                  Color.fromRGBO(114, 120, 243, 0.6),
+                ],
+              ),
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text(
+                  "Hello,",
+                  style: TextStyle(
+                    fontFamily: 'Poppins',
+                    fontSize: 22.5,
+                    color: Color.fromARGB(164, 255, 255, 255),
+                  ),
+                ),
+                SizedBox(
+                  height: 3,
+                ),
+                Text(
+                  user!.email as String,
+                  style: const TextStyle(
+                    fontFamily: 'Poppins',
+                    fontWeight: FontWeight.w500,
+                    fontSize: 25.5,
+                    color: Colors.white,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+        backgroundColor: Color.fromARGB(176, 196, 195, 195),
         body: Center(
           child: Column(
             children: [

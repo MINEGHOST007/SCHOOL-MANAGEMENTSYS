@@ -131,6 +131,9 @@
 
 // ignore_for_file: use_build_context_synchronously
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:edusphere/common/utils.dart';
+import 'package:edusphere/data/providers.dart';
 import 'package:edusphere/presentation/screens/auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -209,7 +212,7 @@ class _HomePageState extends State<HomePage> {
               Color.fromARGB(255, 255, 255, 255), // Default is Colors.white.
           handleAndroidBackButtonPress: true, // Default is true.
           resizeToAvoidBottomInset:
-              true, // This needs to be true if you want to move up the screen when keyboard appears. Default is true.
+              false, // This needs to be true if you want to move up the screen when keyboard appears. Default is true.
           stateManagement: true, // Default is true.
           hideNavigationBarWhenKeyboardShows:
               true, // Recommended to set 'resizeToAvoidBottomInset' as true while using this argument. Default is true.
@@ -222,12 +225,12 @@ class _HomePageState extends State<HomePage> {
           ),
           popAllScreensOnTapOfSelectedTab: true,
           popActionScreens: PopActionScreensType.all,
-          itemAnimationProperties: ItemAnimationProperties(
+          itemAnimationProperties: const ItemAnimationProperties(
             // Navigation Bar's items animation properties.
             duration: Duration(milliseconds: 200),
             curve: Curves.ease,
           ),
-          screenTransitionAnimation: ScreenTransitionAnimation(
+          screenTransitionAnimation: const ScreenTransitionAnimation(
             // Screen transition animation on change of selected tab.
             animateTabTransition: true,
             curve: Curves.ease,
@@ -263,7 +266,8 @@ class _HomePage1State extends State<HomePage1> {
       //         );
       // popAllScreens(context);
       //Navigator.pushNamedAndRemoveUntil(context, '/splash', (route) => false);
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => AuthPage()));
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (context) => AuthPage()));
       pushNewScreen(context, screen: AuthPage(), withNavBar: false);
     } catch (e) {
       print('Error signing out: $e');
@@ -275,18 +279,176 @@ class _HomePage1State extends State<HomePage1> {
 
   //Navigator.pushNamedAndRemoveUntil(context, '/login', (route) => false);
   //Navigator.pushNamed(context, '/splash');
+  User? user = FirebaseAuth.instance.currentUser;
+  List<String> Subjects = ["Mathematics", "English", "Science", "Social"];
+  List<DocumentSnapshot>? teacherList = [];
+  int count = 0;
+  Future<void> retrieveTeachers() async {
+    Getteacherdocs teacherDocs = Getteacherdocs();
+    teacherList = await teacherDocs.getteacher();
+    if (teacherList != null && count == 0) {
+      setState(() {
+        teacherList = teacherList;
+        count = 1;
+      });
+    }
+  }
+
+  void runFilter(String search) {
+    List<DocumentSnapshot>? newteacherList = [];
+    if (search.isEmpty) {
+      newteacherList = teacherList;
+    } else {
+      newteacherList = teacherList
+          ?.where((user) => user['first_name']
+              .toString()
+              .toLowerCase()
+              .contains(search.toLowerCase()))
+          .toList();
+    }
+    setState(() {
+      teacherList = newteacherList;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
+    retrieveTeachers();
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        backgroundColor: Color.fromARGB(226, 119, 56, 255),
+        elevation: 0,
+        toolbarHeight: 160,
+        backgroundColor: Color.fromARGB(176, 196, 195, 195),
         actions: [
           IconButton(
               onPressed: signUserOut, icon: const Icon(Icons.logout_rounded))
         ],
+        flexibleSpace: Container(
+          padding: EdgeInsets.only(top: 80, left: 25),
+          decoration: const BoxDecoration(
+            borderRadius: BorderRadius.only(
+              bottomLeft: Radius.circular(50),
+              bottomRight: Radius.circular(50),
+            ),
+            gradient: LinearGradient(
+              colors: [
+                Color.fromRGBO(104, 112, 255, 1),
+                Color.fromRGBO(114, 120, 243, 0.6),
+              ],
+            ),
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text(
+                "Hello,",
+                style: TextStyle(
+                  fontFamily: 'Poppins',
+                  fontSize: 22.5,
+                  color: Color.fromARGB(164, 255, 255, 255),
+                ),
+              ),
+              SizedBox(
+                height: 3,
+              ),
+              Text(
+                user!.email as String,
+                style: const TextStyle(
+                  fontFamily: 'Poppins',
+                  fontWeight: FontWeight.w500,
+                  fontSize: 25.5,
+                  color: Colors.white,
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
       backgroundColor: Color.fromARGB(176, 196, 195, 195),
+      body: ListView(
+        children: [
+          Container(
+            padding: EdgeInsets.all(15.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(
+                  height: 5,
+                ),
+                const Text(
+                  "Subjects",
+                  style: TextStyle(
+                    fontFamily: 'Poppins',
+                    fontSize: 17.5,
+                    color: Color.fromARGB(255, 0, 0, 0),
+                  ),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    children: Subjects.map((e) => Cardclass(subs: e)).toList(),
+                  ),
+                ),
+                const SizedBox(
+                  height: 15,
+                ),
+                const Text(
+                  "Teachers",
+                  style: TextStyle(
+                    fontFamily: 'Poppins',
+                    fontSize: 17.5,
+                    color: Color.fromARGB(255, 0, 0, 0),
+                  ),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                Container(
+                  width: 500,
+                  decoration: const BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(20),
+                        topRight: Radius.circular(20),
+                      )),
+                  child: Column(
+                    children: [
+                      Container(
+                        padding: EdgeInsets.all(15),
+                        child: TextField(
+                          onChanged: (value) => runFilter(value),
+                          decoration: InputDecoration(
+                            contentPadding: const EdgeInsets.symmetric(
+                                vertical: 10, horizontal: 10),
+                            hintText: "Search",
+                            suffixIcon: const Icon(Icons.search),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(20),
+                              borderSide: const BorderSide(),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Column(
+                        children: teacherList != null
+                            ? teacherList!.map((e) => list(doc: e)).toList()
+                            : [
+                              Text("No Results Found"),
+                            ],
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

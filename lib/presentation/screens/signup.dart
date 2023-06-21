@@ -8,7 +8,6 @@ class Signup extends StatefulWidget {
 
   @override
   State<Signup> createState() => _SignupState();
-
 }
 
 class _SignupState extends State<Signup> {
@@ -204,7 +203,7 @@ class _SignupState extends State<Signup> {
                         child: Text(
                           "Signup",
                           style: TextStyle(
-                            fontFamily: 'Tinos',
+                            fontFamily: 'Poppins',
                             fontSize: 40,
                             fontWeight: FontWeight.bold,
                             color: Colors.white,
@@ -279,7 +278,7 @@ class _SignupState extends State<Signup> {
                                                 child: Text(
                                                   "Student",
                                                   style: TextStyle(
-                                                    fontFamily: 'Tinos',
+                                                    fontFamily: 'Poppins',
                                                     fontWeight: FontWeight.w300,
                                                   ),
                                                 ),
@@ -304,7 +303,7 @@ class _SignupState extends State<Signup> {
                                                 child: Text(
                                                   "Teacher",
                                                   style: TextStyle(
-                                                    fontFamily: 'Tinos',
+                                                    fontFamily: 'Poppins',
                                                     fontWeight: FontWeight.w300,
                                                   ),
                                                 ),

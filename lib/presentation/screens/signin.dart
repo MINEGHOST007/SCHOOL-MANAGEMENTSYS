@@ -129,7 +129,7 @@ class _SigninState extends State<Signin> {
                         child: Text(
                           "Login",
                           style: TextStyle(
-                            // fontFamily: 'Tinos',
+                            // fontFamily: 'Poppins',
                             fontSize: 40,
                             fontWeight: FontWeight.bold,
                             color: Colors.white,
@@ -149,11 +149,11 @@ class _SigninState extends State<Signin> {
                       style: TextStyle(
                         color: Colors.grey[700],
                         fontSize: 14,
-                        fontFamily: 'Tinos',
+                        fontFamily: 'Poppins',
                       ),
                     ),
                     const SizedBox(
-                      height: 15,
+                      height: 10,
                     ),
                     Container(
                       margin: const EdgeInsets.symmetric(horizontal: 15.0),
@@ -173,7 +173,7 @@ class _SigninState extends State<Signin> {
                         child: Column(
                           children: [
                             const SizedBox(
-                              height: 15,
+                              height: 10,
                             ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -218,7 +218,7 @@ class _SigninState extends State<Signin> {
                                                   child: Text(
                                                     "Student",
                                                     style: TextStyle(
-                                                      fontFamily: 'Tinos',
+                                                      fontFamily: 'Poppins',
                                                       fontWeight:
                                                           FontWeight.w300,
                                                     ),
@@ -246,7 +246,7 @@ class _SigninState extends State<Signin> {
                                                   child: Text(
                                                     "Teacher",
                                                     style: TextStyle(
-                                                      fontFamily: 'Tinos',
+                                                      fontFamily: 'Poppins',
                                                       fontWeight:
                                                           FontWeight.w300,
                                                     ),
@@ -269,7 +269,7 @@ class _SigninState extends State<Signin> {
                               ],
                             ),
                             const SizedBox(
-                              height: 20.0,
+                              height: 17.5,
                             ),
                             Container(
                               padding: const EdgeInsets.all(4.0),
@@ -339,7 +339,7 @@ class _SigninState extends State<Signin> {
                               fontSize: 18,
                               color: Colors.white,
                               fontWeight: FontWeight.bold,
-                              fontFamily: 'Tinos',
+                              fontFamily: 'Poppins',
                             ),
                           ),
                         ),
@@ -398,7 +398,8 @@ class _SigninState extends State<Signin> {
                         SquareTile(
                           imagePath: 'assets/images/google.png',
                           onTap: () {
-                            Authservice(category: category).signInWithGoogle(context);
+                            Authservice(category: category)
+                                .signInWithGoogle(context);
                             //User? user = FirebaseAuth.instance.currentUser;
                           },
                         ),
