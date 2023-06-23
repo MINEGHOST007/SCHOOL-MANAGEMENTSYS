@@ -56,14 +56,18 @@ class _SignupState extends State<Signup> {
     if (category == 1) {
       var user = <String, dynamic>{
         "email": emailcontroller.text,
-        "role": "teacher"
+        "role": "teacher",
+        "first_name": emailcontroller.text,"second_name": "Update reuired","present":100,"absent":0,
       };
       db.collection("users").add(user).then((DocumentReference doc) =>
           print('DocumentSnapshot added with ID: ${doc.id}'));
     } else {
       var user = <String, dynamic>{
         "email": emailcontroller.text,
-        "role": "student"
+        "role": "student",
+        "class": "10",
+        "name" : emailcontroller.text
+        ,"present":100,"absent":0
       };
       db.collection("users").add(user).then((DocumentReference doc) =>
           print('DocumentSnapshot added with ID: ${doc.id}'));

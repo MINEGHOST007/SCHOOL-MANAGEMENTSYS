@@ -252,6 +252,8 @@ class HomePage1 extends StatefulWidget {
 }
 
 class _HomePage1State extends State<HomePage1> {
+  String? role;
+
   void signUserOut() async {
     try {
       await FirebaseAuth.instance.signOut();
@@ -284,8 +286,24 @@ class _HomePage1State extends State<HomePage1> {
   List<DocumentSnapshot>? teacherList = [];
   int count = 0;
   Future<void> retrieveTeachers() async {
-    Getteacherdocs teacherDocs = Getteacherdocs();
-    teacherList = await teacherDocs.getteacher();
+    GetUserNamee gr = GetUserNamee();
+    role = await gr.getRole();
+    // Getname gn = Getname();
+    // z = await gn.getRole();
+    z = "${user!.email}";
+
+    if (role == "student") {
+      Getteacherdocs teacherDocs = Getteacherdocs();
+      teacherList = await teacherDocs.getteacher();
+    } else if (role == "teacher") {
+      x = "Classes";
+      y = "Students";
+      Getstudentdocs gs = Getstudentdocs();
+      teacherList = await gs.getteacher();
+      Subjects = ["10", "9", "8", "7", "6", "5", "4", "3", "2", "1"];
+      print("nnnnnnnnnnnnnnnnnnnnn");
+      print("$teacherList");
+    }
     if (teacherList != null && count == 0) {
       setState(() {
         teacherList = teacherList;
@@ -296,27 +314,48 @@ class _HomePage1State extends State<HomePage1> {
 
   void runFilter(String search) {
     List<DocumentSnapshot>? newteacherList = [];
-    if (search.isEmpty) {
-      newteacherList = teacherList;
-    } else {
-      newteacherList = teacherList
-          ?.where((user) => user['first_name']
-              .toString()
-              .toLowerCase()
-              .contains(search.toLowerCase()))
-          .toList();
+    if (role == "student") {
+      if (search.isEmpty) {
+        newteacherList = teacherList;
+      } else {
+        newteacherList = teacherList
+            ?.where((user) => user['first_name']
+                .toString()
+                .toLowerCase()
+                .contains(search.toLowerCase()))
+            .toList();
+      }
+      setState(() {
+        teacherList = newteacherList;
+      });
+    } else if (role == "teacher") {
+      if (search.isEmpty) {
+        newteacherList = teacherList;
+      } else {
+        newteacherList = teacherList
+            ?.where((user) => user['name']
+                .toString()
+                .toLowerCase()
+                .contains(search.toLowerCase()))
+            .toList();
+      }
+      setState(() {
+        teacherList = newteacherList;
+      });
     }
-    setState(() {
-      teacherList = newteacherList;
-    });
   }
 
+  String x = "Subjects";
+  String y = "Teachers";
+  String? z;
   @override
   Widget build(BuildContext context) {
     retrieveTeachers();
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
+        leading: Container(),
         elevation: 0,
         toolbarHeight: 160,
         backgroundColor: Color.fromARGB(176, 196, 195, 195),
@@ -354,7 +393,7 @@ class _HomePage1State extends State<HomePage1> {
                 height: 3,
               ),
               Text(
-                user!.email as String,
+                "$z",
                 style: const TextStyle(
                   fontFamily: 'Poppins',
                   fontWeight: FontWeight.w500,
@@ -377,8 +416,8 @@ class _HomePage1State extends State<HomePage1> {
                 const SizedBox(
                   height: 5,
                 ),
-                const Text(
-                  "Subjects",
+                Text(
+                  x,
                   style: TextStyle(
                     fontFamily: 'Poppins',
                     fontSize: 17.5,
@@ -397,8 +436,8 @@ class _HomePage1State extends State<HomePage1> {
                 const SizedBox(
                   height: 15,
                 ),
-                const Text(
-                  "Teachers",
+                Text(
+                  y,
                   style: TextStyle(
                     fontFamily: 'Poppins',
                     fontSize: 17.5,
@@ -415,6 +454,8 @@ class _HomePage1State extends State<HomePage1> {
                       borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(20),
                         topRight: Radius.circular(20),
+                        bottomLeft: Radius.circular(20),
+                        bottomRight: Radius.circular(20),
                       )),
                   child: Column(
                     children: [
@@ -435,11 +476,9 @@ class _HomePage1State extends State<HomePage1> {
                         ),
                       ),
                       Column(
-                        children: teacherList != null
-                            ? teacherList!.map((e) => list(doc: e)).toList()
-                            : [
-                              Text("No Results Found"),
-                            ],
+                        children: teacherList!
+                            .map((e) => list(doc: e, role: role))
+                            .toList(),
                       ),
                     ],
                   ),

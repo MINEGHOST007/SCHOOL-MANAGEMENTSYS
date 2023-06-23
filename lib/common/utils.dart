@@ -51,6 +51,7 @@ import 'package:edusphere/presentation/screens/profile.dart';
 import 'package:edusphere/presentation/screens/tasks.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent-tab-view.dart';
+import 'package:pie_chart/pie_chart.dart';
 
 class SquareTile extends StatelessWidget {
   final String imagePath;
@@ -191,51 +192,201 @@ class _BottomNavBarState extends State<BottomNavBar> {
   }
 }
 
-class Cardclass extends StatelessWidget {
+class Cardclass extends StatefulWidget {
   Cardclass({super.key, required this.subs});
   String subs;
+
+
+  @override
+  State<Cardclass> createState() => _CardclassState();
+}
+
+class _CardclassState extends State<Cardclass> {
+  String? role = "student";
+
+
+
+  void getRole2() async {
+    GetUserNamee gr = GetUserNamee();
+    role = await gr.getRole();
+    if (role == "teacher") {
+      setState(() {
+        role = role;
+      });
+    }
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getRole2();
+  }
+
+  void getRole(BuildContext context) async {
+    GetUserNamee gr = GetUserNamee();
+    role = await gr.getRole();
+    clickcard(context);
+  }
+
+  void clickcard(BuildContext context) {
+    print(role);
+    if (role == "student") {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) =>
+                GetSyllabus(collecti: widget.subs, role: role)),
+      );
+    } else if (role == "teacher") {
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => GetSubjects(cls: widget.subs),
+          ));
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+  Color xx = const Color.fromRGBO(143, 148, 251, 0.6);
+  Color yy = const Color.fromRGBO(143, 148, 251, 1);  
+    if (role == "teacher") {
+      return GestureDetector(
+        onTap: () => {getRole(context)},
+        child: Container(
+          padding: EdgeInsets.only(top: 10, left: 18, right: 18, bottom: 20),
+          height: 120,
+          width: 120,
+          margin: EdgeInsets.only(right: 15),
+          alignment: Alignment.topCenter,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(10),
+              topRight: Radius.circular(10),
+              bottomLeft: Radius.circular(10),
+              bottomRight: Radius.circular(10),
+            ),
+              border: Border.all(
+                  color: Color.fromARGB(255, 0, 0, 0),width: 2, style: BorderStyle.solid),
+            gradient: LinearGradient(colors: [
+              Color.fromRGBO(255, 255, 255, 1),
+              Color.fromRGBO(255, 255, 255, 1),
+            ]),
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Image.asset(
+                'assets/images/${widget.subs}.png',
+                fit: BoxFit.contain,
+              ),
+            ],
+          ),
+        ),
+      );
+    } else {
+      return GestureDetector(
+        onTap: () => {getRole(context)},
+        child: Container(
+          padding: EdgeInsets.only(top: 10, left: 18, right: 18, bottom: 20),
+          height: 170,
+          width: 120,
+          margin: EdgeInsets.only(right: 15),
+          alignment: Alignment.topCenter,
+          decoration: const BoxDecoration(
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(10),
+              topRight: Radius.circular(10),
+              bottomLeft: Radius.circular(10),
+              bottomRight: Radius.circular(10),
+            ),
+            gradient: LinearGradient(colors: [
+              Color.fromRGBO(143, 148, 251, 1),
+              Color.fromRGBO(143, 148, 251, 0.6),
+            ]),
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Image.asset(
+                'assets/images/${widget.subs}.png',
+                fit: BoxFit.contain,
+              ),
+              Text(
+                widget.subs,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
+    }
+  }
+}
+
+class Cardclass2 extends StatelessWidget {
+  Cardclass2({super.key, required this.subs, required this.cls});
+  String subs;
+  String cls;
+  String? role = "student";
+  void getRole() async {
+    GetUserNamee gr = GetUserNamee();
+    role = await gr.getRole();
+  }
+
+  void clickcard(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+          builder: (context) => GetSyllabus2(collecti: subs, cls: cls)),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context)=>GetSyllabus(collecti: subs)),
-        ),
-      },
+      onTap: () => {clickcard(context)},
       child: Container(
-        padding: EdgeInsets.only(top: 10, left: 18, right: 18, bottom: 20),
-        height: 170,
-        width: 120,
-        margin: EdgeInsets.only(right: 15),
-        alignment: Alignment.topCenter,
-        decoration: const BoxDecoration(
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(10),
-            topRight: Radius.circular(10),
-            bottomLeft: Radius.circular(10),
-            bottomRight: Radius.circular(10),
+        margin: EdgeInsets.all(10),
+        child: Container(
+          padding: EdgeInsets.only(top: 10, left: 18, right: 18, bottom: 20),
+          height: 120,
+          width: 280,
+          margin: EdgeInsets.only(right: 15),
+          alignment: Alignment.topCenter,
+          decoration: const BoxDecoration(
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(10),
+              topRight: Radius.circular(10),
+              bottomLeft: Radius.circular(10),
+              bottomRight: Radius.circular(10),
+            ),
+            gradient: LinearGradient(colors: [
+              Color.fromRGBO(143, 148, 251, 1),
+              Color.fromRGBO(143, 148, 251, 0.6),
+            ]),
           ),
-          gradient: LinearGradient(colors: [
-            Color.fromRGBO(143, 148, 251, 1),
-            Color.fromRGBO(143, 148, 251, 0.6),
-          ]),
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Image.asset(
-              'assets/images/${subs}.png',
-              fit: BoxFit.contain,
-            ),
-            Text(
-              subs,
-              style: const TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Image.asset(
+                'assets/images/${subs}.png',
+                fit: BoxFit.contain,
               ),
-            ),
-          ],
+              Text(
+                subs,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -244,50 +395,122 @@ class Cardclass extends StatelessWidget {
 
 class list extends StatelessWidget {
   DocumentSnapshot doc;
-  list({super.key, required this.doc});
+  String? role;
+  list({super.key, required this.doc, required this.role});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.only(bottom: 10),
-      width: 500,
-      height: 75,
-      padding: EdgeInsets.all(5),
-      decoration: BoxDecoration(
-        border: Border.all(color: Color.fromARGB(0, 0, 0, 0),style: BorderStyle.solid)
-      ),
-      child: Row(
-        children: [
-          Image.asset('assets/images/teacher.png',
-          fit: BoxFit.fitHeight,
-          ),
-          SizedBox(width: 10,),
-          Expanded(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Row(
+    print('ttttttttttttttttttttttttttt');
+    print(doc);
+    if (role == "student") {
+      return Container(
+        margin: EdgeInsets.only(bottom: 10),
+        width: 500,
+        height: 75,
+        padding: EdgeInsets.all(5),
+        decoration: BoxDecoration(
+            border: Border.all(
+                color: Color.fromARGB(0, 0, 0, 0), style: BorderStyle.solid)),
+        child: Row(
+          children: [
+            Image.asset(
+              'assets/images/teacher.png',
+              fit: BoxFit.fitHeight,
+            ),
+            SizedBox(
+              width: 10,
+            ),
+            Expanded(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        doc['first_name'],
+                        style: TextStyle(fontFamily: 'Poppins'),
+                      ),
+                      SizedBox(
+                        width: 6,
+                      ),
+                      Text(
+                        doc['second_name'],
+                        style: TextStyle(fontFamily: 'Poppins'),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 8,
+                  ),
+                  Text(doc['email']),
+                ],
+              ),
+            ),
+          ],
+        ),
+      );
+    } else {
+      double att = doc['present'] * 100 / (doc['absent'] + doc['present']);
+      double x = doc['present'] / 1;
+      double y = doc['absent'] / 1;
+      Map<String, double> dataMap = {
+        'Present': x,
+        'Absent': y,
+      };
+      void clickprofile(Map<String, double> dataMapx, DocumentSnapshot docx) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => Getprofile(pie: dataMapx, doc: docx)),
+        );
+      }
+
+      return GestureDetector(
+        onTap: () {
+          clickprofile(dataMap, doc);
+        },
+        child: Container(
+          margin: EdgeInsets.only(bottom: 10),
+          width: 500,
+          height: 75,
+          padding: EdgeInsets.all(5),
+          decoration: BoxDecoration(
+              border: Border.all(
+                  color: Color.fromARGB(0, 0, 0, 0), style: BorderStyle.solid)),
+          child: Row(
+            children: [
+              Image.asset(
+                'assets/images/teacher.png',
+                fit: BoxFit.fitHeight,
+              ),
+              SizedBox(
+                width: 10,
+              ),
+              Expanded(
+                child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(doc['first_name'],
-                    style: TextStyle(
-                      fontFamily: 'Poppins'
-                    ),),
-                    SizedBox(width: 6,),
-                    Text(doc['second_name'],
-                    style: TextStyle(
-                      fontFamily: 'Poppins'
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          doc['name'],
+                          style: TextStyle(fontFamily: 'Poppins'),
+                        ),
+                      ],
                     ),
+                    SizedBox(
+                      height: 8,
                     ),
+                    Text(doc['email']),
                   ],
                 ),
-                SizedBox(height: 8,),
-                Text(doc['email']),
-              ],
-            ),
+              ),
+            ],
           ),
-        ],
-      ),
-    );
+        ),
+      );
+    }
   }
 }

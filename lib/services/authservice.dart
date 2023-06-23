@@ -82,11 +82,11 @@ class Authservice {
     print(userCredential.additionalUserInfo?.isNewUser ?? false);
     if (userCredential.additionalUserInfo?.isNewUser ?? false) {
       if (category == 1) {
-        var user = <String, dynamic>{"email": email, "role": "teacher"};
+        var user = <String, dynamic>{"email": email, "role": "teacher","first_name": "Update required","second_name": "Update reuired","present":100,"absent":0};
         db.collection("users").add(user).then((DocumentReference doc) =>
             print('DocumentSnapshot added with ID: ${doc.id}'));
       } else {
-        var user = <String, dynamic>{"email": email, "role": "student"};
+        var user = <String, dynamic>{"email": email, "role": "student", "class": "10","name": "Update required","present":100,"absent":0};
         db.collection("users").add(user).then((DocumentReference doc) =>
             print('DocumentSnapshot added with ID: ${doc.id}'));
       }
