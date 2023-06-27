@@ -414,3 +414,202 @@ class _Editpage2State extends State<Editpage2> {
     );
   }
 }
+
+
+
+
+class Editpage3 extends StatefulWidget {
+  const Editpage3({super.key});
+
+  @override
+  State<Editpage3> createState() => _Editpage3State();
+}
+
+class _Editpage3State extends State<Editpage3> {
+  String? namecontroller;
+  String? namecontroller2;
+
+  void Updateprofile() {
+    print(namecontroller);
+    Updatename3(fname: namecontroller,sname: namecontroller2).getRole();
+    showsuccess();
+  }
+
+  void Deleteprofile() {}
+  void showsuccess() {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return const AlertDialog(
+            backgroundColor: Colors.deepPurpleAccent,
+            title: Center(
+              child: Text(
+                ' ✅ Changes Saved Refresh ',
+                style: TextStyle(
+                  fontSize: 14,
+                  color: Colors.white,
+                ),
+              ),
+            ),
+          );
+        });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          "Edit profile details",
+          style: TextStyle(fontFamily: 'Poppins'),
+        ),
+        backgroundColor: Color.fromARGB(255, 64, 93, 255),
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Container(
+              margin: EdgeInsets.only(top: 80, left: 40, right: 40, bottom: 60),
+              width: 500,
+              padding:
+                  EdgeInsets.only(top: 100, left: 50, right: 50, bottom: 30),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border.all(
+                      color: Color.fromARGB(255, 86, 103, 255),
+                      style: BorderStyle.solid)),
+              child: Column(
+                children: [
+                  Text(
+                    "Edit first name",
+                    style: TextStyle(
+                      fontFamily: 'Poppins',
+                    ),
+                  ),
+                  Container(
+                    padding: const EdgeInsets.all(4.0),
+                    decoration: const BoxDecoration(),
+                    child: TextField(
+                      onChanged: (value) => namecontroller = value,
+                      decoration: InputDecoration(
+                        hintText: " Full name ",
+                        hintStyle: TextStyle(
+                          color: Colors.grey[400],
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 27.5,
+                  ),
+                  Text(
+                    "Edit second name",
+                    style: TextStyle(
+                      fontFamily: 'Poppins',
+                    ),
+                  ),
+                  Container(
+                    padding: const EdgeInsets.all(4.0),
+                    decoration: const BoxDecoration(),
+                    child: TextField(
+                      onChanged: (value) => namecontroller2 = value,
+                      decoration: InputDecoration(
+                        hintText: " Full name ",
+                        hintStyle: TextStyle(
+                          color: Colors.grey[400],
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 27.5,
+                  ),
+                  Center(
+                    child: GestureDetector(
+                      onTap: () => {print("xxxxxxxxxxxxxxxx"), Updateprofile()},
+                      child: Container(
+                        width: 240,
+                        height: 40,
+                        decoration: BoxDecoration(
+                          gradient: const LinearGradient(
+                            colors: [
+                              Color.fromRGBO(143, 148, 251, 1),
+                              Color.fromRGBO(143, 148, 251, 0.6),
+                            ],
+                          ),
+                          borderRadius: BorderRadius.all(Radius.circular(10)),
+                          border: Border.all(color: Colors.white, width: 2),
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              "Save Changes",
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontFamily: 'Poppins',
+                                fontSize: 16,
+                              ),
+                            ),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Icon(
+                              Icons.edit,
+                              color: Colors.white,
+                              size: 20,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Center(
+              child: GestureDetector(
+                onTap: () => {print("xxxxxxxxxxxxxxxx"), Deleteprofile()},
+                child: Container(
+                  width: 240,
+                  height: 40,
+                  decoration: BoxDecoration(
+                    gradient: const LinearGradient(
+                      colors: [
+                        Color.fromRGBO(143, 148, 251, 1),
+                        Color.fromRGBO(143, 148, 251, 0.6),
+                      ],
+                    ),
+                    borderRadius: BorderRadius.all(Radius.circular(10)),
+                    border: Border.all(color: Colors.white, width: 2),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "Delete Account",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontFamily: 'Poppins',
+                          fontSize: 16,
+                        ),
+                      ),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Icon(
+                        Icons.delete,
+                        color: Color.fromARGB(255, 255, 0, 0),
+                        size: 20,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}

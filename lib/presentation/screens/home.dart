@@ -135,6 +135,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:edusphere/common/utils.dart';
 import 'package:edusphere/data/providers.dart';
 import 'package:edusphere/presentation/screens/auth.dart';
+import 'package:edusphere/presentation/widgets/hidden_drawer.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:edusphere/presentation/screens/acadcal.dart';
@@ -190,7 +191,7 @@ class _HomePageState extends State<HomePage> {
       return [
         HomePage1(),
         Profilepage(),
-        tasks(),
+        HiddenDrawer(),
         acadcalender(),
       ];
     }
@@ -288,9 +289,9 @@ class _HomePage1State extends State<HomePage1> {
   Future<void> retrieveTeachers() async {
     GetUserNamee gr = GetUserNamee();
     role = await gr.getRole();
-    // Getname gn = Getname();
-    // z = await gn.getRole();
     z = "${user!.email}";
+    Getname gn = Getname();
+    z = await gn.getRole();
 
     if (role == "student") {
       Getteacherdocs teacherDocs = Getteacherdocs();
@@ -310,7 +311,15 @@ class _HomePage1State extends State<HomePage1> {
         count = 1;
       });
     }
+    if (user!.email != z && countt == 0) {
+      setState(() {
+        z = z;
+        countt = 1;
+      });
+    }
   }
+
+  int countt = 0;
 
   void runFilter(String search) {
     List<DocumentSnapshot>? newteacherList = [];

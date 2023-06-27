@@ -49,6 +49,13 @@ dependencies:
   persistent_bottom_nav_bar_v2: ^4.2.8
   line_awesome_flutter: ^2.0.0
   pie_chart: ^5.3.2
+  hidden_drawer_menu: ^3.0.1
+  file_picker: ^5.2.8
+  firebase_storage: ^11.2.4
+  path_provider: ^2.0.15
+  dio: ^5.2.1+1
+  easy_pdf_viewer: ^1.0.6
+  flutter_file_downloader: ^1.1.2
 
 
 dev_dependencies:

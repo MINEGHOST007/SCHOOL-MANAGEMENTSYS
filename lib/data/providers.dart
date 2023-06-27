@@ -6,6 +6,7 @@ import 'package:edusphere/presentation/screens/load.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:pie_chart/pie_chart.dart';
+import 'package:flutter_file_downloader/flutter_file_downloader.dart';
 
 class GetUserName extends StatefulWidget {
   final String documentId;
@@ -191,7 +192,30 @@ class Getname {
         await users.where('email', isEqualTo: user!.email).get();
     if (snapshot.docs.isNotEmpty) {
       DocumentSnapshot doc = snapshot.docs.first;
-      return doc['name'] as String?;
+      if (doc['role'] == "student")
+        return doc['name'] as String?;
+      else {
+        String? fn = "${doc['first_name']} ${doc['second_name']}";
+        return fn;
+      }
+    }
+    return null;
+  }
+
+    Future<String?> getRolefirst() async {
+    User? user = FirebaseAuth.instance.currentUser;
+    CollectionReference users = FirebaseFirestore.instance.collection('users');
+
+    QuerySnapshot snapshot =
+        await users.where('email', isEqualTo: user!.email).get();
+    if (snapshot.docs.isNotEmpty) {
+      DocumentSnapshot doc = snapshot.docs.first;
+      if (doc['role'] == "student")
+        return doc['name'] as String?;
+      else {
+        String? fn = "${doc['first_name']}";
+        return fn;
+      }
     }
     return null;
   }
@@ -216,6 +240,32 @@ class Updatename {
       DocumentSnapshot doc = snapshot.docs.first;
       doc.reference
           .update({'name': name, 'class': dup})
+          .then((value) => print('added to document ${doc.id}'))
+          .catchError((error) => print('Error document ${doc.id}: $error'));
+    }
+  }
+}
+
+class Updatename3 {
+  // final String documentId;
+  // GetUserNamee({required this.documentId});
+  String? fname;
+  String? sname;
+  int? cls;
+  Updatename3({required this.fname, required this.sname});
+
+  void getRole() async {
+    String? dup = "$cls";
+    print("kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk");
+    User? user = FirebaseAuth.instance.currentUser;
+    CollectionReference users = FirebaseFirestore.instance.collection('users');
+
+    QuerySnapshot snapshot =
+        await users.where('email', isEqualTo: user!.email).get();
+    if (snapshot.docs.isNotEmpty) {
+      DocumentSnapshot doc = snapshot.docs.first;
+      doc.reference
+          .update({'first_name': fname, 'second_name': sname})
           .then((value) => print('added to document ${doc.id}'))
           .catchError((error) => print('Error document ${doc.id}: $error'));
     }
@@ -261,6 +311,13 @@ class Getteacherdocs {
   }
 }
 
+
+
+
+
+
+
+
 class Getstudentdocs {
   Future<List<DocumentSnapshot>> getteacher() async {
     List<DocumentSnapshot> teachers = [];
@@ -305,7 +362,7 @@ class Getrollno {
 class GetSyllabus extends StatefulWidget {
   String collecti;
   String? role;
-  GetSyllabus({super.key, required this.collecti,required this.role});
+  GetSyllabus({super.key, required this.collecti, required this.role});
 
   @override
   State<GetSyllabus> createState() => _GetSyllabusState();
@@ -411,8 +468,9 @@ class GetSubjects extends StatelessWidget {
                 Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
-                  children:
-                      subjects.map((e) => Cardclass2(subs: e, cls: cls)).toList(),
+                  children: subjects
+                      .map((e) => Cardclass2(subs: e, cls: cls))
+                      .toList(),
                 ),
                 const SizedBox(
                   height: 50,
