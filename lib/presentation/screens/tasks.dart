@@ -152,8 +152,8 @@ class _tasksState extends State<tasks> {
                   child: Column(
                     children: [
                       listAss(
-                        Subject: "${dub![i]}",
-                        topic: "${topic![i]}",
+                        Subject: "${dub[i]}",
+                        topic: "${topic[i]}",
                         x: x[i],
                         y: y[i],
                         urr: urr[i],

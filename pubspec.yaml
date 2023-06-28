@@ -56,6 +56,7 @@ dependencies:
   dio: ^5.2.1+1
   easy_pdf_viewer: ^1.0.6
   flutter_file_downloader: ^1.1.2
+  table_calendar: ^3.0.8
 
 
 dev_dependencies:
