@@ -1,4 +1,5 @@
 import 'package:edusphere/data/providers.dart';
+import 'package:edusphere/presentation/widgets/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -51,11 +52,13 @@ class _EditpageState extends State<Editpage> {
           "Edit profile details",
           style: TextStyle(fontFamily: 'Poppins'),
         ),
-        backgroundColor: Color.fromARGB(255, 64, 93, 255),
+        backgroundColor: Color.fromRGBO(109, 116, 255, 1),
       ),
+      backgroundColor: Colors.grey[300],
       body: SingleChildScrollView(
         child: Column(
           children: [
+            FadeAnimation2(1.6, 
             Container(
               margin: EdgeInsets.only(top: 80, left: 40, right: 40, bottom: 60),
               width: 500,
@@ -63,9 +66,25 @@ class _EditpageState extends State<Editpage> {
                   EdgeInsets.only(top: 100, left: 50, right: 50, bottom: 30),
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
-                  border: Border.all(
-                      color: Color.fromARGB(255, 86, 103, 255),
-                      style: BorderStyle.solid)),
+                  // border: Border.all(
+                  //     color: Color.fromARGB(255, 86, 103, 255),
+                  //     style: BorderStyle.solid)
+                  color: Colors.grey[300],
+                  boxShadow: [
+                                    const BoxShadow(
+                                      offset: Offset(-6, -6),
+                                      color: Colors.white,
+                                      blurRadius: 12,
+                                      spreadRadius: 1,
+                                    ),
+                                    BoxShadow(
+                                      offset: const Offset(4, 4),
+                                      color: Colors.grey.shade500,
+                                      blurRadius: 4,
+                                      spreadRadius: 1,
+                                    ),
+                                  ]
+                      ),
               child: Column(
                 children: [
                   Text(
@@ -130,7 +149,20 @@ class _EditpageState extends State<Editpage> {
                             ],
                           ),
                           borderRadius: BorderRadius.all(Radius.circular(10)),
-                          border: Border.all(color: Colors.white, width: 2),
+                          boxShadow: [
+                                    const BoxShadow(
+                                      offset: Offset(-6, -6),
+                                      color: Colors.white,
+                                      blurRadius: 12,
+                                      spreadRadius: 1,
+                                    ),
+                                    BoxShadow(
+                                      offset: const Offset(4, 4),
+                                      color: Colors.grey.shade500,
+                                      blurRadius: 4,
+                                      spreadRadius: 1,
+                                    ),
+                                  ]
                         ),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -158,7 +190,8 @@ class _EditpageState extends State<Editpage> {
                   ),
                 ],
               ),
-            ),
+            ), context),
+            FadeAnimation2(1.6, 
             Center(
               child: GestureDetector(
                 onTap: () => {print("xxxxxxxxxxxxxxxx"), Deleteprofile()},
@@ -173,7 +206,20 @@ class _EditpageState extends State<Editpage> {
                       ],
                     ),
                     borderRadius: BorderRadius.all(Radius.circular(10)),
-                    border: Border.all(color: Colors.white, width: 2),
+                    boxShadow: [
+                                    const BoxShadow(
+                                      offset: Offset(-6, -6),
+                                      color: Colors.white,
+                                      blurRadius: 12,
+                                      spreadRadius: 1,
+                                    ),
+                                    BoxShadow(
+                                      offset: const Offset(4, 4),
+                                      color: Colors.grey.shade500,
+                                      blurRadius: 4,
+                                      spreadRadius: 1,
+                                    ),
+                                  ]
                   ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -198,7 +244,7 @@ class _EditpageState extends State<Editpage> {
                   ),
                 ),
               ),
-            ),
+            ), context),
           ],
         ),
       ),
@@ -253,11 +299,12 @@ class _Editpage2State extends State<Editpage2> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Edit profile details",
+          "Edit Attendance details",
           style: TextStyle(fontFamily: 'Poppins'),
         ),
-        backgroundColor: Color.fromARGB(255, 64, 93, 255),
+        backgroundColor: Color.fromRGBO(109, 116, 255, 1),
       ),
+      backgroundColor: Colors.grey[300],
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -267,10 +314,26 @@ class _Editpage2State extends State<Editpage2> {
               padding:
                   EdgeInsets.only(top: 60, left: 50, right: 50, bottom: 30),
               decoration: BoxDecoration(
+                color: Colors.grey[300],
                   borderRadius: BorderRadius.circular(10),
-                  border: Border.all(
-                      color: Color.fromARGB(255, 86, 103, 255),
-                      style: BorderStyle.solid)),
+                  // border: Border.all(
+                  //     color: Color.fromARGB(255, 86, 103, 255),
+                  //     style: BorderStyle.solid),
+                  boxShadow: [
+                                    const BoxShadow(
+                                      offset: Offset(-6, -6),
+                                      color: Colors.white,
+                                      blurRadius: 12,
+                                      spreadRadius: 1,
+                                    ),
+                                    BoxShadow(
+                                      offset: const Offset(4, 4),
+                                      color: Colors.grey.shade500,
+                                      blurRadius: 4,
+                                      spreadRadius: 1,
+                                    ),
+                                  ]
+                      ),
               child: Column(
                 children: [
                   const SizedBox(
@@ -322,6 +385,7 @@ class _Editpage2State extends State<Editpage2> {
                   const SizedBox(
                     height: 17.5,
                   ),
+                  const SizedBox(height: 20,),
                   Center(
                     child: GestureDetector(
                       onTap: () => {print("xxxxxxxxxxxxxxxx"), Updateprofile()},
@@ -336,7 +400,21 @@ class _Editpage2State extends State<Editpage2> {
                             ],
                           ),
                           borderRadius: BorderRadius.all(Radius.circular(10)),
-                          border: Border.all(color: Colors.white, width: 2),
+                          // border: Border.all(color: Colors.white, width: 2),
+                          boxShadow: [
+                                    const BoxShadow(
+                                      offset: Offset(-6, -6),
+                                      color: Colors.white,
+                                      blurRadius: 12,
+                                      spreadRadius: 1,
+                                    ),
+                                    BoxShadow(
+                                      offset: const Offset(4, 4),
+                                      color: Colors.grey.shade500,
+                                      blurRadius: 4,
+                                      spreadRadius: 1,
+                                    ),
+                                  ]
                         ),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -365,6 +443,7 @@ class _Editpage2State extends State<Editpage2> {
                 ],
               ),
             ),
+            const SizedBox(height: 20,),
             Center(
               child: GestureDetector(
                 onTap: () => {print("xxxxxxxxxxxxxxxx"), Deleteprofile()},
@@ -379,7 +458,21 @@ class _Editpage2State extends State<Editpage2> {
                       ],
                     ),
                     borderRadius: BorderRadius.all(Radius.circular(10)),
-                    border: Border.all(color: Colors.white, width: 2),
+                    //border: Border.all(color: Colors.white, width: 2),
+                  boxShadow: [
+                                    const BoxShadow(
+                                      offset: Offset(-6, -6),
+                                      color: Colors.white,
+                                      blurRadius: 12,
+                                      spreadRadius: 1,
+                                    ),
+                                    BoxShadow(
+                                      offset: const Offset(4, 4),
+                                      color: Colors.grey.shade500,
+                                      blurRadius: 4,
+                                      spreadRadius: 1,
+                                    ),
+                                  ]
                   ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -463,8 +556,9 @@ class _Editpage3State extends State<Editpage3> {
           "Edit profile details",
           style: TextStyle(fontFamily: 'Poppins'),
         ),
-        backgroundColor: Color.fromARGB(255, 64, 93, 255),
+        backgroundColor: Color.fromRGBO(109, 116, 255, 1),
       ),
+      backgroundColor: Colors.grey[300],
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -475,9 +569,25 @@ class _Editpage3State extends State<Editpage3> {
                   EdgeInsets.only(top: 100, left: 50, right: 50, bottom: 30),
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
-                  border: Border.all(
-                      color: Color.fromARGB(255, 86, 103, 255),
-                      style: BorderStyle.solid)),
+                color: Colors.grey[300],
+                  // border: Border.all(
+                  //     color: Color.fromARGB(255, 86, 103, 255),
+                  //     style: BorderStyle.solid)
+                  boxShadow: [
+                                    const BoxShadow(
+                                      offset: Offset(-6, -6),
+                                      color: Colors.white,
+                                      blurRadius: 12,
+                                      spreadRadius: 1,
+                                    ),
+                                    BoxShadow(
+                                      offset: const Offset(4, 4),
+                                      color: Colors.grey.shade500,
+                                      blurRadius: 4,
+                                      spreadRadius: 1,
+                                    ),
+                                  ]
+                  ),
               child: Column(
                 children: [
                   Text(
@@ -538,7 +648,21 @@ class _Editpage3State extends State<Editpage3> {
                             ],
                           ),
                           borderRadius: BorderRadius.all(Radius.circular(10)),
-                          border: Border.all(color: Colors.white, width: 2),
+                          //border: Border.all(color: Colors.white, width: 2),
+                          boxShadow: [
+                                    const BoxShadow(
+                                      offset: Offset(-6, -6),
+                                      color: Colors.white,
+                                      blurRadius: 12,
+                                      spreadRadius: 1,
+                                    ),
+                                    BoxShadow(
+                                      offset: const Offset(4, 4),
+                                      color: Colors.grey.shade500,
+                                      blurRadius: 4,
+                                      spreadRadius: 1,
+                                    ),
+                                  ]
                         ),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -581,7 +705,21 @@ class _Editpage3State extends State<Editpage3> {
                       ],
                     ),
                     borderRadius: BorderRadius.all(Radius.circular(10)),
-                    border: Border.all(color: Colors.white, width: 2),
+                    //border: Border.all(color: Colors.white, width: 2),
+                    boxShadow: [
+                                    const BoxShadow(
+                                      offset: Offset(-6, -6),
+                                      color: Colors.white,
+                                      blurRadius: 12,
+                                      spreadRadius: 1,
+                                    ),
+                                    BoxShadow(
+                                      offset: const Offset(4, 4),
+                                      color: Colors.grey.shade500,
+                                      blurRadius: 4,
+                                      spreadRadius: 1,
+                                    ),
+                                  ]
                   ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,

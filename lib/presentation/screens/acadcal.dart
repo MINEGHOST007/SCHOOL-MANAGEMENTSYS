@@ -42,7 +42,7 @@ class _acadcalenderState extends State<acadcalender> {
     await showDialog(
         context: context,
         builder: (context) => AlertDialog(
-              title: Text(
+              title: const Text(
                 "Add New Event",
                 textAlign: TextAlign.center,
                 style: TextStyle(fontFamily: 'Poppins'),
@@ -54,14 +54,14 @@ class _acadcalenderState extends State<acadcalender> {
                   TextField(
                     controller: tc,
                     textCapitalization: TextCapitalization.words,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       labelText: 'Title',
                     ),
                   ),
                   TextField(
                     controller: dc,
                     textCapitalization: TextCapitalization.words,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       labelText: 'Description',
                     ),
                   ),
@@ -70,7 +70,7 @@ class _acadcalenderState extends State<acadcalender> {
               actions: [
                 TextButton(
                     onPressed: () => Navigator.pop(context),
-                    child: Text('Cancel')),
+                    child: const Text('Cancel')),
                 TextButton(
                     onPressed: () async {
                       if (tc.text.isEmpty && dc.text.isEmpty) {
@@ -96,27 +96,27 @@ class _acadcalenderState extends State<acadcalender> {
                         Navigator.pop(context);
                       }
                     },
-                    child: Text('Add Event')),
+                    child: const Text('Add Event')),
               ],
             ));
   }
 
   @override
   Widget build(BuildContext context) {
-    if (role == "teacher")
+    if (role == "teacher") {
       return Scaffold(
-        backgroundColor: Color.fromARGB(176, 196, 195, 195),
+        backgroundColor: const Color.fromARGB(176, 196, 195, 195),
         body: Stack(
           children: [
             AppBar(
               leading: Container(),
               elevation: 0,
               toolbarHeight: 160,
-              backgroundColor: Color.fromARGB(176, 196, 195, 195),
+              backgroundColor: const Color.fromARGB(176, 196, 195, 195),
               flexibleSpace: Container(
                 width: 500,
                 height: 220,
-                padding: EdgeInsets.only(top: 80, left: 25),
+                padding: const EdgeInsets.only(top: 80, left: 25),
                 decoration: const BoxDecoration(
                   borderRadius: BorderRadius.only(
                     bottomLeft: Radius.circular(50),
@@ -134,10 +134,10 @@ class _acadcalenderState extends State<acadcalender> {
             Positioned(
                 top: 120,
                 child: Container(
-                  margin: EdgeInsets.all(30),
+                  margin: const EdgeInsets.all(30),
                   width: 350,
                   height: 400,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.only(
                       bottomLeft: Radius.circular(10),
@@ -176,7 +176,7 @@ class _acadcalenderState extends State<acadcalender> {
               right: 16.0,
               child: FloatingActionButton.extended(
                 onPressed: showaddevent,
-                label: Text('Add Event'),
+                label: const Text('Add Event'),
               ),
             ),
             Positioned(
@@ -199,7 +199,7 @@ class _acadcalenderState extends State<acadcalender> {
                       }
               
                       if (snapshot.connectionState == ConnectionState.waiting) {
-                        return Center(
+                        return const Center(
                           child: CircularProgressIndicator(),
                         );
                       }
@@ -209,14 +209,14 @@ class _acadcalenderState extends State<acadcalender> {
                             '${selected!.year.toString().padLeft(2, '0')}-${selected!.month.toString().padLeft(2, '0')}-${selected!.day.toString().padLeft(2, '0')}');
                         print("object");
                         print("xxxxxxxxxxxxxxxx");
-                        return Center(
+                        return const Center(
                           child: Text('No events found for the selected date.'),
                         );
                       }
                       print("xxxxxxxxxxxxxxxxyyyyyyyyyyyyyyyyy");
                       
                       return Container(
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.only(
                         bottomLeft: Radius.circular(10),
@@ -235,14 +235,15 @@ class _acadcalenderState extends State<acadcalender> {
                             print(
                                 '${selected!.year.toString().padLeft(2, '0')}-${selected!.month.toString().padLeft(2, '0')}-${selected!.day.toString().padLeft(2, '0')}');
                             if (event.id ==
-                                '${selected!.year.toString().padLeft(2, '0')}-${selected!.month.toString().padLeft(2, '0')}-${selected!.day.toString().padLeft(2, '0')}')
+                                '${selected!.year.toString().padLeft(2, '0')}-${selected!.month.toString().padLeft(2, '0')}-${selected!.day.toString().padLeft(2, '0')}') {
                               return ListTile(
                                 title: Text(title,
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontFamily: 'Poppins'
                             ),),
                                 subtitle: Text(description),
                               );
+                            }
                           },
                         ),
                       );
@@ -254,20 +255,20 @@ class _acadcalenderState extends State<acadcalender> {
           ],
         ),
       );
-    else
+    } else {
       return Scaffold(
-        backgroundColor: Color.fromARGB(176, 196, 195, 195),
+        backgroundColor: const Color.fromARGB(176, 196, 195, 195),
         body: Stack(
           children: [
             AppBar(
               leading: Container(),
               elevation: 0,
               toolbarHeight: 160,
-              backgroundColor: Color.fromARGB(176, 196, 195, 195),
+              backgroundColor: const Color.fromARGB(176, 196, 195, 195),
               flexibleSpace: Container(
                 width: 500,
                 height: 220,
-                padding: EdgeInsets.only(top: 80, left: 25),
+                padding: const EdgeInsets.only(top: 80, left: 25),
                 decoration: const BoxDecoration(
                   borderRadius: BorderRadius.only(
                     bottomLeft: Radius.circular(50),
@@ -285,10 +286,10 @@ class _acadcalenderState extends State<acadcalender> {
             Positioned(
                 top: 120,
                 child: Container(
-                  margin: EdgeInsets.all(30),
+                  margin: const EdgeInsets.all(30),
                   width: 350,
                   height: 400,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.only(
                       bottomLeft: Radius.circular(10),
@@ -337,22 +338,24 @@ class _acadcalenderState extends State<acadcalender> {
                   }
 
                   if (snapshot.connectionState == ConnectionState.waiting) {
-                    return Center(
+                    return const Center(
                       child: CircularProgressIndicator(),
                     );
                   }
 
                   if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
                     print("xxxxxxxxxxxxxxxx");
-                    return Center(
+                    return const Center(
                       child: Text('No events found for the selected date.'),
                     );
                   }
                   print("xxxxxxxxxxxxxxxxyyyyyyyyyyyyyyyyy");
                   return Container(
-                    margin: EdgeInsets.all(10),
-                    padding: EdgeInsets.all(10),
-                    decoration: BoxDecoration(
+                    width: 300,
+                    height: 200,
+                    margin: const EdgeInsets.all(10),
+                    padding: const EdgeInsets.all(10),
+                    decoration: const BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.only(
                       bottomLeft: Radius.circular(10),
@@ -368,15 +371,16 @@ class _acadcalenderState extends State<acadcalender> {
                         var title = event['title'];
                         var description = event['description'];
                         if (event.id ==
-                                '${selected!.year.toString().padLeft(2, '0')}-${selected!.month.toString().padLeft(2, '0')}-${selected!.day.toString().padLeft(2, '0')}')
-                        return ListTile(
+                                '${selected!.year.toString().padLeft(2, '0')}-${selected!.month.toString().padLeft(2, '0')}-${selected!.day.toString().padLeft(2, '0')}') {
+                          return ListTile(
                           title: Text(title,
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontFamily: 'Poppins'
                           ),
                           ),
                           subtitle: Text(description),
                         );
+                        }
                       },
                     ),
                   );
@@ -386,5 +390,6 @@ class _acadcalenderState extends State<acadcalender> {
           ],
         ),
       );
+    }
   }
 }

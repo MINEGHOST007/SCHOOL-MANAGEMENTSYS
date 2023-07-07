@@ -52,10 +52,12 @@ import 'package:edusphere/presentation/screens/home.dart';
 import 'package:edusphere/presentation/screens/load.dart';
 import 'package:edusphere/presentation/screens/profile.dart';
 import 'package:edusphere/presentation/screens/tasks.dart';
+import 'package:edusphere/presentation/widgets/animations.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent-tab-view.dart';
 import 'package:pie_chart/pie_chart.dart';
@@ -245,7 +247,7 @@ class _CardclassState extends State<Cardclass> {
         context,
         MaterialPageRoute(
             builder: (context) =>
-                GetSyllabus(collecti: widget.subs, role: role)),
+                GetSyllabus(collecti: widget.subs, role: role),),
       );
     } else if (role == "teacher") {
       Navigator.push(
@@ -263,78 +265,114 @@ class _CardclassState extends State<Cardclass> {
     if (role == "teacher") {
       return GestureDetector(
         onTap: () => {getRole(context)},
-        child: Container(
-          padding: EdgeInsets.only(top: 10, left: 18, right: 18, bottom: 20),
-          height: 120,
-          width: 120,
-          margin: EdgeInsets.only(right: 15),
-          alignment: Alignment.topCenter,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(10),
-              topRight: Radius.circular(10),
-              bottomLeft: Radius.circular(10),
-              bottomRight: Radius.circular(10),
-            ),
-            border: Border.all(
-                color: Color.fromARGB(255, 0, 0, 0),
-                width: 2,
-                style: BorderStyle.solid),
-            gradient: LinearGradient(colors: [
-              Color.fromRGBO(255, 255, 255, 1),
-              Color.fromRGBO(255, 255, 255, 1),
-            ]),
-          ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Image.asset(
-                'assets/images/${widget.subs}.png',
-                fit: BoxFit.contain,
+        child: FadeAnimation3(
+            1.6,
+            Container(
+              padding:
+                  EdgeInsets.only(top: 10, left: 18, right: 18, bottom: 20),
+              height: 120,
+              width: 120,
+              margin: EdgeInsets.only(top: 25, left: 15, right: 15, bottom: 25),
+              alignment: Alignment.topCenter,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(10),
+                    topRight: Radius.circular(10),
+                    bottomLeft: Radius.circular(10),
+                    bottomRight: Radius.circular(10),
+                  ),
+                  // border: Border.all(
+                  //     color: Color.fromARGB(255, 211, 211, 211),
+                  //     width: 1,
+                  //     style: BorderStyle.solid),
+                  gradient: LinearGradient(colors: [
+                    Colors.grey.shade300,
+                    Colors.grey.shade300,
+                  ]),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.shade500,
+                      offset: Offset(4, 4),
+                      blurRadius: 15,
+                      spreadRadius: 1,
+                    ),
+                    BoxShadow(
+                      color: Colors.white,
+                      offset: Offset(-4, -4),
+                      blurRadius: 15,
+                      spreadRadius: 1,
+                    )
+                  ]),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Image.asset(
+                    'assets/images/${widget.subs}.png',
+                    fit: BoxFit.contain,
+                  ),
+                ],
               ),
-            ],
-          ),
-        ),
+            ),
+            context),
       );
     } else {
-      return GestureDetector(
-        onTap: () => {getRole(context)},
-        child: Container(
-          padding: EdgeInsets.only(top: 10, left: 18, right: 18, bottom: 20),
-          height: 170,
-          width: 120,
-          margin: EdgeInsets.only(right: 15),
-          alignment: Alignment.topCenter,
-          decoration: const BoxDecoration(
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(10),
-              topRight: Radius.circular(10),
-              bottomLeft: Radius.circular(10),
-              bottomRight: Radius.circular(10),
+      return FadeAnimation3(
+          1.6,
+          GestureDetector(
+            onTap: () => {getRole(context)},
+            child: Container(
+              padding:
+                  EdgeInsets.only(top: 10, left: 18, right: 18, bottom: 20),
+              height: 170,
+              width: 120,
+              margin: EdgeInsets.only(top: 20, bottom: 25, left: 15, right: 18),
+              alignment: Alignment.topCenter,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(10),
+                    topRight: Radius.circular(10),
+                    bottomLeft: Radius.circular(10),
+                    bottomRight: Radius.circular(10),
+                  ),
+                  // gradient: LinearGradient(colors: [
+                  //   Color.fromRGBO(143, 148, 251, 1),
+                  //   Color.fromRGBO(143, 148, 251, 0.6),
+                  // ]),
+                  color: Colors.grey.shade300,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.shade600,
+                      offset: Offset(6, 6),
+                      blurRadius: 15,
+                      spreadRadius: 1,
+                    ),
+                    BoxShadow(
+                      color: Colors.white,
+                      offset: Offset(-6, -6),
+                      blurRadius: 10,
+                      spreadRadius: 1,
+                    )
+                  ]),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Image.asset(
+                    'assets/images/${widget.subs}.png',
+                    fit: BoxFit.contain,
+                  ),
+                  Text(
+                    widget.subs,
+                    style: TextStyle(
+                      color: Color.fromARGB(255, 75, 75, 75),
+                      fontFamily: 'Poppins',
+                      fontSize: 12,
+                    ),
+                  ),
+                ],
+              ),
             ),
-            gradient: LinearGradient(colors: [
-              Color.fromRGBO(143, 148, 251, 1),
-              Color.fromRGBO(143, 148, 251, 0.6),
-            ]),
           ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Image.asset(
-                'assets/images/${widget.subs}.png',
-                fit: BoxFit.contain,
-              ),
-              Text(
-                widget.subs,
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ],
-          ),
-        ),
-      );
+          context);
     }
   }
 }
@@ -366,10 +404,10 @@ class Cardclass2 extends StatelessWidget {
         child: Container(
           padding: EdgeInsets.only(top: 10, left: 18, right: 18, bottom: 20),
           height: 120,
-          width: 280,
+          width: double.infinity,
           margin: EdgeInsets.only(right: 15),
           alignment: Alignment.topCenter,
-          decoration: const BoxDecoration(
+          decoration: BoxDecoration(
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(10),
               topRight: Radius.circular(10),
@@ -377,12 +415,28 @@ class Cardclass2 extends StatelessWidget {
               bottomRight: Radius.circular(10),
             ),
             gradient: LinearGradient(colors: [
-              Color.fromRGBO(143, 148, 251, 1),
-              Color.fromRGBO(143, 148, 251, 0.6),
+              // Color.fromRGBO(143, 148, 251, 1),
+              // Color.fromRGBO(143, 148, 251, 0.6),
+               Colors.grey.shade300,
+                    Colors.grey.shade300,
             ]),
+            boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.shade500,
+                      offset: Offset(4, 4),
+                      blurRadius: 15,
+                      spreadRadius: 1,
+                    ),
+                    BoxShadow(
+                      color: Colors.white,
+                      offset: Offset(-4, -4),
+                      blurRadius: 15,
+                      spreadRadius: 1,
+                    )
+                  ]
           ),
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Image.asset(
@@ -391,8 +445,8 @@ class Cardclass2 extends StatelessWidget {
               ),
               Text(
                 subs,
-                style: const TextStyle(
-                  color: Colors.white,
+                style: TextStyle(
+                  color: Color.fromARGB(255, 82, 82, 82),
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -423,9 +477,16 @@ class list extends StatelessWidget {
                 color: Color.fromARGB(0, 0, 0, 0), style: BorderStyle.solid)),
         child: Row(
           children: [
-            Image.asset(
-              'assets/images/teacher.png',
-              fit: BoxFit.fitHeight,
+            Container(
+              padding: EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(50),
+              ),
+              child: Image.asset(
+                'assets/images/teacher.png',
+                fit: BoxFit.fitHeight,
+              ),
             ),
             SizedBox(
               width: 10,
@@ -439,14 +500,20 @@ class list extends StatelessWidget {
                     children: [
                       Text(
                         doc['first_name'],
-                        style: TextStyle(fontFamily: 'Poppins'),
+                        style: TextStyle(
+                          fontFamily: 'Poppins',
+                          color: Color.fromRGBO(118, 125, 255, 1),
+                        ),
                       ),
                       SizedBox(
                         width: 6,
                       ),
                       Text(
                         doc['second_name'],
-                        style: TextStyle(fontFamily: 'Poppins'),
+                        style: TextStyle(
+                          fontFamily: 'Poppins',
+                          color: Color.fromRGBO(120, 127, 255, 1),
+                        ),
                       ),
                     ],
                   ),
@@ -490,9 +557,16 @@ class list extends StatelessWidget {
                   color: Color.fromARGB(0, 0, 0, 0), style: BorderStyle.solid)),
           child: Row(
             children: [
-              Image.asset(
-                'assets/images/teacher.png',
-                fit: BoxFit.fitHeight,
+              Container(
+                padding: EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(50),
+                ),
+                child: Image.asset(
+                  'assets/images/teacher.png',
+                  fit: BoxFit.contain,
+                ),
               ),
               SizedBox(
                 width: 10,
@@ -506,7 +580,10 @@ class list extends StatelessWidget {
                       children: [
                         Text(
                           doc['name'],
-                          style: TextStyle(fontFamily: 'Poppins'),
+                          style: TextStyle(
+                            fontFamily: 'Poppins',
+                            color: Color.fromRGBO(93, 101, 255, 1),
+                          ),
                         ),
                       ],
                     ),
@@ -679,7 +756,7 @@ class _listAssState extends State<listAss> {
 
     if (snapshot.docs.isNotEmpty) {
       xo = "Finished";
-      xvv = Color.fromARGB(255, 71, 71, 71);
+      xvv = Color.fromARGB(255, 104, 104, 104);
     }
   }
 
@@ -688,10 +765,11 @@ class _listAssState extends State<listAss> {
     // TODO: implement initState
     super.initState();
     status();
+    
   }
 
   String xo = "Unfinished";
-  Color xvv = Color.fromARGB(255, 148, 109, 255);
+  Color xvv = Color.fromRGBO(149, 155, 255, 0.836);
 
   @override
   Widget build(BuildContext context) {
@@ -700,64 +778,78 @@ class _listAssState extends State<listAss> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
-              width: 80,
-              height: 20,
-              margin: EdgeInsets.only(top: 4, left: 0, bottom: 5),
-              padding: EdgeInsets.all(2),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(25)),
-                color: Color.fromARGB(255, 202, 171, 255),
-              ),
-              child: Center(
-                  child: Text(
-                "${widget.Subject}",
-                style: TextStyle(
-                  color: Color.fromARGB(255, 125, 88, 255),
-                  fontSize: 10,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Container(
+                  width: 80,
+                  height: 20,
+                  margin: EdgeInsets.only(top: 4, left: 3, bottom: 5),
+                  padding: EdgeInsets.all(2),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(25)),
+                    color: Color.fromARGB(255, 255, 255, 255),
+                  ),
+                  child: Center(
+                      child: Text(
+                    "${widget.Subject}",
+                    style: TextStyle(
+                      color: Color.fromRGBO(109, 116, 255, 1),
+                      fontSize: 10,
+                    ),
+                  )),
                 ),
-              )),
+              ],
             ),
             Text(
               "${widget.topic}",
               style: TextStyle(fontFamily: 'Poppins'),
             ),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Text(
                   "Assign Date : ",
                   style: TextStyle(color: Colors.grey[600]),
                 ),
+                const SizedBox(
+                  width: 11,
+                ),
                 Text(
-                  "${widget.x}",
-                  style: TextStyle(color: Color.fromARGB(255, 0, 0, 0)),
+                  "${widget.x!.year}/${widget.x!.month}/${widget.x!.day}",
+                  style: TextStyle(color: Colors.grey[600]),
                 ),
               ],
             ),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Text(
                   "Last Date : ",
                   style: TextStyle(color: Colors.grey[600]),
                 ),
+                const SizedBox(
+                  width: 27,
+                ),
                 Text(
-                  "${widget.y}",
-                  style: TextStyle(color: Color.fromARGB(255, 0, 0, 0)),
+                  "${widget.y!.year}/${widget.y!.month}/${widget.y!.day}",
+                  style: TextStyle(color: Colors.grey[600]),
                 ),
               ],
             ),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Text(
                   "Status : ",
                   style: TextStyle(color: Colors.grey[600]),
                 ),
+                const SizedBox(
+                  width: 48,
+                ),
                 Text(
                   "$xo",
-                  style: TextStyle(color: Color.fromARGB(255, 0, 0, 0)),
+                  style: TextStyle(color: Colors.grey[600]),
                 ),
               ],
             ),
@@ -776,10 +868,6 @@ class _listAssState extends State<listAss> {
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.all(Radius.circular(25)),
                       color: xvv,
-                      border: Border.all(
-                          color: Colors.white,
-                          width: 3,
-                          style: BorderStyle.solid),
                     ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -814,11 +902,11 @@ class _listAssState extends State<listAss> {
                     padding: EdgeInsets.all(10),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.all(Radius.circular(25)),
-                      color: Color.fromARGB(255, 148, 109, 255),
-                      border: Border.all(
-                          color: Colors.white,
-                          width: 3,
-                          style: BorderStyle.solid),
+                                                  gradient: const LinearGradient(
+                              colors: [
+                                Color.fromRGBO(143, 148, 251, 1),
+                                Color.fromRGBO(143, 148, 251, 0.6),
+                              ],),
                     ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -853,51 +941,67 @@ class _listAssState extends State<listAss> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
-                width: 80,
-                height: 20,
-                margin: EdgeInsets.only(top: 4, left: 0, bottom: 5),
-                padding: EdgeInsets.all(2),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(25)),
-                  color: Color.fromARGB(255, 202, 171, 255),
-                ),
-                child: Center(
-                    child: Text(
-                  "${widget.Subject}",
-                  style: TextStyle(
-                    color: Color.fromARGB(255, 125, 88, 255),
-                    fontSize: 10,
+              FadeAnimation2(
+                  1.6,
+                  Container(
+                    width: 80,
+                    height: 20,
+                    margin: EdgeInsets.only(top: 4, left: 0, bottom: 5),
+                    padding: EdgeInsets.all(0),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(25)),
+                      color: Colors.white,
+                    ),
+                    child: Center(
+                      child: Text(
+                        "${widget.Subject}",
+                        style: TextStyle(
+                          color: Color.fromRGBO(93, 101, 255, 1),
+                          fontSize: 10,
+                        ),
+                      ),
+                    ),
                   ),
-                )),
-              ),
+                  context),
               Text(
                 "${widget.topic}",
                 style: TextStyle(fontFamily: 'Poppins'),
               ),
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Text(
                     "Assign Date : ",
                     style: TextStyle(color: Colors.grey[600]),
                   ),
+                  const SizedBox(
+                    width: 10,
+                  ),
                   Text(
-                    "${widget.x}",
-                    style: TextStyle(color: Color.fromARGB(255, 0, 0, 0)),
+                    "${widget.x!.year}/${widget.x!.month}/${widget.x!.day}",
+                    style: TextStyle(
+                      color: Colors.grey[600],
+                      // fontFamily: 'Poppins',
+                    ),
                   ),
                 ],
               ),
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Text(
                     "Last Date : ",
                     style: TextStyle(color: Colors.grey[600]),
                   ),
+                  const SizedBox(
+                    width: 26,
+                  ),
                   Text(
-                    "${widget.y}",
-                    style: TextStyle(color: Color.fromARGB(255, 0, 0, 0)),
+                    "${widget.y!.year}/${widget.y!.month}/${widget.y!.day}",
+                    style: TextStyle(
+                      color: Colors.grey[600],
+                      // fontFamily: 'Poppins',
+                    ),
                   ),
                 ],
               ),
@@ -912,36 +1016,48 @@ class _listAssState extends State<listAss> {
                         builder: (context) => GetAnswers(topic: widget.topic)),
                   ),
                 },
-                child: Container(
-                  padding: EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(25)),
-                    color: Color.fromARGB(255, 148, 109, 255),
-                    border: Border.all(
-                        color: Colors.white,
-                        width: 3,
-                        style: BorderStyle.solid),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(
-                        Icons.view_carousel,
-                        color: Colors.white,
-                        size: 12,
-                      ),
-                      const SizedBox(
-                        width: 10,
-                      ),
-                      Center(
-                        child: Text(
-                          "View Answers",
-                          style: TextStyle(color: Colors.white, fontSize: 12),
+                child: FadeAnimation2(
+                    1.6,
+                    Center(
+                      child: Container(
+                        width: 200,
+                        padding: EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.all(Radius.circular(25)),
+                            gradient: const LinearGradient(
+                              colors: [
+                                Color.fromRGBO(143, 148, 251, 1),
+                                Color.fromRGBO(143, 148, 251, 0.6),
+                              ],
+                            )
+                            // border: Border.all(
+                            //     color: Colors.white,
+                            //     width: 3,
+                            //     style: BorderStyle.solid),
+                            ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.view_carousel,
+                              color: Colors.white,
+                              size: 12,
+                            ),
+                            const SizedBox(
+                              width: 10,
+                            ),
+                            Center(
+                              child: Text(
+                                "View Answers",
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 12),
+                              ),
+                            ),
+                          ],
                         ),
                       ),
-                    ],
-                  ),
-                ),
+                    ),
+                    context),
               ),
             ],
           ),
@@ -985,8 +1101,9 @@ class _GetAnswersState extends State<GetAnswers> {
         appBar: AppBar(
           centerTitle: true,
           title: Text("Answers to ${widget.topic}"),
-          backgroundColor: Colors.deepPurpleAccent,
+          backgroundColor: Color.fromRGBO(109, 116, 255, 1),
         ),
+        backgroundColor: Colors.grey[300],
         body: Column(
           children: [
             Container(
@@ -1005,8 +1122,29 @@ class _GetAnswersState extends State<GetAnswers> {
                 ),
               ),
             ),
-            Column(
-              children: docs.map((e) => listx(doc: e)).toList(),
+            Container(
+              margin: EdgeInsets.only(left:20,right: 20,top: 10),
+              decoration: BoxDecoration(
+                color: Colors.grey[300],
+                borderRadius: BorderRadius.circular(27),
+                boxShadow: [
+                                    const BoxShadow(
+                                      offset: Offset(-6, -6),
+                                      color: Colors.white,
+                                      blurRadius: 12,
+                                      spreadRadius: 1,
+                                    ),
+                                    BoxShadow(
+                                      offset: const Offset(4, 4),
+                                      color: Colors.grey.shade500,
+                                      blurRadius: 4,
+                                      spreadRadius: 1,
+                                    ),
+                                  ]
+              ),
+              child: Column(
+                children: docs.map((e) => listx(doc: e)).toList(),
+              ),
             ),
           ],
         ),
@@ -1022,10 +1160,12 @@ class listx extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return 
+    FadeAnimation3(1.6, 
+    Container(
       margin: EdgeInsets.only(bottom: 10),
       width: 500,
-      height: 105,
+      height: 120,
       padding: EdgeInsets.all(5),
       decoration: BoxDecoration(
           border: Border.all(
@@ -1063,9 +1203,12 @@ class listx extends StatelessWidget {
                   height: 8,
                 ),
                 Text(
-                      doc['name'],
-                      style: TextStyle(fontFamily: 'Poppins'),
-                    ),
+                  doc['name'],
+                  style: TextStyle(fontFamily: 'Poppins'),
+                ),
+                SizedBox(
+                  height: 18,
+                ),
                 GestureDetector(
                   onTap: () => {
                     print("Download"),
@@ -1080,11 +1223,31 @@ class listx extends StatelessWidget {
                     padding: EdgeInsets.all(10),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.all(Radius.circular(25)),
-                      color: Color.fromARGB(255, 148, 109, 255),
-                      border: Border.all(
-                          color: Colors.white,
-                          width: 3,
-                          style: BorderStyle.solid),
+                      //color: Color.fromARGB(255, 148, 109, 255),
+                      // border: Border.all(
+                      //     color: Colors.white,
+                      //     width: 3,
+                      //     style: BorderStyle.solid),
+                      gradient: const LinearGradient(
+                            colors: [
+                              Color.fromRGBO(143, 148, 251, 1),
+                              Color.fromRGBO(143, 148, 251, 0.6),
+                            ],
+                          ),
+                          boxShadow: [
+                                    const BoxShadow(
+                                      offset: Offset(-6, -6),
+                                      color: Colors.white,
+                                      blurRadius: 12,
+                                      spreadRadius: 1,
+                                    ),
+                                    BoxShadow(
+                                      offset: const Offset(4, 4),
+                                      color: Colors.grey.shade500,
+                                      blurRadius: 4,
+                                      spreadRadius: 1,
+                                    ),
+                                  ]
                     ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -1112,6 +1275,6 @@ class listx extends StatelessWidget {
           ),
         ],
       ),
-    );
+    ), context);
   }
 }

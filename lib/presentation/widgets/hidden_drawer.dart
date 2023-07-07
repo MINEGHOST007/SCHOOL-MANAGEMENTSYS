@@ -91,12 +91,12 @@ class _HiddenDrawerState extends State<HiddenDrawer> {
     ];
     }
     return HiddenDrawerMenu(
-      backgroundColorAppBar: Colors.deepPurpleAccent,
+      backgroundColorAppBar: Color.fromRGBO(109, 116, 255, 1),
       isTitleCentered: true,
-      backgroundColorMenu: Color.fromRGBO(158, 165, 255, 1),
+      backgroundColorMenu: Color.fromRGBO(144, 150, 255, 0.749),
       screens: pages,
       initPositionSelected: 0,
-      slidePercent: 40,
+      slidePercent: 55,
       backgroundColorContent: Color.fromARGB(0, 0, 0, 0),
     );
   }

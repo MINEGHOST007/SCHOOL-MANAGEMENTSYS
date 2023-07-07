@@ -12,13 +12,15 @@ class Loading extends StatefulWidget {
 
 class _LoadingState extends State<Loading> {
   Future<void> checker1() async {
-    final Map<String, dynamic> arguments =
-        ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
-    final String email = arguments['email'];
-    final String password = arguments['password'];
-    var categoryfinal = arguments['category'];
-    //final OAuthCredential credential = arguments['credential'];
-    try {
+    final String email;
+    final String password;
+    if (ModalRoute.of(context)!.settings.arguments != null) {
+      final Map<String, dynamic>? arguments =
+          ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+      email = arguments!['email'];
+      password = arguments['password'];
+      var categoryfinal = arguments['category'];
+      try {
       await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: email,
         password: password,
@@ -26,7 +28,6 @@ class _LoadingState extends State<Loading> {
       // else if(credential != null){
       //   await FirebaseAuth.instance.signInWithCredential(credential);
       // }
-
 
       Navigator.pushNamedAndRemoveUntil(context, '/home', (route) => false);
       //Navigator.popAndPushNamed(context,'/home' );
@@ -39,6 +40,10 @@ class _LoadingState extends State<Loading> {
 
       if (e.code == 'wrong-password') wrongpassword();
     }
+    }
+
+    //final OAuthCredential credential = arguments['credential'];
+    
   }
 
   void wrongemail() {

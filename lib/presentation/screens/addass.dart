@@ -1,4 +1,5 @@
 import 'package:edusphere/data/providers.dart';
+import 'package:edusphere/presentation/widgets/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
@@ -26,7 +27,7 @@ class _AddassState extends State<Addass> {
   DateTime? dd;
   String? urr;
 
-  Color cc = Color.fromRGBO(113, 73, 198, 0.8);
+  Color cc = Color.fromRGBO(117, 123, 255, 1);
 
   Future<String?> uploadpdf(String fn, File file) async {
     Getname gn = Getname();
@@ -96,7 +97,7 @@ class _AddassState extends State<Addass> {
         .then((value) {
       setState(() {
         dd = value;
-        if (dd != null) ff = dd.toString().trim();
+        if (dd != null) ff = "${dd!.year}/${dd!.month}/${dd!.day}";
       });
     });
   }
@@ -141,25 +142,41 @@ class _AddassState extends State<Addass> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[200],
+      backgroundColor: Colors.grey[300],
       body: SingleChildScrollView(
         child: Column(
           children: [
             const SizedBox(
               height: 50,
             ),
+            FadeAnimation3(1.6,
             Container(
               width: 500,
               margin: EdgeInsets.all(20),
               padding: EdgeInsets.all(25),
               decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: Colors.grey[300],
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(10),
                     topRight: Radius.circular(10),
                     bottomLeft: Radius.circular(10),
                     bottomRight: Radius.circular(10),
-                  )),
+                  ),
+                  boxShadow: [
+                                    const BoxShadow(
+                                      offset: Offset(-6, -6),
+                                      color: Colors.white,
+                                      blurRadius: 8,
+                                      spreadRadius: 1,
+                                    ),
+                                    BoxShadow(
+                                      offset: const Offset(4, 4),
+                                      color: Colors.grey.shade500,
+                                      blurRadius: 4,
+                                      spreadRadius: 1,
+                                    ),
+                          ]
+                  ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -246,7 +263,7 @@ class _AddassState extends State<Addass> {
                       ),
                       DropdownButton<int>(
                         value: cls,
-                        hint: Text('Select your class'),
+                        hint: Text('Select class'),
                         items: List.generate(10, (index) {
                           return DropdownMenuItem<int>(
                             value: index + 1,
@@ -380,7 +397,7 @@ class _AddassState extends State<Addass> {
                                   offset: Offset(0, 3),
                                 ),
                               ],
-                              color: Color.fromRGBO(113, 73, 198, 0.8),
+                              color: Color.fromRGBO(117, 123, 255, 1),
                             ),
                             child: Center(
                               child: Text(
@@ -401,7 +418,7 @@ class _AddassState extends State<Addass> {
                   ),
                 ],
               ),
-            ),
+            ), context),
             SizedBox(
               height: 15,
             ),

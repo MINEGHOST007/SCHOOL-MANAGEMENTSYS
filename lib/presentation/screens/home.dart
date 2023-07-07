@@ -135,6 +135,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:edusphere/common/utils.dart';
 import 'package:edusphere/data/providers.dart';
 import 'package:edusphere/presentation/screens/auth.dart';
+import 'package:edusphere/presentation/screens/load.dart';
+import 'package:edusphere/presentation/widgets/animations.dart';
 import 'package:edusphere/presentation/widgets/hidden_drawer.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -143,6 +145,7 @@ import 'package:edusphere/presentation/screens/home.dart';
 import 'package:edusphere/presentation/screens/profile.dart';
 import 'package:edusphere/presentation/screens/tasks.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent-tab-view.dart';
 
 class HomePage extends StatefulWidget {
@@ -161,27 +164,27 @@ class _HomePageState extends State<HomePage> {
     List<PersistentBottomNavBarItem> _navBarsItems() {
       return [
         PersistentBottomNavBarItem(
-          icon: Icon(Icons.home),
+          icon: const Icon(Icons.home),
           title: "Home",
-          activeColorPrimary: Color.fromARGB(255, 67, 95, 255),
+          activeColorPrimary: const Color.fromARGB(255, 67, 95, 255),
           inactiveColorPrimary: Colors.black,
         ),
         PersistentBottomNavBarItem(
-          icon: Icon(Icons.person),
+          icon: const Icon(Icons.person),
           title: "Profile",
-          activeColorPrimary: Color.fromARGB(255, 67, 95, 255),
+          activeColorPrimary: const Color.fromARGB(255, 67, 95, 255),
           inactiveColorPrimary: Colors.black,
         ),
         PersistentBottomNavBarItem(
-          icon: Icon(Icons.edit_document),
+          icon: const Icon(Icons.edit_document),
           title: "Tasks",
-          activeColorPrimary: Color.fromARGB(255, 67, 95, 255),
+          activeColorPrimary: const Color.fromARGB(255, 67, 95, 255),
           inactiveColorPrimary: Colors.black,
         ),
         PersistentBottomNavBarItem(
-          icon: Icon(Icons.calendar_view_month_outlined),
+          icon: const Icon(Icons.calendar_today_rounded),
           title: "Calender",
-          activeColorPrimary: Color.fromARGB(255, 67, 95, 255),
+          activeColorPrimary: const Color.fromARGB(255, 67, 95, 255),
           inactiveColorPrimary: Colors.black,
         ),
       ];
@@ -189,15 +192,38 @@ class _HomePageState extends State<HomePage> {
 
     List<Widget> _buildScreens() {
       return [
-        HomePage1(),
-        Profilepage(),
-        HiddenDrawer(),
-        acadcalender(),
+        const HomePage1(),
+        const Profilepage(),
+        const HiddenDrawer(),
+        const acadcalender(),
       ];
     }
 
-    return Padding(
-      padding: const EdgeInsets.only(left: 0.0, right: 0.0, top: 0, bottom: 0),
+    return Container(
+      padding: const EdgeInsets.only(left: 0.0, right: 0.0, top: 5, bottom: 10),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        boxShadow: [
+                                    const BoxShadow(
+                                      offset: Offset(-6, 6),
+                                      color: Colors.white,
+                                      blurRadius: 12,
+                                      spreadRadius: 1,
+                                    ),
+                                    const BoxShadow(
+                                      offset: Offset(6, 6),
+                                      color: Colors.white,
+                                      blurRadius: 12,
+                                      spreadRadius: 1,
+                                    ),
+                                    BoxShadow(
+                                      offset: const Offset(0, 6),
+                                      color: Colors.grey.shade500,
+                                      blurRadius: 4,
+                                      spreadRadius: 1,
+                            ),
+        ]
+      ),
       child: ClipRRect(
         borderRadius: const BorderRadius.only(
           topLeft: Radius.circular(30),
@@ -209,8 +235,8 @@ class _HomePageState extends State<HomePage> {
           screens: _buildScreens(),
           items: _navBarsItems(),
           confineInSafeArea: true,
-          backgroundColor:
-              Color.fromARGB(255, 255, 255, 255), // Default is Colors.white.
+          backgroundColor: const Color.fromARGB(
+              255, 255, 255, 255), // Default is Colors.white.
           handleAndroidBackButtonPress: true, // Default is true.
           resizeToAvoidBottomInset:
               false, // This needs to be true if you want to move up the screen when keyboard appears. Default is true.
@@ -270,8 +296,8 @@ class _HomePage1State extends State<HomePage1> {
       // popAllScreens(context);
       //Navigator.pushNamedAndRemoveUntil(context, '/splash', (route) => false);
       Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => AuthPage()));
-      pushNewScreen(context, screen: AuthPage(), withNavBar: false);
+          context, MaterialPageRoute(builder: (context) => const AuthPage()));
+      pushNewScreen(context, screen: const AuthPage(), withNavBar: false);
     } catch (e) {
       print('Error signing out: $e');
     }
@@ -286,6 +312,7 @@ class _HomePage1State extends State<HomePage1> {
   List<String> Subjects = ["Mathematics", "English", "Science", "Social"];
   List<DocumentSnapshot>? teacherList = [];
   int count = 0;
+  int cx = 0;
   Future<void> retrieveTeachers() async {
     GetUserNamee gr = GetUserNamee();
     role = await gr.getRole();
@@ -296,9 +323,11 @@ class _HomePage1State extends State<HomePage1> {
     if (role == "student") {
       Getteacherdocs teacherDocs = Getteacherdocs();
       teacherList = await teacherDocs.getteacher();
+      cx = 1;
     } else if (role == "teacher") {
       x = "Classes";
       y = "Students";
+      cx = 1;
       Getstudentdocs gs = Getstudentdocs();
       teacherList = await gs.getteacher();
       Subjects = ["10", "9", "8", "7", "6", "5", "4", "3", "2", "1"];
@@ -309,12 +338,14 @@ class _HomePage1State extends State<HomePage1> {
       setState(() {
         teacherList = teacherList;
         count = 1;
+        cx = 1;
       });
     }
     if (user!.email != z && countt == 0) {
       setState(() {
         z = z;
         countt = 1;
+        cx = 1;
       });
     }
   }
@@ -360,143 +391,252 @@ class _HomePage1State extends State<HomePage1> {
   @override
   Widget build(BuildContext context) {
     retrieveTeachers();
-
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      appBar: AppBar(
-        leading: Container(),
-        elevation: 0,
-        toolbarHeight: 160,
-        backgroundColor: Color.fromARGB(176, 196, 195, 195),
-        actions: [
-          IconButton(
-              onPressed: signUserOut, icon: const Icon(Icons.logout_rounded))
-        ],
-        flexibleSpace: Container(
-          padding: EdgeInsets.only(top: 80, left: 25),
-          decoration: const BoxDecoration(
-            borderRadius: BorderRadius.only(
-              bottomLeft: Radius.circular(50),
-              bottomRight: Radius.circular(50),
-            ),
-            gradient: LinearGradient(
-              colors: [
-                Color.fromRGBO(104, 112, 255, 1),
-                Color.fromRGBO(114, 120, 243, 0.6),
-              ],
-            ),
-          ),
+    if (count == 1 && cx == 1)
+      return Scaffold(
+        resizeToAvoidBottomInset: false,
+        // appBar: AppBar(
+        //   leading: Container(),
+        //   elevation: 0,
+        //   toolbarHeight: 160,
+        //   backgroundColor: Color.fromARGB(255, 255, 255, 255),
+        //   actions: [
+        //     IconButton(
+        //         onPressed: signUserOut, icon: const Icon(Icons.logout_rounded))
+        //   ],
+        //   flexibleSpace: Container(
+        //     padding: EdgeInsets.only(top: 80, left: 25),
+        //     decoration: const BoxDecoration(
+        //       borderRadius: BorderRadius.only(
+        //         bottomLeft: Radius.circular(50),
+        //         bottomRight: Radius.circular(50),
+        //       ),
+        //       gradient: LinearGradient(
+        //         colors: [
+        //           Color.fromRGBO(104, 112, 255, 1),
+        //           Color.fromRGBO(114, 120, 243, 0.6),
+        //         ],
+        //       ),
+        //     ),
+        //     child: Column(
+        //       mainAxisAlignment: MainAxisAlignment.start,
+        //       crossAxisAlignment: CrossAxisAlignment.start,
+        //       children: [
+        //         const Text(
+        //           "Hello,",
+        //           style: TextStyle(
+        //             fontFamily: 'Poppins',
+        //             fontSize: 22.5,
+        //             color: Color.fromARGB(164, 255, 255, 255),
+        //           ),
+        //         ),
+        //         SizedBox(
+        //           height: 3,
+        //         ),
+        //         Text(
+        //           "$z",
+        //           style: const TextStyle(
+        //             fontFamily: 'Poppins',
+        //             fontWeight: FontWeight.w500,
+        //             fontSize: 25.5,
+        //             color: Colors.white,
+        //           ),
+        //         ),
+        //       ],
+        //     ),
+        //   ),
+        // ),
+        backgroundColor: Colors.grey[300],
+        body: SingleChildScrollView(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
-                "Hello,",
-                style: TextStyle(
-                  fontFamily: 'Poppins',
-                  fontSize: 22.5,
-                  color: Color.fromARGB(164, 255, 255, 255),
+              Container(
+                width: 500,
+                height: 200,
+                child: AppBar(
+                  leading: Container(),
+                  elevation: 0,
+                  toolbarHeight: 150,
+                  backgroundColor: Colors.grey[300],
+                  actions: [
+                    IconButton(
+                        onPressed: signUserOut,
+                        icon: const Icon(Icons.logout_rounded))
+                  ],
+                  flexibleSpace: Container(
+                    height: 170,
+                    width: double.infinity,
+                    padding:
+                        const EdgeInsets.only(top: 80, left: 25, bottom: 40),
+                    decoration: const BoxDecoration(
+                      borderRadius: BorderRadius.only(
+                        bottomLeft: Radius.circular(50),
+                        bottomRight: Radius.circular(50),
+                      ),
+                      gradient: LinearGradient(
+                        colors: [
+                          Color.fromRGBO(104, 112, 255, 1),
+                          Color.fromRGBO(114, 120, 243, 0.6),
+                        ],
+                      ),
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          "Hello,",
+                          style: TextStyle(
+                            fontFamily: 'Poppins',
+                            fontSize: 22.5,
+                            color: Color.fromARGB(164, 255, 255, 255),
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 3,
+                        ),
+                        Text(
+                          "$z",
+                          style: const TextStyle(
+                            fontFamily: 'Poppins',
+                            fontWeight: FontWeight.w500,
+                            fontSize: 25.5,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
               ),
-              SizedBox(
-                height: 3,
-              ),
-              Text(
-                "$z",
-                style: const TextStyle(
-                  fontFamily: 'Poppins',
-                  fontWeight: FontWeight.w500,
-                  fontSize: 25.5,
-                  color: Colors.white,
-                ),
+              Column(
+                children: [
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Container(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Row(
+                          children: [
+                            const SizedBox(
+                              width: 15,
+                            ),
+                            Text(
+                              x,
+                              style: const TextStyle(
+                                fontFamily: 'Poppins',
+                                fontSize: 17.5,
+                                color: Color.fromARGB(255, 0, 0, 0),
+                              ),
+                            ),
+                          ],
+                        ),
+                        SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Row(
+                            children: Subjects.map((e) => Cardclass(subs: e))
+                                .toList(),
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 15,
+                        ),
+                        Row(
+                          children: [
+                            const SizedBox(
+                              width: 15,
+                            ),
+                            Text(
+                              y,
+                              style: const TextStyle(
+                                fontFamily: 'Poppins',
+                                fontSize: 17.5,
+                                color: Color.fromARGB(255, 0, 0, 0),
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        FadeAnimation2(
+                            1.6,
+                            Container(
+                              margin: const EdgeInsets.all(20),
+                              padding: EdgeInsets.only(left: 15, right: 15),
+                              width: 500,
+                              decoration: BoxDecoration(
+                                  color: Colors.grey.shade300,
+                                  borderRadius: const BorderRadius.only(
+                                    topLeft: Radius.circular(20),
+                                    topRight: Radius.circular(20),
+                                    bottomLeft: Radius.circular(20),
+                                    bottomRight: Radius.circular(20),
+                                  ),
+                                  boxShadow: [
+                                    const BoxShadow(
+                                      offset: Offset(-6, -6),
+                                      color: Colors.white,
+                                      blurRadius: 12,
+                                      spreadRadius: 1,
+                                    ),
+                                    BoxShadow(
+                                      offset: const Offset(4, 4),
+                                      color: Colors.grey.shade500,
+                                      blurRadius: 4,
+                                      spreadRadius: 1,
+                                    ),
+                                  ]),
+                              child: Column(
+                                children: [
+                                  Container(
+                                    padding: const EdgeInsets.all(15),
+                                    child: TextField(
+                                      onChanged: (value) => runFilter(value),
+                                      decoration: InputDecoration(
+                                        contentPadding:
+                                            const EdgeInsets.symmetric(
+                                                vertical: 10, horizontal: 10),
+                                        hintText: "Search",
+                                        suffixIcon: const Icon(
+                                          Icons.search,
+                                          color:
+                                              Color.fromRGBO(93, 101, 255, 1),
+                                        ),
+                                        border: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(20),
+                                          borderSide: const BorderSide(),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  Column(
+                                    children: teacherList!
+                                        .map((e) => list(doc: e, role: role))
+                                        .toList(),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            context),
+                        const SizedBox(
+                          height: 30,
+                        )
+                      ],
+                    ),
+                  ),
+                ],
               ),
             ],
           ),
         ),
-      ),
-      backgroundColor: Color.fromARGB(176, 196, 195, 195),
-      body: ListView(
-        children: [
-          Container(
-            padding: EdgeInsets.all(15.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const SizedBox(
-                  height: 5,
-                ),
-                Text(
-                  x,
-                  style: TextStyle(
-                    fontFamily: 'Poppins',
-                    fontSize: 17.5,
-                    color: Color.fromARGB(255, 0, 0, 0),
-                  ),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Row(
-                    children: Subjects.map((e) => Cardclass(subs: e)).toList(),
-                  ),
-                ),
-                const SizedBox(
-                  height: 15,
-                ),
-                Text(
-                  y,
-                  style: TextStyle(
-                    fontFamily: 'Poppins',
-                    fontSize: 17.5,
-                    color: Color.fromARGB(255, 0, 0, 0),
-                  ),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                Container(
-                  width: 500,
-                  decoration: const BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(20),
-                        topRight: Radius.circular(20),
-                        bottomLeft: Radius.circular(20),
-                        bottomRight: Radius.circular(20),
-                      )),
-                  child: Column(
-                    children: [
-                      Container(
-                        padding: EdgeInsets.all(15),
-                        child: TextField(
-                          onChanged: (value) => runFilter(value),
-                          decoration: InputDecoration(
-                            contentPadding: const EdgeInsets.symmetric(
-                                vertical: 10, horizontal: 10),
-                            hintText: "Search",
-                            suffixIcon: const Icon(Icons.search),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(20),
-                              borderSide: const BorderSide(),
-                            ),
-                          ),
-                        ),
-                      ),
-                      Column(
-                        children: teacherList!
-                            .map((e) => list(doc: e, role: role))
-                            .toList(),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
+      );
+    else
+      return Loading();
   }
 }

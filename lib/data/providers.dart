@@ -5,6 +5,7 @@ import 'package:edusphere/presentation/screens/home.dart';
 import 'package:edusphere/presentation/screens/load.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:pie_chart/pie_chart.dart';
 import 'package:flutter_file_downloader/flutter_file_downloader.dart';
 
@@ -397,9 +398,9 @@ class _GetSyllabusState extends State<GetSyllabus> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Syllabus"),
-        backgroundColor: Color.fromRGBO(74, 83, 255, 1),
+        backgroundColor: Color.fromRGBO(109, 116, 255, 1),
       ),
-      backgroundColor: Color.fromARGB(230, 177, 177, 177),
+      backgroundColor: Colors.grey[300],
       body: data != null
           ? ListView.builder(
               itemCount: data?.length,
@@ -407,15 +408,33 @@ class _GetSyllabusState extends State<GetSyllabus> {
                 var key = data!.keys.elementAt(index);
                 var value = data![key];
                 return Container(
-                  margin: EdgeInsets.all(10),
+                  margin: EdgeInsets.only(top:15,bottom: 5,left: 15,right: 15),
                   padding: EdgeInsets.symmetric(vertical: 10),
                   decoration: BoxDecoration(
-                    border: Border.all(color: Colors.black),
-                    color: Colors.white,
-                    borderRadius: BorderRadius.all(Radius.circular(10)),
+                    // border: Border.all(color: Colors.black),
+                    color: Colors.grey[300],
+                    borderRadius: BorderRadius.all(Radius.circular(27)),
+                                        boxShadow: [
+              BoxShadow(
+                color: Colors.grey.shade500,
+                offset: Offset(4, 4),
+                blurRadius: 15,
+                spreadRadius: 1,
+              ),
+              BoxShadow(
+                color: Colors.white,
+                offset: Offset(-4, -4),
+                blurRadius: 15,
+                spreadRadius: 1,
+              )
+            ],
                   ),
                   child: ListTile(
-                    title: Text(" Chapter $key : ${value.toString()}"),
+                    title: Text(" Chapter $key : ${value.toString()}",
+                    style: TextStyle(
+                      fontFamily: 'Poppins',
+                    ),
+                    ),
                   ),
                 );
               })
@@ -445,7 +464,7 @@ class GetSubjects extends StatelessWidget {
               fontFamily: 'Poppins',
             ),
           ),
-          backgroundColor: Color.fromRGBO(74, 83, 255, 1),
+          backgroundColor: Color.fromRGBO(109, 116, 255, 1),
           leading: Container(),
           actions: [
             IconButton(
@@ -460,6 +479,7 @@ class GetSubjects extends StatelessWidget {
             ),
           ],
         ),
+        backgroundColor: Colors.grey[300],
         body: SingleChildScrollView(
           child: SafeArea(
             child: Column(
@@ -538,12 +558,18 @@ class _GetSyllabus2State extends State<GetSyllabus2> {
                     color: Colors.white,
                     borderRadius: BorderRadius.all(Radius.circular(10)),
                   ),
-                  child: ListTile(
-                    title: Text(" Chapter $key : ${value.toString()}"),
+                  child: Column(
+                    children: [
+                      ListTile(
+                        title: Text(" Chapter $key : ${value.toString()}"),
+                      ),
+                    ],
                   ),
+                  
                 );
               })
           : Loading(),
+          
     );
   }
 }
@@ -558,7 +584,7 @@ class Getprofile extends StatefulWidget {
 }
 
 class _GetprofileState extends State<Getprofile> {
-  void refresh() async {
+  Future<void> refresh() async {
     List<DocumentSnapshot>? teacherList = [];
     Getstudentdocs gs = Getstudentdocs();
     teacherList = await gs.getteacher();
@@ -591,7 +617,7 @@ class _GetprofileState extends State<Getprofile> {
         title: Text("Student Profile"),
         backgroundColor: Color.fromARGB(255, 98, 122, 255),
       ),
-      backgroundColor: Color.fromARGB(255, 206, 206, 206),
+      backgroundColor: Colors.grey[300],
       body: Container(
         child: Column(
           children: [
@@ -615,17 +641,31 @@ class _GetprofileState extends State<Getprofile> {
                     gradient: const LinearGradient(
                       colors: [
                         Color.fromRGBO(143, 148, 251, 1),
-                        Color.fromRGBO(143, 148, 251, 0.6),
+                        Color.fromRGBO(143, 148, 251, 1),
                       ],
                     ),
                     borderRadius: BorderRadius.all(Radius.circular(10)),
-                    border: Border.all(color: Colors.white, width: 2),
+                    //border: Border.all(color: Colors.white, width: 2),
+                    boxShadow: [
+                                    const BoxShadow(
+                                      offset: Offset(-6, -6),
+                                      color: Colors.white,
+                                      blurRadius: 12,
+                                      spreadRadius: 1,
+                                    ),
+                                    BoxShadow(
+                                      offset: const Offset(4, 4),
+                                      color: Colors.grey.shade500,
+                                      blurRadius: 4,
+                                      spreadRadius: 1,
+                                    ),
+                                  ]
                   ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        "Edit Profile",
+                        "Edit Attendance",
                         style: TextStyle(
                           color: Colors.white,
                           fontFamily: 'Poppins',
@@ -645,18 +685,36 @@ class _GetprofileState extends State<Getprofile> {
                 ),
               ),
             ),
+            SizedBox(
+                    height: 35,
+                  ),
             Container(
               width: 500,
               margin: EdgeInsets.all(20),
               padding: EdgeInsets.all(25),
               decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: Colors.grey[300],
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(10),
                     topRight: Radius.circular(10),
                     bottomLeft: Radius.circular(10),
                     bottomRight: Radius.circular(10),
-                  )),
+                  ),
+                  boxShadow: [
+                                    const BoxShadow(
+                                      offset: Offset(-6, -6),
+                                      color: Colors.white,
+                                      blurRadius: 12,
+                                      spreadRadius: 1,
+                                    ),
+                                    BoxShadow(
+                                      offset: const Offset(4, 4),
+                                      color: Colors.grey.shade500,
+                                      blurRadius: 4,
+                                      spreadRadius: 1,
+                                    ),
+                                  ]
+                  ),
               child: Column(
                 children: [
                   Row(
@@ -696,7 +754,10 @@ class _GetprofileState extends State<Getprofile> {
                   Container(
                     width: 500,
                     height: 150,
-                    child: PieChart(dataMap: widget.pie),
+                    child: PieChart(dataMap: widget.pie,colorList: [
+                        Color.fromRGBO(143, 148, 251, 1),
+                        Color.fromRGBO(255, 255, 255, 1),
+                      ],),
                   ),
                 ],
               ),
@@ -714,11 +775,24 @@ class _GetprofileState extends State<Getprofile> {
                     gradient: const LinearGradient(
                       colors: [
                         Color.fromRGBO(143, 148, 251, 1),
-                        Color.fromRGBO(143, 148, 251, 0.6),
+                        Color.fromRGBO(143, 148, 251, 1),
                       ],
                     ),
                     borderRadius: BorderRadius.all(Radius.circular(10)),
-                    border: Border.all(color: Colors.white, width: 2),
+                    boxShadow: [
+                                    const BoxShadow(
+                                      offset: Offset(-6, -6),
+                                      color: Colors.white,
+                                      blurRadius: 12,
+                                      spreadRadius: 1,
+                                    ),
+                                    BoxShadow(
+                                      offset: const Offset(4, 4),
+                                      color: Colors.grey.shade500,
+                                      blurRadius: 4,
+                                      spreadRadius: 1,
+                                    ),
+                                  ]
                   ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
