@@ -172,104 +172,102 @@ class _SigninState extends State<Signin> {
                         ),
                         child: Column(
                           children: [
+                            
+                            // Row(
+                            //   mainAxisAlignment: MainAxisAlignment.center,
+                            //   children: [
+                            //     const SizedBox(
+                            //       width: 25.0,
+                            //     ),
+                            //     Expanded(
+                            //       child: Center(
+                            //         child: Container(
+                            //           padding: const EdgeInsets.all(8),
+                            //           decoration: BoxDecoration(
+                            //             color: Colors.white,
+                            //             borderRadius: BorderRadius.circular(50),
+                            //             boxShadow: const [
+                            //               BoxShadow(
+                            //                 color: Color.fromRGBO(
+                            //                     143, 148, 251, 0.8),
+                            //                 blurRadius: 20.0,
+                            //                 offset: Offset(10, 10),
+                            //               ),
+                            //             ],
+                            //           ),
+                            //           child: Row(
+                            //             children: [
+                            //               const SizedBox(
+                            //                 width: 10.0,
+                            //               ),
+                            //               Expanded(
+                            //                 child: GestureDetector(
+                            //                   onTap: () => {changeColor1()},
+                            //                   child: Container(
+                            //                     padding:
+                            //                         const EdgeInsets.all(10),
+                            //                     decoration: BoxDecoration(
+                            //                       color: _contcolor1,
+                            //                       borderRadius:
+                            //                           BorderRadius.circular(
+                            //                               40.0),
+                            //                     ),
+                            //                     child: const Center(
+                            //                       child: Text(
+                            //                         "Student",
+                            //                         style: TextStyle(
+                            //                           fontFamily: 'Poppins',
+                            //                           fontWeight:
+                            //                               FontWeight.w300,
+                            //                         ),
+                            //                       ),
+                            //                     ),
+                            //                   ),
+                            //                 ),
+                            //               ),
+                            //               const SizedBox(
+                            //                 width: 40.0,
+                            //               ),
+                            //               Expanded(
+                            //                 child: GestureDetector(
+                            //                   onTap: () => {changeColor2()},
+                            //                   child: Container(
+                            //                     padding:
+                            //                         const EdgeInsets.all(10),
+                            //                     decoration: BoxDecoration(
+                            //                       color: _contcolor2,
+                            //                       borderRadius:
+                            //                           BorderRadius.circular(
+                            //                               40.0),
+                            //                     ),
+                            //                     child: const Center(
+                            //                       child: Text(
+                            //                         "Teacher",
+                            //                         style: TextStyle(
+                            //                           fontFamily: 'Poppins',
+                            //                           fontWeight:
+                            //                               FontWeight.w300,
+                            //                         ),
+                            //                       ),
+                            //                     ),
+                            //                   ),
+                            //                 ),
+                            //               ),
+                            //               const SizedBox(
+                            //                 width: 10.0,
+                            //               ),
+                            //             ],
+                            //           ),
+                            //         ),
+                            //       ),
+                            //     ),
+                            //     const SizedBox(
+                            //       width: 25.0,
+                            //     ),
+                            //   ],
+                            // ),
                             const SizedBox(
-                              height: 10,
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                const SizedBox(
-                                  width: 25.0,
-                                ),
-                                Expanded(
-                                  child: Center(
-                                    child: Container(
-                                      padding: const EdgeInsets.all(8),
-                                      decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        borderRadius: BorderRadius.circular(50),
-                                        boxShadow: const [
-                                          BoxShadow(
-                                            color: Color.fromRGBO(
-                                                143, 148, 251, 0.8),
-                                            blurRadius: 20.0,
-                                            offset: Offset(10, 10),
-                                          ),
-                                        ],
-                                      ),
-                                      child: Row(
-                                        children: [
-                                          const SizedBox(
-                                            width: 10.0,
-                                          ),
-                                          Expanded(
-                                            child: GestureDetector(
-                                              onTap: () => {changeColor1()},
-                                              child: Container(
-                                                padding:
-                                                    const EdgeInsets.all(10),
-                                                decoration: BoxDecoration(
-                                                  color: _contcolor1,
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          40.0),
-                                                ),
-                                                child: const Center(
-                                                  child: Text(
-                                                    "Student",
-                                                    style: TextStyle(
-                                                      fontFamily: 'Poppins',
-                                                      fontWeight:
-                                                          FontWeight.w300,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                          const SizedBox(
-                                            width: 40.0,
-                                          ),
-                                          Expanded(
-                                            child: GestureDetector(
-                                              onTap: () => {changeColor2()},
-                                              child: Container(
-                                                padding:
-                                                    const EdgeInsets.all(10),
-                                                decoration: BoxDecoration(
-                                                  color: _contcolor2,
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          40.0),
-                                                ),
-                                                child: const Center(
-                                                  child: Text(
-                                                    "Teacher",
-                                                    style: TextStyle(
-                                                      fontFamily: 'Poppins',
-                                                      fontWeight:
-                                                          FontWeight.w300,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                          const SizedBox(
-                                            width: 10.0,
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                const SizedBox(
-                                  width: 25.0,
-                                ),
-                              ],
-                            ),
-                            const SizedBox(
-                              height: 17.5,
+                              height: 0,
                             ),
                             Container(
                               padding: const EdgeInsets.all(4.0),
@@ -390,6 +388,103 @@ class _SigninState extends State<Signin> {
                       ),
                     ),
                     const SizedBox(
+                      height: 15,
+                    ),
+                              Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const SizedBox(
+                                  width: 40.0,
+                                ),
+                                Expanded(
+                                  child: Center(
+                                    child: Container(
+                                      height: 55,
+                                      padding: const EdgeInsets.all(8),
+                                      decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius: BorderRadius.circular(50),
+                                        boxShadow: const [
+                                          BoxShadow(
+                                            color: Color.fromRGBO(
+                                                143, 148, 251, 0.8),
+                                            blurRadius: 20.0,
+                                            offset: Offset(10, 10),
+                                          ),
+                                        ],
+                                      ),
+                                      child: Row(
+                                        children: [
+                                          const SizedBox(
+                                            width: 10.0,
+                                          ),
+                                          Expanded(
+                                            child: GestureDetector(
+                                              onTap: () => {changeColor1()},
+                                              child: Container(
+                                                padding:
+                                                    const EdgeInsets.all(10),
+                                                decoration: BoxDecoration(
+                                                  color: _contcolor1,
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          40.0),
+                                                ),
+                                                child: const Center(
+                                                  child: Text(
+                                                    "Student",
+                                                    style: TextStyle(
+                                                      fontFamily: 'Poppins',
+                                                      fontWeight:
+                                                          FontWeight.w300,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                          const SizedBox(
+                                            width: 40.0,
+                                          ),
+                                          Expanded(
+                                            child: GestureDetector(
+                                              onTap: () => {changeColor2()},
+                                              child: Container(
+                                                padding:
+                                                    const EdgeInsets.all(10),
+                                                decoration: BoxDecoration(
+                                                  color: _contcolor2,
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          40.0),
+                                                ),
+                                                child: const Center(
+                                                  child: Text(
+                                                    "Teacher",
+                                                    style: TextStyle(
+                                                      fontFamily: 'Poppins',
+                                                      fontWeight:
+                                                          FontWeight.w300,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                          const SizedBox(
+                                            width: 10.0,
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(
+                                  width: 40.0,
+                                ),
+                              ],
+                            ),
+                            const SizedBox(
                       height: 15,
                     ),
                     Row(

@@ -56,9 +56,11 @@ dependencies:
   dio: ^5.2.1+1
   easy_pdf_viewer: ^1.0.6
   flutter_file_downloader: ^1.1.2
-  table_calendar: ^3.0.8
+  table_calendar: 3.0.0
   flutter_neumorphic: ^3.2.0
   liquid_pull_to_refresh: ^3.0.1
+  percent_indicator: ^4.2.3
+  awesome_snackbar_content: ^0.1.3
 
 
 

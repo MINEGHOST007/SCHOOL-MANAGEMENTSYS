@@ -136,13 +136,13 @@ class _SplashState extends State<Splash> with TickerProviderStateMixin {
                           ),
                         ),
                         SizedBox(
-                          width: 15,
+                          width: 10,
                         ),
                         CircleAvatar(
                           backgroundColor: Colors.transparent,
                           backgroundImage:
                               AssetImage('assets/images/three.png'),
-                          radius: 45,
+                          radius: 40,
                         ),
                       ],
                     ),

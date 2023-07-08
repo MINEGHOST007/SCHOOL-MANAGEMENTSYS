@@ -59,6 +59,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:percent_indicator/percent_indicator.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent-tab-view.dart';
 import 'package:pie_chart/pie_chart.dart';
 import 'package:http/http.dart' as http;
@@ -66,6 +67,7 @@ import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:path_provider/path_provider.dart';
 import 'package:flutter_file_downloader/flutter_file_downloader.dart';
+import 'package:edusphere/data/absentee_list.dart';
 
 class SquareTile extends StatelessWidget {
   final String imagePath;
@@ -246,8 +248,8 @@ class _CardclassState extends State<Cardclass> {
       Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) =>
-                GetSyllabus(collecti: widget.subs, role: role),),
+          builder: (context) => GetSyllabus(collecti: widget.subs, role: role),
+        ),
       );
     } else if (role == "teacher") {
       Navigator.push(
@@ -408,33 +410,32 @@ class Cardclass2 extends StatelessWidget {
           margin: EdgeInsets.only(right: 15),
           alignment: Alignment.topCenter,
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(10),
-              topRight: Radius.circular(10),
-              bottomLeft: Radius.circular(10),
-              bottomRight: Radius.circular(10),
-            ),
-            gradient: LinearGradient(colors: [
-              // Color.fromRGBO(143, 148, 251, 1),
-              // Color.fromRGBO(143, 148, 251, 0.6),
-               Colors.grey.shade300,
-                    Colors.grey.shade300,
-            ]),
-            boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.shade500,
-                      offset: Offset(4, 4),
-                      blurRadius: 15,
-                      spreadRadius: 1,
-                    ),
-                    BoxShadow(
-                      color: Colors.white,
-                      offset: Offset(-4, -4),
-                      blurRadius: 15,
-                      spreadRadius: 1,
-                    )
-                  ]
-          ),
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(10),
+                topRight: Radius.circular(10),
+                bottomLeft: Radius.circular(10),
+                bottomRight: Radius.circular(10),
+              ),
+              gradient: LinearGradient(colors: [
+                // Color.fromRGBO(143, 148, 251, 1),
+                // Color.fromRGBO(143, 148, 251, 0.6),
+                Colors.grey.shade300,
+                Colors.grey.shade300,
+              ]),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.shade500,
+                  offset: Offset(4, 4),
+                  blurRadius: 15,
+                  spreadRadius: 1,
+                ),
+                BoxShadow(
+                  color: Colors.white,
+                  offset: Offset(-4, -4),
+                  blurRadius: 15,
+                  spreadRadius: 1,
+                )
+              ]),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -697,6 +698,87 @@ class listAss extends StatefulWidget {
 }
 
 class _listAssState extends State<listAss> {
+  double progressx = 0.0;
+  final Snackb = SnackBar(
+    content: Row(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: [
+        Container(
+          margin: EdgeInsets.only(bottom: 80),
+          height: 40,
+          decoration: BoxDecoration(
+            color: Color.fromARGB(0, 224, 224, 224),
+            borderRadius: BorderRadius.all(Radius.circular(20)),
+          ),
+          child: Center(
+            child: CircularPercentIndicator(
+              radius: 16,
+              lineWidth: 10,
+              // percent: progressx,
+              progressColor: Color.fromRGBO(110, 118, 255, 1),
+              backgroundColor: Color.fromRGBO(162, 166, 255, 1),
+              circularStrokeCap: CircularStrokeCap.round,
+              center: Icon(
+                Icons.upload_file_rounded,
+                color: Color.fromRGBO(110, 118, 255, 1),
+              ),
+            ),
+          ),
+        ),
+        Center(
+            child: Text(
+          "Uploading",
+          style: TextStyle(
+            fontFamily: 'Poppins',
+            color: Color.fromRGBO(110, 118, 255, 1),
+          ),
+        )),
+      ],
+    ),
+    behavior: SnackBarBehavior.floating,
+    backgroundColor: Colors.transparent,
+    elevation: 0,
+  );
+  final Snackb2 = SnackBar(
+    content: Row(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: [
+        Container(
+          margin: EdgeInsets.only(bottom: 80),
+          height: 40,
+          decoration: BoxDecoration(
+            color: Color.fromARGB(0, 224, 224, 224),
+            borderRadius: BorderRadius.all(Radius.circular(20)),
+          ),
+          child: Center(
+            child: CircularPercentIndicator(
+              radius: 16,
+              lineWidth: 10,
+              // percent: progressx,
+              progressColor: Color.fromRGBO(110, 118, 255, 1),
+              backgroundColor: Color.fromRGBO(162, 166, 255, 1),
+              circularStrokeCap: CircularStrokeCap.round,
+              center: Icon(
+                Icons.done_all_rounded,
+                color: Color.fromRGBO(110, 118, 255, 1),
+              ),
+            ),
+          ),
+        ),
+        Center(
+            child: Text(
+          "Completed",
+          style: TextStyle(
+            fontFamily: 'Poppins',
+            color: Color.fromRGBO(110, 118, 255, 1),
+          ),
+        )),
+      ],
+    ),
+    behavior: SnackBarBehavior.floating,
+    backgroundColor: Colors.transparent,
+    elevation: 0,
+  );
   Future<String> uploadpdf(String fn, File file) async {
     final refer =
         FirebaseStorage.instance.ref("Assignments/Hermoine/10/Answers/$fn.pdf");
@@ -716,7 +798,7 @@ class _listAssState extends State<listAss> {
       type: FileType.custom,
       allowedExtensions: ['pdf'],
     );
-
+    ScaffoldMessenger.of(context).showSnackBar(Snackb);
     if (result != null) {
       File file = File("${result.files.single.path}");
 
@@ -730,6 +812,9 @@ class _listAssState extends State<listAss> {
         "topic": "${widget.topic}",
         "by": user!.email
       });
+      ScaffoldMessenger.of(context).hideCurrentSnackBar();
+
+      ScaffoldMessenger.of(context).showSnackBar(Snackb2);
     }
   }
 
@@ -765,7 +850,6 @@ class _listAssState extends State<listAss> {
     // TODO: implement initState
     super.initState();
     status();
-    
   }
 
   String xo = "Unfinished";
@@ -896,17 +980,65 @@ class _listAssState extends State<listAss> {
                     // downloadfile("${widget.urr}", "${widget.topic}"),
                     FileDownloader.downloadFile(
                       url: "${widget.urr}".trim(),
+                      onProgress: (String? fileName, double progress) {
+                        setState(() {
+                          this.progressx = progress;
+                          print(progress);
+                        });
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                Expanded(
+                                  child: Container(
+                                    margin: EdgeInsets.only(bottom: 60),
+                                    height: 40,
+                                    decoration: BoxDecoration(
+                                      color: Color.fromARGB(0, 224, 224, 224),
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(20)),
+                                    ),
+                                    child: Center(
+                                      child: CircularPercentIndicator(
+                                        radius: 18,
+                                        lineWidth: 10,
+                                        percent: progressx,
+                                        progressColor:
+                                            Color.fromRGBO(110, 118, 255, 1),
+                                        backgroundColor:
+                                            Color.fromRGBO(162, 166, 255, 1),
+                                        circularStrokeCap:
+                                            CircularStrokeCap.round,
+                                        center: Icon(
+                                          Icons.downloading_rounded,
+                                          color:
+                                              Color.fromRGBO(110, 118, 255, 1),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            behavior: SnackBarBehavior.floating,
+                            backgroundColor: Colors.transparent,
+                            elevation: 0,
+                          ),
+                        );
+                      },
                     ),
                   },
                   child: Container(
                     padding: EdgeInsets.all(10),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.all(Radius.circular(25)),
-                                                  gradient: const LinearGradient(
-                              colors: [
-                                Color.fromRGBO(143, 148, 251, 1),
-                                Color.fromRGBO(143, 148, 251, 0.6),
-                              ],),
+                      gradient: const LinearGradient(
+                        colors: [
+                          Color.fromRGBO(143, 148, 251, 1),
+                          Color.fromRGBO(143, 148, 251, 0.6),
+                        ],
+                      ),
                     ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -943,24 +1075,29 @@ class _listAssState extends State<listAss> {
             children: [
               FadeAnimation2(
                   1.6,
-                  Container(
-                    width: 80,
-                    height: 20,
-                    margin: EdgeInsets.only(top: 4, left: 0, bottom: 5),
-                    padding: EdgeInsets.all(0),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(25)),
-                      color: Colors.white,
-                    ),
-                    child: Center(
-                      child: Text(
-                        "${widget.Subject}",
-                        style: TextStyle(
-                          color: Color.fromRGBO(93, 101, 255, 1),
-                          fontSize: 10,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Container(
+                        width: 80,
+                        height: 20,
+                        margin: EdgeInsets.only(top: 4, left: 0, bottom: 5),
+                        padding: EdgeInsets.all(0),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(25)),
+                          color: Colors.white,
+                        ),
+                        child: Center(
+                          child: Text(
+                            "${widget.Subject}",
+                            style: TextStyle(
+                              color: Color.fromRGBO(93, 101, 255, 1),
+                              fontSize: 10,
+                            ),
+                          ),
                         ),
                       ),
-                    ),
+                    ],
                   ),
                   context),
               Text(
@@ -1123,25 +1260,24 @@ class _GetAnswersState extends State<GetAnswers> {
               ),
             ),
             Container(
-              margin: EdgeInsets.only(left:20,right: 20,top: 10),
+              margin: EdgeInsets.only(left: 20, right: 20, top: 10),
               decoration: BoxDecoration(
-                color: Colors.grey[300],
-                borderRadius: BorderRadius.circular(27),
-                boxShadow: [
-                                    const BoxShadow(
-                                      offset: Offset(-6, -6),
-                                      color: Colors.white,
-                                      blurRadius: 12,
-                                      spreadRadius: 1,
-                                    ),
-                                    BoxShadow(
-                                      offset: const Offset(4, 4),
-                                      color: Colors.grey.shade500,
-                                      blurRadius: 4,
-                                      spreadRadius: 1,
-                                    ),
-                                  ]
-              ),
+                  color: Colors.grey[300],
+                  borderRadius: BorderRadius.circular(27),
+                  boxShadow: [
+                    const BoxShadow(
+                      offset: Offset(-6, -6),
+                      color: Colors.white,
+                      blurRadius: 12,
+                      spreadRadius: 1,
+                    ),
+                    BoxShadow(
+                      offset: const Offset(4, 4),
+                      color: Colors.grey.shade500,
+                      blurRadius: 4,
+                      spreadRadius: 1,
+                    ),
+                  ]),
               child: Column(
                 children: docs.map((e) => listx(doc: e)).toList(),
               ),
@@ -1154,127 +1290,403 @@ class _GetAnswersState extends State<GetAnswers> {
   }
 }
 
-class listx extends StatelessWidget {
+class listx extends StatefulWidget {
   DocumentSnapshot doc;
   listx({super.key, required this.doc});
 
   @override
+  State<listx> createState() => _listxState();
+}
+
+class _listxState extends State<listx> {
+  double progressx = 0.0;
+  @override
   Widget build(BuildContext context) {
-    return 
-    FadeAnimation3(1.6, 
-    Container(
-      margin: EdgeInsets.only(bottom: 10),
-      width: 500,
-      height: 120,
-      padding: EdgeInsets.all(5),
-      decoration: BoxDecoration(
-          border: Border.all(
-              color: Color.fromARGB(0, 0, 0, 0), style: BorderStyle.solid)),
-      child: Row(
-        children: [
-          Image.asset(
-            'assets/images/assignment.png',
-            fit: BoxFit.fitHeight,
-          ),
-          SizedBox(
-            width: 10,
-          ),
-          Expanded(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Row(
+    return FadeAnimation3(
+        1.6,
+        Container(
+          margin: EdgeInsets.only(bottom: 10),
+          width: 500,
+          height: 120,
+          padding: EdgeInsets.all(5),
+          decoration: BoxDecoration(
+              border: Border.all(
+                  color: Color.fromARGB(0, 0, 0, 0), style: BorderStyle.solid)),
+          child: Row(
+            children: [
+              Image.asset(
+                'assets/images/assignment.png',
+                fit: BoxFit.fitHeight,
+              ),
+              SizedBox(
+                width: 10,
+              ),
+              Expanded(
+                child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(
-                      "By",
-                      style: TextStyle(fontFamily: 'Poppins'),
-                    ),
-                    SizedBox(
-                      width: 6,
-                    ),
-                    Text(
-                      doc['by'],
-                      style: TextStyle(fontFamily: 'Poppins'),
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: 8,
-                ),
-                Text(
-                  doc['name'],
-                  style: TextStyle(fontFamily: 'Poppins'),
-                ),
-                SizedBox(
-                  height: 18,
-                ),
-                GestureDetector(
-                  onTap: () => {
-                    print("Download"),
-                    // downloadfile("${widget.urr}", "${widget.topic}"),
-                    FileDownloader.downloadFile(
-                      url: "${doc['link']}".trim(),
-                    ),
-                  },
-                  child: Container(
-                    width: 130,
-                    height: 40,
-                    padding: EdgeInsets.all(10),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(25)),
-                      //color: Color.fromARGB(255, 148, 109, 255),
-                      // border: Border.all(
-                      //     color: Colors.white,
-                      //     width: 3,
-                      //     style: BorderStyle.solid),
-                      gradient: const LinearGradient(
-                            colors: [
-                              Color.fromRGBO(143, 148, 251, 1),
-                              Color.fromRGBO(143, 148, 251, 0.6),
-                            ],
-                          ),
-                          boxShadow: [
-                                    const BoxShadow(
-                                      offset: Offset(-6, -6),
-                                      color: Colors.white,
-                                      blurRadius: 12,
-                                      spreadRadius: 1,
-                                    ),
-                                    BoxShadow(
-                                      offset: const Offset(4, 4),
-                                      color: Colors.grey.shade500,
-                                      blurRadius: 4,
-                                      spreadRadius: 1,
-                                    ),
-                                  ]
-                    ),
-                    child: Row(
+                    Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(
-                          Icons.download_outlined,
-                          color: Colors.white,
-                          size: 12,
+                        Text(
+                          "By",
+                          style: TextStyle(fontFamily: 'Poppins'),
                         ),
-                        const SizedBox(
-                          width: 10,
+                        SizedBox(
+                          width: 6,
                         ),
-                        Center(
-                          child: Text(
-                            "Download",
-                            style: TextStyle(color: Colors.white, fontSize: 12),
-                          ),
+                        Text(
+                          widget.doc['by'],
+                          style: TextStyle(fontFamily: 'Poppins'),
                         ),
                       ],
                     ),
-                  ),
+                    SizedBox(
+                      height: 8,
+                    ),
+                    Text(
+                      widget.doc['name'],
+                      style: TextStyle(fontFamily: 'Poppins'),
+                    ),
+                    SizedBox(
+                      height: 18,
+                    ),
+                    GestureDetector(
+                      onTap: () => {
+                        print("Download"),
+                        // downloadfile("${widget.urr}", "${widget.topic}"),
+                        FileDownloader.downloadFile(
+                          url: "${widget.doc['link']}".trim(),
+                          onProgress: (String? fileName, double progress) {
+                            setState(() {
+                              this.progressx = progress;
+                              print(progress);
+                            });
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    Expanded(
+                                      child: Container(
+                                        margin: EdgeInsets.only(bottom: 60),
+                                        height: 40,
+                                        decoration: BoxDecoration(
+                                          color: Colors.transparent,
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(20)),
+                                        ),
+                                        child: Center(
+                                          child: CircularPercentIndicator(
+                                            radius: 18,
+                                            lineWidth: 10,
+                                            percent: progressx,
+                                            progressColor: Color.fromRGBO(
+                                                110, 118, 255, 1),
+                                            backgroundColor: Color.fromRGBO(
+                                                162, 166, 255, 1),
+                                            circularStrokeCap:
+                                                CircularStrokeCap.round,
+                                            center: Icon(
+                                              Icons.downloading_rounded,
+                                              color: Color.fromRGBO(
+                                                  110, 118, 255, 1),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                behavior: SnackBarBehavior.floating,
+                                backgroundColor: Colors.transparent,
+                                elevation: 0,
+                              ),
+                            );
+                          },
+                        ),
+                      },
+                      child: Container(
+                        width: 130,
+                        height: 40,
+                        padding: EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.all(Radius.circular(25)),
+                            //color: Color.fromARGB(255, 148, 109, 255),
+                            // border: Border.all(
+                            //     color: Colors.white,
+                            //     width: 3,
+                            //     style: BorderStyle.solid),
+                            gradient: const LinearGradient(
+                              colors: [
+                                Color.fromRGBO(143, 148, 251, 1),
+                                Color.fromRGBO(143, 148, 251, 0.6),
+                              ],
+                            ),
+                            boxShadow: [
+                              const BoxShadow(
+                                offset: Offset(-6, -6),
+                                color: Colors.white,
+                                blurRadius: 12,
+                                spreadRadius: 1,
+                              ),
+                              BoxShadow(
+                                offset: const Offset(4, 4),
+                                color: Colors.grey.shade500,
+                                blurRadius: 4,
+                                spreadRadius: 1,
+                              ),
+                            ]),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.download_outlined,
+                              color: Colors.white,
+                              size: 12,
+                            ),
+                            const SizedBox(
+                              width: 10,
+                            ),
+                            Center(
+                              child: Text(
+                                "Download",
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 12),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
-        ],
-      ),
-    ), context);
+        ),
+        context);
   }
+}
+
+class listz extends StatefulWidget {
+  DocumentSnapshot doc;
+  String? role;
+
+  listz({super.key, required this.doc, required this.role});
+
+  @override
+  State<listz> createState() => _listzState();
+}
+
+class _listzState extends State<listz> {
+  @override
+  Widget build(BuildContext context) {
+    print('ttttttttttttttttttttttttttt');
+    print(widget.doc);
+    if (widget.role == "student") {
+      return Container(
+        margin: EdgeInsets.only(bottom: 10),
+        width: 500,
+        height: 75,
+        padding: EdgeInsets.all(5),
+        decoration: BoxDecoration(
+            border: Border.all(
+                color: Color.fromARGB(0, 0, 0, 0), style: BorderStyle.solid)),
+        child: Row(
+          children: [
+            Container(
+              padding: EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(50),
+              ),
+              child: Image.asset(
+                'assets/images/teacher.png',
+                fit: BoxFit.fitHeight,
+              ),
+            ),
+            SizedBox(
+              width: 10,
+            ),
+            Expanded(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        widget.doc['first_name'],
+                        style: TextStyle(
+                          fontFamily: 'Poppins',
+                          color: Color.fromRGBO(118, 125, 255, 1),
+                        ),
+                      ),
+                      SizedBox(
+                        width: 6,
+                      ),
+                      Text(
+                        widget.doc['second_name'],
+                        style: TextStyle(
+                          fontFamily: 'Poppins',
+                          color: Color.fromRGBO(120, 127, 255, 1),
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 8,
+                  ),
+                  Text(widget.doc['email']),
+                ],
+              ),
+            ),
+          ],
+        ),
+      );
+    } else {
+      double att = widget.doc['present'] *
+          100 /
+          (widget.doc['absent'] + widget.doc['present']);
+      double x = widget.doc['present'] / 1;
+      double y = widget.doc['absent'] / 1;
+      Map<String, double> dataMap = {
+        'Present': x,
+        'Absent': y,
+      };
+
+      void clickprofile(DocumentSnapshot docx) {
+        if (absentee!.contains(docx)) {
+          absentee!.remove(docx);
+          print("x");
+          setState(() {
+            absentee = absentee;
+          });
+        } else {
+          print(absentee!.length);
+          absentee!.add(docx);
+          print(absentee!.length);
+          setState(() {
+            absentee = absentee;
+          });
+        }
+      }
+
+      return GestureDetector(
+        onTap: () {
+          clickprofile(widget.doc);
+        },
+        child: Container(
+          margin: EdgeInsets.only(bottom: 10),
+          width: 500,
+          height: 75,
+          padding: EdgeInsets.all(5),
+          decoration: BoxDecoration(
+              border: Border.all(
+                  color: Color.fromARGB(0, 0, 0, 0), style: BorderStyle.solid)),
+          child: Row(
+            children: [
+              Container(
+                padding: EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(50),
+                ),
+                child: Image.asset(
+                  'assets/images/teacher.png',
+                  fit: BoxFit.contain,
+                ),
+              ),
+              SizedBox(
+                width: 10,
+              ),
+              Expanded(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          widget.doc['name'],
+                          style: TextStyle(
+                            fontFamily: 'Poppins',
+                            color: Color.fromRGBO(93, 101, 255, 1),
+                          ),
+                        ),
+                        if (absentee!.contains(widget.doc))
+                          Icon(
+                            Icons.done_all,
+                            color: Color.fromRGBO(109, 116, 255, 1),
+                          ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 8,
+                    ),
+                    Text(widget.doc['email']),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
+    }
+  }
+}
+
+class Updateatt {
+  void upp(List<DocumentSnapshot>? abs, String ff) async {
+    for (int i = 0; i < abs!.length; i++) {
+      print(abs[i]);
+      CollectionReference users =
+          FirebaseFirestore.instance.collection("Attendance");
+
+      await users.doc('${abs[i].get('email')}').set({
+        '$ff': false,
+      }, SetOptions(merge: true));
+    }
+    uppate();
+  }
+  // void uppate(){
+  //   CollectionReference attt =
+  //         FirebaseFirestore.instance.collection("Attendance");
+
+  //   CollectionReference users =
+  //         FirebaseFirestore.instance.collection("users");
+
+
+
+  // }
+
+  void uppate() async {
+  CollectionReference attt = FirebaseFirestore.instance.collection("Attendance");
+  CollectionReference users = FirebaseFirestore.instance.collection("users");
+
+  QuerySnapshot attendanceSnapshot = await attt.get();
+
+  for (QueryDocumentSnapshot attendanceDoc in attendanceSnapshot.docs) {
+    String email = attendanceDoc.id;
+    Map<String, dynamic> attendanceData = attendanceDoc.data() as Map<String,dynamic>;
+
+    int trueCount = attendanceData.values.where((value) => value == true).length;
+    int falseCount = attendanceData.values.where((value) => value == false).length;
+
+    // Find the matching user document in the 'users' collection
+    QuerySnapshot userSnapshot = await users.where('email', isEqualTo: email).get();
+
+    if (userSnapshot.docs.isNotEmpty) {
+      // Update the 'present' and 'absent' fields in the user document
+      String userId = userSnapshot.docs[0].id;
+      await users.doc(userId).update({
+        'present': trueCount,
+        'absent': falseCount,
+      });
+
+      print('Attendance updated for email: $email');
+    }
+  }
+}
 }

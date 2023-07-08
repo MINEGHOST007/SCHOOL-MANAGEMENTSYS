@@ -105,7 +105,7 @@ class _acadcalenderState extends State<acadcalender> {
   Widget build(BuildContext context) {
     if (role == "teacher") {
       return Scaffold(
-        backgroundColor: const Color.fromARGB(176, 196, 195, 195),
+        backgroundColor: Colors.grey[300],
         body: Stack(
           children: [
             AppBar(
@@ -257,14 +257,14 @@ class _acadcalenderState extends State<acadcalender> {
       );
     } else {
       return Scaffold(
-        backgroundColor: const Color.fromARGB(176, 196, 195, 195),
+        backgroundColor: Colors.grey[300],
         body: Stack(
           children: [
             AppBar(
               leading: Container(),
               elevation: 0,
               toolbarHeight: 160,
-              backgroundColor: const Color.fromARGB(176, 196, 195, 195),
+              backgroundColor: Colors.grey[300],
               flexibleSpace: Container(
                 width: 500,
                 height: 220,

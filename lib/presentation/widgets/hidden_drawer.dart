@@ -1,5 +1,6 @@
 import 'package:edusphere/data/providers.dart';
 import 'package:edusphere/presentation/screens/addass.dart';
+import 'package:edusphere/presentation/screens/addatt.dart';
 import 'package:edusphere/presentation/screens/attendance.dart';
 import 'package:edusphere/presentation/screens/tasks.dart';
 import 'package:flutter/material.dart';
@@ -88,6 +89,16 @@ class _HiddenDrawerState extends State<HiddenDrawer> {
                 fontFamily: 'Poppins',
               )),
           Addass()),
+                ScreenHiddenDrawer(
+          ItemHiddenMenu(
+              name: 'Add Attendance',
+              baseStyle: TextStyle(
+                fontWeight: FontWeight.w700,
+              ),
+              selectedStyle: TextStyle(
+                fontFamily: 'Poppins',
+              )),
+          addAtt()),
     ];
     }
     return HiddenDrawerMenu(

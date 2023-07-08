@@ -166,26 +166,30 @@ class _HomePageState extends State<HomePage> {
         PersistentBottomNavBarItem(
           icon: const Icon(Icons.home),
           title: "Home",
-          activeColorPrimary: const Color.fromARGB(255, 67, 95, 255),
-          inactiveColorPrimary: Colors.black,
+          activeColorSecondary: const Color.fromARGB(255, 67, 95, 255),
+          activeColorPrimary: Colors.white,
+          inactiveColorPrimary: Color.fromARGB(255, 56, 56, 56),
         ),
         PersistentBottomNavBarItem(
           icon: const Icon(Icons.person),
           title: "Profile",
-          activeColorPrimary: const Color.fromARGB(255, 67, 95, 255),
-          inactiveColorPrimary: Colors.black,
+          activeColorSecondary: const Color.fromARGB(255, 67, 95, 255),
+          activeColorPrimary: Colors.white,
+          inactiveColorPrimary: Color.fromARGB(255, 56, 56, 56),
         ),
         PersistentBottomNavBarItem(
           icon: const Icon(Icons.edit_document),
           title: "Tasks",
-          activeColorPrimary: const Color.fromARGB(255, 67, 95, 255),
-          inactiveColorPrimary: Colors.black,
+          activeColorSecondary: const Color.fromARGB(255, 67, 95, 255),
+          activeColorPrimary: Colors.white,
+          inactiveColorPrimary: Color.fromARGB(255, 56, 56, 56),
         ),
         PersistentBottomNavBarItem(
           icon: const Icon(Icons.calendar_today_rounded),
           title: "Calender",
-          activeColorPrimary: const Color.fromARGB(255, 67, 95, 255),
-          inactiveColorPrimary: Colors.black,
+          activeColorSecondary: const Color.fromARGB(255, 67, 95, 255),
+          activeColorPrimary: Colors.white,
+          inactiveColorPrimary: Color.fromARGB(255, 56, 56, 56),
         ),
       ];
     }
@@ -201,70 +205,76 @@ class _HomePageState extends State<HomePage> {
 
     return Container(
       padding: const EdgeInsets.only(left: 0.0, right: 0.0, top: 5, bottom: 10),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        boxShadow: [
-                                    const BoxShadow(
-                                      offset: Offset(-6, 6),
-                                      color: Colors.white,
-                                      blurRadius: 12,
-                                      spreadRadius: 1,
-                                    ),
-                                    const BoxShadow(
-                                      offset: Offset(6, 6),
-                                      color: Colors.white,
-                                      blurRadius: 12,
-                                      spreadRadius: 1,
-                                    ),
-                                    BoxShadow(
-                                      offset: const Offset(0, 6),
-                                      color: Colors.grey.shade500,
-                                      blurRadius: 4,
-                                      spreadRadius: 1,
-                            ),
-        ]
-      ),
-      child: ClipRRect(
-        borderRadius: const BorderRadius.only(
-          topLeft: Radius.circular(30),
-          topRight: Radius.circular(30),
+      decoration: BoxDecoration(color: Colors.grey[300], boxShadow: [
+        const BoxShadow(
+          offset: Offset(-6, 6),
+          color: Colors.white,
+          blurRadius: 12,
+          spreadRadius: 1,
         ),
-        child: PersistentTabView(
-          context,
-          controller: _controller,
-          screens: _buildScreens(),
-          items: _navBarsItems(),
-          confineInSafeArea: true,
-          backgroundColor: const Color.fromARGB(
-              255, 255, 255, 255), // Default is Colors.white.
-          handleAndroidBackButtonPress: true, // Default is true.
-          resizeToAvoidBottomInset:
-              false, // This needs to be true if you want to move up the screen when keyboard appears. Default is true.
-          stateManagement: true, // Default is true.
-          hideNavigationBarWhenKeyboardShows:
-              true, // Recommended to set 'resizeToAvoidBottomInset' as true while using this argument. Default is true.
-          decoration: const NavBarDecoration(
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(30),
-              topRight: Radius.circular(30),
+        const BoxShadow(
+          offset: Offset(6, 6),
+          color: Colors.white,
+          blurRadius: 12,
+          spreadRadius: 1,
+        ),
+        BoxShadow(
+          offset: const Offset(0, 6),
+          color: Colors.grey.shade500,
+          blurRadius: 4,
+          spreadRadius: 1,
+        ),
+      ]),
+      child: Container(
+        margin: EdgeInsets.only(bottom: 10, right: 10, left: 10),
+        child: ClipRRect(
+          borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(30),
+            topRight: Radius.circular(30),
+            bottomLeft: Radius.circular(30),
+            bottomRight: Radius.circular(30),
+          ),
+          child: PersistentTabView(
+            context,
+            controller: _controller,
+            screens: _buildScreens(),
+            items: _navBarsItems(),
+            confineInSafeArea: true,
+            backgroundColor: Colors.grey.shade100,
+            //const Color.fromARGB(
+            // 255, 255, 255, 255),
+            // Default is Colors.white.
+            handleAndroidBackButtonPress: true, // Default is true.
+            resizeToAvoidBottomInset:
+                false, // This needs to be true if you want to move up the screen when keyboard appears. Default is true.
+            stateManagement: true, // Default is true.
+            hideNavigationBarWhenKeyboardShows:
+                true, // Recommended to set 'resizeToAvoidBottomInset' as true while using this argument. Default is true.
+            decoration: const NavBarDecoration(
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(30),
+                topRight: Radius.circular(30),
+                bottomLeft: Radius.circular(30),
+                bottomRight: Radius.circular(30),
+              ),
+              colorBehindNavBar: Color.fromARGB(255, 255, 255, 255),
             ),
-            colorBehindNavBar: Color.fromARGB(255, 255, 255, 255),
+            popAllScreensOnTapOfSelectedTab: true,
+            popActionScreens: PopActionScreensType.all,
+            itemAnimationProperties: const ItemAnimationProperties(
+              // Navigation Bar's items animation properties.
+              duration: Duration(milliseconds: 200),
+              curve: Curves.ease,
+            ),
+            screenTransitionAnimation: const ScreenTransitionAnimation(
+              // Screen transition animation on change of selected tab.
+              animateTabTransition: true,
+              curve: Curves.ease,
+              duration: Duration(milliseconds: 200),
+            ),
+            navBarStyle: NavBarStyle
+                .style7, // Choose the nav bar style with this property.
           ),
-          popAllScreensOnTapOfSelectedTab: true,
-          popActionScreens: PopActionScreensType.all,
-          itemAnimationProperties: const ItemAnimationProperties(
-            // Navigation Bar's items animation properties.
-            duration: Duration(milliseconds: 200),
-            curve: Curves.ease,
-          ),
-          screenTransitionAnimation: const ScreenTransitionAnimation(
-            // Screen transition animation on change of selected tab.
-            animateTabTransition: true,
-            curve: Curves.ease,
-            duration: Duration(milliseconds: 200),
-          ),
-          navBarStyle: NavBarStyle
-              .style1, // Choose the nav bar style with this property.
         ),
       ),
     );
@@ -280,6 +290,7 @@ class HomePage1 extends StatefulWidget {
 
 class _HomePage1State extends State<HomePage1> {
   String? role;
+  Getrollno xc = Getrollno();
 
   void signUserOut() async {
     try {
@@ -314,6 +325,7 @@ class _HomePage1State extends State<HomePage1> {
   int count = 0;
   int cx = 0;
   Future<void> retrieveTeachers() async {
+    xc.getrn();
     GetUserNamee gr = GetUserNamee();
     role = await gr.getRole();
     z = "${user!.email}";
