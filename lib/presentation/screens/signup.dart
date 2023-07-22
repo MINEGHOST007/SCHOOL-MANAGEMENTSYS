@@ -44,11 +44,27 @@ class _SignupState extends State<Signup> {
           password: pcontroller.text,
         );
         showsuccess();
+        signUserIn(emailcontroller, pcontroller);
       } else
         showerror2();
     } on FirebaseAuthException catch (e) {
+      print(e);
       showerror();
     }
+  }
+
+  void signUserIn(TextEditingController usernameController,
+      TextEditingController passwordController) async {
+    Navigator.pushNamed(
+      context,
+      '/load',
+      arguments: {
+        'email': usernameController.text,
+        'password': passwordController.text,
+        'credential': null,
+        'category': category,
+      },
+    );
   }
 
   void showsuccess() async {
@@ -57,7 +73,10 @@ class _SignupState extends State<Signup> {
       var user = <String, dynamic>{
         "email": emailcontroller.text,
         "role": "teacher",
-        "first_name": emailcontroller.text,"second_name": "Update reuired","present":100,"absent":0,
+        "first_name": emailcontroller.text,
+        "second_name": "Update reuired",
+        "present": 100,
+        "absent": 0,
       };
       db.collection("users").add(user).then((DocumentReference doc) =>
           print('DocumentSnapshot added with ID: ${doc.id}'));
@@ -66,8 +85,9 @@ class _SignupState extends State<Signup> {
         "email": emailcontroller.text,
         "role": "student",
         "class": "10",
-        "name" : emailcontroller.text
-        ,"present":100,"absent":0
+        "name": emailcontroller.text,
+        "present": 100,
+        "absent": 0
       };
       db.collection("users").add(user).then((DocumentReference doc) =>
           print('DocumentSnapshot added with ID: ${doc.id}'));

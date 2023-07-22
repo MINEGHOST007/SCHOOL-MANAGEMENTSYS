@@ -203,7 +203,7 @@ class Getname {
     return null;
   }
 
-    Future<String?> getRolefirst() async {
+  Future<String?> getRolefirst() async {
     User? user = FirebaseAuth.instance.currentUser;
     CollectionReference users = FirebaseFirestore.instance.collection('users');
 
@@ -312,13 +312,6 @@ class Getteacherdocs {
   }
 }
 
-
-
-
-
-
-
-
 class Getstudentdocs {
   Future<List<DocumentSnapshot>> getteacher() async {
     List<DocumentSnapshot> teachers = [];
@@ -329,32 +322,47 @@ class Getstudentdocs {
     print(teachers);
     return teachers;
   }
+
+  Future<List<DocumentSnapshot>> getteacher2() async {
+    List<DocumentSnapshot> teachers = [];
+    CollectionReference users = FirebaseFirestore.instance.collection("users");
+    QuerySnapshot snapshot = await users.get();
+    teachers = snapshot.docs.toList();
+    print(teachers);
+    return teachers;
+  }
 }
 
 class Getrollno {
   Future<int?> getrn() async {
-    List<DocumentSnapshot>? studentList = [];
-    Getstudentdocs gs = Getstudentdocs();
-    studentList = await gs.getteacher();
+    GetUserNamee hb = GetUserNamee();
+    String? role = await hb.getRole();
+    if (role != null && role != "principal") {
+      List<DocumentSnapshot>? studentList = [];
+      Getstudentdocs gs = Getstudentdocs();
+      studentList = await gs.getteacher();
 
-    for (int i = 0; i < studentList.length; i++) {
-      DocumentSnapshot docx = studentList[i];
-      int roll = i;
-      docx.reference
-          .update({'roll': roll})
-          .then((value) => print('Roll number added to document ${docx.id}'))
-          .catchError((error) =>
-              print('Error adding roll number to document ${docx.id}: $error'));
-    }
+      for (int i = 0; i < studentList.length; i++) {
+        DocumentSnapshot docx = studentList[i];
+        int roll = i;
+        docx.reference
+            .update({'roll': roll})
+            .then((value) => print('Roll number added to document ${docx.id}'))
+            .catchError((error) => print(
+                'Error adding roll number to document ${docx.id}: $error'));
+      }
 
-    User? user = FirebaseAuth.instance.currentUser;
-    CollectionReference users = FirebaseFirestore.instance.collection('users');
+      User? user = FirebaseAuth.instance.currentUser;
+      CollectionReference users =
+          FirebaseFirestore.instance.collection('users');
 
-    QuerySnapshot snapshot =
-        await users.where('email', isEqualTo: user!.email).get();
-    if (snapshot.docs.isNotEmpty) {
-      DocumentSnapshot doc = snapshot.docs.first;
-      return doc['roll'] as int?;
+      QuerySnapshot snapshot =
+          await users.where('email', isEqualTo: user!.email).get();
+      if (snapshot.docs.isNotEmpty) {
+        DocumentSnapshot doc = snapshot.docs.first;
+        return doc['roll'] as int?;
+      }
+      return null;
     }
     return null;
   }
@@ -408,32 +416,34 @@ class _GetSyllabusState extends State<GetSyllabus> {
                 var key = data!.keys.elementAt(index);
                 var value = data![key];
                 return Container(
-                  margin: EdgeInsets.only(top:15,bottom: 5,left: 15,right: 15),
+                  margin:
+                      EdgeInsets.only(top: 15, bottom: 5, left: 15, right: 15),
                   padding: EdgeInsets.symmetric(vertical: 10),
                   decoration: BoxDecoration(
                     // border: Border.all(color: Colors.black),
                     color: Colors.grey[300],
                     borderRadius: BorderRadius.all(Radius.circular(27)),
-                                        boxShadow: [
-              BoxShadow(
-                color: Colors.grey.shade500,
-                offset: Offset(4, 4),
-                blurRadius: 15,
-                spreadRadius: 1,
-              ),
-              BoxShadow(
-                color: Colors.white,
-                offset: Offset(-4, -4),
-                blurRadius: 15,
-                spreadRadius: 1,
-              )
-            ],
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.shade500,
+                        offset: Offset(4, 4),
+                        blurRadius: 15,
+                        spreadRadius: 1,
+                      ),
+                      BoxShadow(
+                        color: Colors.white,
+                        offset: Offset(-4, -4),
+                        blurRadius: 15,
+                        spreadRadius: 1,
+                      )
+                    ],
                   ),
                   child: ListTile(
-                    title: Text(" Chapter $key : ${value.toString()}",
-                    style: TextStyle(
-                      fontFamily: 'Poppins',
-                    ),
+                    title: Text(
+                      " Chapter $key : ${value.toString()}",
+                      style: TextStyle(
+                        fontFamily: 'Poppins',
+                      ),
                     ),
                   ),
                 );
@@ -451,52 +461,47 @@ class GetSubjects extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () async {
-        return false;
-      },
-      child: Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          title: Text(
-            "Subjects",
-            style: TextStyle(
-              fontFamily: 'Poppins',
-            ),
+    return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        title: Text(
+          "Subjects",
+          style: TextStyle(
+            fontFamily: 'Poppins',
           ),
-          backgroundColor: Color.fromRGBO(109, 116, 255, 1),
-          leading: Container(),
-          actions: [
-            IconButton(
-              icon: Icon(Icons.home),
-              onPressed: () {
-                // Perform the desired action to navigate to the home page
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (context) => HomePage1()),
-                );
-              },
-            ),
-          ],
         ),
-        backgroundColor: Colors.grey[300],
-        body: SingleChildScrollView(
-          child: SafeArea(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: subjects
-                      .map((e) => Cardclass2(subs: e, cls: cls))
-                      .toList(),
-                ),
-                const SizedBox(
-                  height: 50,
-                ),
-              ],
-            ),
+        backgroundColor: Color.fromRGBO(109, 116, 255, 1),
+        // leading: Container(),
+        // actions: [
+        //   IconButton(
+        //     icon: Icon(Icons.home),
+        //     onPressed: () {
+        //       // Perform the desired action to navigate to the home page
+        //       Navigator.pushReplacement(
+        //         context,
+        //         MaterialPageRoute(builder: (context) => HomePage1()),
+        //       );
+        //     },
+        //   ),
+        // ],
+      ),
+      backgroundColor: Colors.grey[300],
+      body: SingleChildScrollView(
+        child: SafeArea(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: subjects
+                    .map((e) => Cardclass2(subs: e, cls: cls))
+                    .toList(),
+              ),
+              const SizedBox(
+                height: 50,
+              ),
+            ],
           ),
         ),
       ),
@@ -541,9 +546,9 @@ class _GetSyllabus2State extends State<GetSyllabus2> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Syllabus"),
-        backgroundColor: Color.fromRGBO(74, 83, 255, 1),
+        backgroundColor: Color.fromRGBO(96, 104, 255, 1),
       ),
-      backgroundColor: Color.fromARGB(230, 177, 177, 177),
+      backgroundColor: Colors.grey[300],
       body: data != null
           ? ListView.builder(
               itemCount: data?.length,
@@ -551,25 +556,41 @@ class _GetSyllabus2State extends State<GetSyllabus2> {
                 var key = data!.keys.elementAt(index);
                 var value = data![key];
                 return Container(
-                  margin: EdgeInsets.all(10),
+                  margin: EdgeInsets.all(15),
                   padding: EdgeInsets.symmetric(vertical: 10),
                   decoration: BoxDecoration(
-                    border: Border.all(color: Colors.black),
-                    color: Colors.white,
-                    borderRadius: BorderRadius.all(Radius.circular(10)),
+                    
+                    color: Colors.grey[300],
+                    boxShadow: [
+                      BoxShadow(
+                      color: Colors.grey.shade500,
+                      offset: Offset(6, 6),
+                      blurRadius: 15,
+                      spreadRadius: 1,
+                    ),
+                      BoxShadow(
+                      color: Colors.white,
+                      offset: Offset(-6, -6),
+                      blurRadius: 10,
+                      spreadRadius: 1,
+                    )
+                    ],
+                    borderRadius: BorderRadius.all(Radius.circular(20)),
                   ),
                   child: Column(
                     children: [
                       ListTile(
-                        title: Text(" Chapter $key : ${value.toString()}"),
+                        title: Text(" Chapter $key : ${value.toString()}",
+                        style: TextStyle(
+                          fontFamily: 'Poppins',
+                        ),
+                        ),
                       ),
                     ],
                   ),
-                  
                 );
               })
           : Loading(),
-          
     );
   }
 }
@@ -638,29 +659,28 @@ class _GetprofileState extends State<Getprofile> {
                   width: 240,
                   height: 40,
                   decoration: BoxDecoration(
-                    gradient: const LinearGradient(
-                      colors: [
-                        Color.fromRGBO(143, 148, 251, 1),
-                        Color.fromRGBO(143, 148, 251, 1),
-                      ],
-                    ),
-                    borderRadius: BorderRadius.all(Radius.circular(10)),
-                    //border: Border.all(color: Colors.white, width: 2),
-                    boxShadow: [
-                                    const BoxShadow(
-                                      offset: Offset(-6, -6),
-                                      color: Colors.white,
-                                      blurRadius: 12,
-                                      spreadRadius: 1,
-                                    ),
-                                    BoxShadow(
-                                      offset: const Offset(4, 4),
-                                      color: Colors.grey.shade500,
-                                      blurRadius: 4,
-                                      spreadRadius: 1,
-                                    ),
-                                  ]
-                  ),
+                      gradient: const LinearGradient(
+                        colors: [
+                          Color.fromRGBO(143, 148, 251, 1),
+                          Color.fromRGBO(143, 148, 251, 1),
+                        ],
+                      ),
+                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                      //border: Border.all(color: Colors.white, width: 2),
+                      boxShadow: [
+                        const BoxShadow(
+                          offset: Offset(-6, -6),
+                          color: Colors.white,
+                          blurRadius: 12,
+                          spreadRadius: 1,
+                        ),
+                        BoxShadow(
+                          offset: const Offset(4, 4),
+                          color: Colors.grey.shade500,
+                          blurRadius: 4,
+                          spreadRadius: 1,
+                        ),
+                      ]),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -686,8 +706,8 @@ class _GetprofileState extends State<Getprofile> {
               ),
             ),
             SizedBox(
-                    height: 35,
-                  ),
+              height: 35,
+            ),
             Container(
               width: 500,
               margin: EdgeInsets.all(20),
@@ -701,20 +721,20 @@ class _GetprofileState extends State<Getprofile> {
                     bottomRight: Radius.circular(10),
                   ),
                   boxShadow: [
-                                    const BoxShadow(
-                                      offset: Offset(-6, -6),
-                                      color: Colors.white,
-                                      blurRadius: 12,
-                                      spreadRadius: 1,
-                                    ),
-                                    BoxShadow(
-                                      offset: const Offset(4, 4),
-                                      color: Colors.grey.shade500,
-                                      blurRadius: 4,
-                                      spreadRadius: 1,
-                                    ),
-                                  ]
-                  ),
+                    const BoxShadow(
+                      offset: Offset(-6, -6),
+                      color: Colors.white,
+                      blurRadius: 12,
+                      spreadRadius: 1,
+                    ),
+                    BoxShadow(
+                      offset: const Offset(4, 4),
+                      color: Colors.grey.shade500,
+                      blurRadius: 4,
+                      spreadRadius: 1,
+                    ),
+                  ]),
+
               child: Column(
                 children: [
                   Row(
@@ -754,10 +774,13 @@ class _GetprofileState extends State<Getprofile> {
                   Container(
                     width: 500,
                     height: 150,
-                    child: PieChart(dataMap: widget.pie,colorList: [
+                    child: PieChart(
+                      dataMap: widget.pie,
+                      colorList: [
                         Color.fromRGBO(143, 148, 251, 1),
                         Color.fromRGBO(255, 255, 255, 1),
-                      ],),
+                      ],
+                    ),
                   ),
                 ],
               ),
@@ -772,28 +795,27 @@ class _GetprofileState extends State<Getprofile> {
                   width: 240,
                   height: 40,
                   decoration: BoxDecoration(
-                    gradient: const LinearGradient(
-                      colors: [
-                        Color.fromRGBO(143, 148, 251, 1),
-                        Color.fromRGBO(143, 148, 251, 1),
-                      ],
-                    ),
-                    borderRadius: BorderRadius.all(Radius.circular(10)),
-                    boxShadow: [
-                                    const BoxShadow(
-                                      offset: Offset(-6, -6),
-                                      color: Colors.white,
-                                      blurRadius: 12,
-                                      spreadRadius: 1,
-                                    ),
-                                    BoxShadow(
-                                      offset: const Offset(4, 4),
-                                      color: Colors.grey.shade500,
-                                      blurRadius: 4,
-                                      spreadRadius: 1,
-                                    ),
-                                  ]
-                  ),
+                      gradient: const LinearGradient(
+                        colors: [
+                          Color.fromRGBO(143, 148, 251, 1),
+                          Color.fromRGBO(143, 148, 251, 1),
+                        ],
+                      ),
+                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                      boxShadow: [
+                        const BoxShadow(
+                          offset: Offset(-6, -6),
+                          color: Colors.white,
+                          blurRadius: 12,
+                          spreadRadius: 1,
+                        ),
+                        BoxShadow(
+                          offset: const Offset(4, 4),
+                          color: Colors.grey.shade500,
+                          blurRadius: 4,
+                          spreadRadius: 1,
+                        ),
+                      ]),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -824,3 +846,267 @@ class _GetprofileState extends State<Getprofile> {
     );
   }
 }
+
+class Getprofile2 extends StatefulWidget {
+  Map<String, double> pie;
+  DocumentSnapshot doc;
+  Getprofile2({super.key, required this.pie, required this.doc});
+
+  @override
+  State<Getprofile2> createState() => _Getprofile2State();
+}
+
+class _Getprofile2State extends State<Getprofile2> {
+  Future<void> refresh() async {
+    List<DocumentSnapshot>? teacherList = [];
+    Getteacherdocs gs = Getteacherdocs();
+    teacherList = await gs.getteacher();
+    print("refresssssssssssssssssssss");
+    if (teacherList != null) {
+      setState(() {
+        print("refresssssssssssssssssssss");
+        teacherList = teacherList!
+            .where((user) => user['email']
+                .toString()
+                .toLowerCase()
+                .contains(widget.doc['email'].toLowerCase()))
+            .toList();
+        widget.doc = teacherList!.first;
+        print(widget.doc['present']);
+
+        widget.pie = {
+          'Present': widget.doc['present'] / 1,
+          'Absent': widget.doc['absent'] / 1,
+        };
+      });
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        title: Text("Teacher Profile"),
+        backgroundColor: Color.fromARGB(255, 98, 122, 255),
+      ),
+      backgroundColor: Colors.grey[300],
+      body: Container(
+        child: Column(
+          children: [
+            const SizedBox(
+              height: 47.5,
+            ),
+            Center(
+              child: GestureDetector(
+                onTap: () => {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            Editpage2(email: widget.doc['email'])),
+                  ),
+                },
+                child: Container(
+                  width: 240,
+                  height: 40,
+                  decoration: BoxDecoration(
+                      gradient: const LinearGradient(
+                        colors: [
+                          Color.fromRGBO(143, 148, 251, 1),
+                          Color.fromRGBO(143, 148, 251, 1),
+                        ],
+                      ),
+                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                      //border: Border.all(color: Colors.white, width: 2),
+                      boxShadow: [
+                        const BoxShadow(
+                          offset: Offset(-6, -6),
+                          color: Colors.white,
+                          blurRadius: 12,
+                          spreadRadius: 1,
+                        ),
+                        BoxShadow(
+                          offset: const Offset(4, 4),
+                          color: Colors.grey.shade500,
+                          blurRadius: 4,
+                          spreadRadius: 1,
+                        ),
+                      ]),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "Edit Attendance",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontFamily: 'Poppins',
+                          fontSize: 16,
+                        ),
+                      ),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Icon(
+                        Icons.edit,
+                        color: Colors.white,
+                        size: 20,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 35,
+            ),
+            Container(
+              width: 500,
+              margin: EdgeInsets.all(20),
+              padding: EdgeInsets.all(25),
+              decoration: BoxDecoration(
+                  color: Colors.grey[300],
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(10),
+                    topRight: Radius.circular(10),
+                    bottomLeft: Radius.circular(10),
+                    bottomRight: Radius.circular(10),
+                  ),
+                  boxShadow: [
+                    const BoxShadow(
+                      offset: Offset(-6, -6),
+                      color: Colors.white,
+                      blurRadius: 12,
+                      spreadRadius: 1,
+                    ),
+                    BoxShadow(
+                      offset: const Offset(4, 4),
+                      color: Colors.grey.shade500,
+                      blurRadius: 4,
+                      spreadRadius: 1,
+                    ),
+                  ]),
+                  
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "Name : ${widget.doc['first_name']}",
+                        style: TextStyle(fontFamily: 'Poppins'),
+                      ),
+                      SizedBox(
+                        width: 6,
+                      ),
+                      Text(
+                        "${widget.doc['second_name']}",
+                        style: TextStyle(fontFamily: 'Poppins'),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 15,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      SizedBox(
+                        width: 6,
+                      ),
+                      SizedBox(
+                        width: 6,
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 25,
+                  ),
+                  Container(
+                    width: 500,
+                    height: 150,
+                    child: PieChart(
+                      dataMap: widget.pie,
+                      colorList: [
+                        Color.fromRGBO(143, 148, 251, 1),
+                        Color.fromRGBO(255, 255, 255, 1),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(
+              height: 15,
+            ),
+            Center(
+              child: GestureDetector(
+                onTap: () => {refresh()},
+                child: Container(
+                  width: 240,
+                  height: 40,
+                  decoration: BoxDecoration(
+                      gradient: const LinearGradient(
+                        colors: [
+                          Color.fromRGBO(143, 148, 251, 1),
+                          Color.fromRGBO(143, 148, 251, 1),
+                        ],
+                      ),
+                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                      boxShadow: [
+                        const BoxShadow(
+                          offset: Offset(-6, -6),
+                          color: Colors.white,
+                          blurRadius: 12,
+                          spreadRadius: 1,
+                        ),
+                        BoxShadow(
+                          offset: const Offset(4, 4),
+                          color: Colors.grey.shade500,
+                          blurRadius: 4,
+                          spreadRadius: 1,
+                        ),
+                      ]),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "Refresh",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontFamily: 'Poppins',
+                          fontSize: 16,
+                        ),
+                      ),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Icon(
+                        Icons.refresh,
+                        color: Colors.white,
+                        size: 20,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+// class Getevents {
+//   Future<List<DocumentSnapshot>> gett() async {
+//     List<DocumentSnapshot> events = [];
+//     CollectionReference eve = FirebaseFirestore.instance.collection("events");
+//     QuerySnapshot snapshot = await eve.get();
+//     if (snapshot.docs != null) {
+//       events = snapshot.docs.toList();
+//       return events;
+//     }
+//     return events;
+//   }
+// }

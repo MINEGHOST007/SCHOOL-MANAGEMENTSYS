@@ -234,7 +234,7 @@ class _ProfilepageState extends State<Profilepage> {
         body: LiquidPullToRefresh(
           onRefresh: refresh,
           color: Color.fromRGBO(109, 116, 255, 1),
-          backgroundColor:Color.fromARGB(255, 138, 156, 255),
+          backgroundColor: Color.fromARGB(255, 138, 156, 255),
           height: 100,
           child: SingleChildScrollView(
             child: Column(
@@ -249,7 +249,8 @@ class _ProfilepageState extends State<Profilepage> {
                     height: 100,
                     decoration: BoxDecoration(
                         color: Colors.grey[300],
-                        borderRadius: const BorderRadius.all(Radius.circular(50)),
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(50)),
                         boxShadow: [
                           BoxShadow(
                             color: Colors.grey.shade500,
@@ -294,7 +295,8 @@ class _ProfilepageState extends State<Profilepage> {
                     onTap: () => {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => const Editpage()),
+                        MaterialPageRoute(
+                            builder: (context) => const Editpage()),
                       ),
                     },
                     child: Container(
@@ -465,7 +467,9 @@ class _ProfilepageState extends State<Profilepage> {
                 //     ),
                 //   ),
                 // ),
-                const SizedBox(height: 60,),
+                const SizedBox(
+                  height: 60,
+                ),
               ],
             ),
           ),
@@ -523,7 +527,7 @@ class _ProfilepageState extends State<Profilepage> {
         backgroundColor: Colors.grey[300],
         body: LiquidPullToRefresh(
           color: Color.fromRGBO(109, 116, 255, 1),
-          backgroundColor:Color.fromARGB(255, 138, 156, 255),
+          backgroundColor: Color.fromARGB(255, 138, 156, 255),
           height: 100,
           onRefresh: refresh,
           child: SingleChildScrollView(
@@ -741,6 +745,307 @@ class _ProfilepageState extends State<Profilepage> {
           ),
         ),
       );
+    }
+  }
+}
+
+class decider extends StatefulWidget {
+  const decider({super.key});
+
+  @override
+  State<decider> createState() => _deciderState();
+}
+
+class _deciderState extends State<decider> {
+  String role = "";
+  String name = "";
+  User? user = FirebaseAuth.instance.currentUser;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getdat();
+  }
+
+  void getdat() async {
+    GetUserNamee gh = GetUserNamee();
+    role = (await gh.getRole())!;
+    Getname gn = Getname();
+    name = (await gn.getRolefirst())!;
+    if (role != "" && name != "") {
+      setState(() {
+        role = role;
+      });
+    }
+  }
+
+  Future<void> refresh() async {}
+
+  @override
+  Widget build(BuildContext context) {
+    if (role == "") {
+      return Loading();
+    } else if (role == "principal") {
+      return Scaffold(
+        resizeToAvoidBottomInset: false,
+        appBar: AppBar(
+          elevation: 0,
+          toolbarHeight: 160,
+          backgroundColor: Colors.grey[300],
+          flexibleSpace: Container(
+            padding: const EdgeInsets.only(top: 80, left: 25),
+            decoration: const BoxDecoration(
+              borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(50),
+                bottomRight: Radius.circular(50),
+              ),
+              gradient: LinearGradient(
+                colors: [
+                  Color.fromRGBO(104, 112, 255, 1),
+                  Color.fromRGBO(114, 120, 243, 0.6),
+                ],
+              ),
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text(
+                  "Hello,",
+                  style: TextStyle(
+                    fontFamily: 'Poppins',
+                    fontSize: 22.5,
+                    color: Color.fromARGB(164, 255, 255, 255),
+                  ),
+                ),
+                const SizedBox(
+                  height: 3,
+                ),
+                Text(
+                  user!.email as String,
+                  style: const TextStyle(
+                    fontFamily: 'Poppins',
+                    fontWeight: FontWeight.w500,
+                    fontSize: 25.5,
+                    color: Colors.white,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+        backgroundColor: Colors.grey[300],
+        body: LiquidPullToRefresh(
+          color: Color.fromRGBO(109, 116, 255, 1),
+          backgroundColor: Color.fromARGB(255, 138, 156, 255),
+          height: 100,
+          onRefresh: refresh,
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                const SizedBox(
+                  height: 10,
+                ),
+                Center(
+                  child: Container(
+                    padding: const EdgeInsets.all(12),
+                    height: 105,
+                    decoration: BoxDecoration(
+                        color: Colors.grey[300],
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(50)),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.shade500,
+                            offset: const Offset(4, 4),
+                            blurRadius: 15,
+                            spreadRadius: 1,
+                          ),
+                          const BoxShadow(
+                            color: Colors.white,
+                            offset: Offset(-4, -4),
+                            blurRadius: 15,
+                            spreadRadius: 1,
+                          ),
+                        ]),
+                    child: Image.asset(
+                      'assets/images/teacher.png',
+                      fit: BoxFit.fitHeight,
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 25,
+                ),
+                Center(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Icon(Icons.star_border_purple500),
+                      const Text(
+                        "PRINCIPAL",
+                        style: TextStyle(
+                          fontFamily: 'Poppins',
+                        ),
+                      ),
+                      const Icon(Icons.star_border_purple500),
+                    ],
+                  ),
+                ),
+                const SizedBox(
+                  height: 25,
+                ),
+                Center(
+                  child: GestureDetector(
+                    onTap: () => {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const Editpage3()),
+                      ),
+                    },
+                    child: Container(
+                      width: 240,
+                      height: 40,
+                      decoration: BoxDecoration(
+                          gradient: const LinearGradient(
+                            colors: [
+                              Color.fromRGBO(143, 148, 251, 1),
+                              Color.fromRGBO(143, 148, 251, 0.6),
+                            ],
+                          ),
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(10)),
+                          //border: Border.all(color: Colors.white, width: 2),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.shade500,
+                              offset: Offset(2, 2),
+                              blurRadius: 1,
+                            ),
+                            BoxShadow(
+                              color: Colors.white,
+                              offset: Offset(-2, -2),
+                              blurRadius: 1,
+                            ),
+                          ]),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Text(
+                            "Edit Profile",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontFamily: 'Poppins',
+                              fontSize: 16,
+                            ),
+                          ),
+                          const SizedBox(
+                            width: 10,
+                          ),
+                          const Icon(
+                            Icons.edit,
+                            color: Colors.white,
+                            size: 20,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+                Container(
+                  width: 500,
+                  margin: const EdgeInsets.all(20),
+                  padding: const EdgeInsets.all(25),
+                  decoration: BoxDecoration(
+                      color: Colors.grey.shade300,
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(10),
+                        topRight: Radius.circular(10),
+                        bottomLeft: Radius.circular(10),
+                        bottomRight: Radius.circular(10),
+                      ),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.shade500,
+                          offset: const Offset(6, 6),
+                          blurRadius: 15,
+                          spreadRadius: 1,
+                        ),
+                        const BoxShadow(
+                          color: Colors.white,
+                          offset: Offset(-6, -6),
+                          blurRadius: 15,
+                          spreadRadius: 1,
+                        ),
+                      ]),
+                  child: Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "Name : $name",
+                            style: const TextStyle(fontFamily: 'Poppins'),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 25,
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(
+                  height: 15,
+                ),
+                // Center(
+                //   child: GestureDetector(
+                //     onTap: () => {refresh()},
+                //     child: Container(
+                //       width: 240,
+                //       height: 40,
+                //       decoration: BoxDecoration(
+                //         gradient: const LinearGradient(
+                //           colors: [
+                //             Color.fromRGBO(143, 148, 251, 1),
+                //             Color.fromRGBO(143, 148, 251, 0.6),
+                //           ],
+                //         ),
+                //         borderRadius: const BorderRadius.all(Radius.circular(10)),
+                //         border: Border.all(color: Colors.white, width: 2),
+                //       ),
+                //       child: Row(
+                //         mainAxisAlignment: MainAxisAlignment.center,
+                //         children: [
+                //           const Text(
+                //             "Refresh",
+                //             style: TextStyle(
+                //               color: Colors.white,
+                //               fontFamily: 'Poppins',
+                //               fontSize: 16,
+                //             ),
+                //           ),
+                //           const SizedBox(
+                //             width: 10,
+                //           ),
+                //           const Icon(
+                //             Icons.refresh,
+                //             color: Colors.white,
+                //             size: 20,
+                //           ),
+                //         ],
+                //       ),
+                //     ),
+                //   ),
+                // ),
+              ],
+            ),
+          ),
+        ),
+      );
+    } else {
+      return Profilepage();
     }
   }
 }

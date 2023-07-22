@@ -102,7 +102,7 @@ class _AddassState extends State<Addass> {
     });
   }
 
-  void adds() async{
+  void adds() async {
     Getname gn = Getname();
     var fnxx = await gn.getRolefirst();
     final db = FirebaseFirestore.instance;
@@ -120,7 +120,8 @@ class _AddassState extends State<Addass> {
       showsuccess();
     }
   }
-    void showsuccess() {
+
+  void showsuccess() {
     showDialog(
         context: context,
         builder: (context) {
@@ -149,276 +150,277 @@ class _AddassState extends State<Addass> {
             const SizedBox(
               height: 50,
             ),
-            FadeAnimation3(1.6,
-            Container(
-              width: 500,
-              margin: EdgeInsets.all(20),
-              padding: EdgeInsets.all(25),
-              decoration: BoxDecoration(
-                  color: Colors.grey[300],
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(10),
-                    topRight: Radius.circular(10),
-                    bottomLeft: Radius.circular(10),
-                    bottomRight: Radius.circular(10),
-                  ),
-                  boxShadow: [
-                                    const BoxShadow(
-                                      offset: Offset(-6, -6),
-                                      color: Colors.white,
-                                      blurRadius: 8,
-                                      spreadRadius: 1,
-                                    ),
+            FadeAnimation3(
+                1.6,
+                Container(
+                  width: 500,
+                  margin: EdgeInsets.all(20),
+                  padding: EdgeInsets.all(25),
+                  decoration: BoxDecoration(
+                      color: Colors.grey[300],
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(10),
+                        topRight: Radius.circular(10),
+                        bottomLeft: Radius.circular(10),
+                        bottomRight: Radius.circular(10),
+                      ),
+                      boxShadow: [
+                        const BoxShadow(
+                          offset: Offset(-6, -6),
+                          color: Colors.white,
+                          blurRadius: 8,
+                          spreadRadius: 1,
+                        ),
+                        BoxShadow(
+                          offset: const Offset(4, 4),
+                          color: Colors.grey.shade500,
+                          blurRadius: 4,
+                          spreadRadius: 1,
+                        ),
+                      ]),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Container(
+                            child: Text(
+                              "Subject : ",
+                              style: TextStyle(
+                                fontFamily: 'Poppins',
+                              ),
+                            ),
+                          ),
+                          Container(
+                            width: 200,
+                            padding: const EdgeInsets.all(4.0),
+                            decoration: const BoxDecoration(
+                              border: Border(
+                                  bottom: BorderSide(
+                                color: Color(0xFFBDBDBD),
+                              )),
+                            ),
+                            child: TextField(
+                              onChanged: (value) => sub = value,
+                              decoration: InputDecoration(
+                                border: InputBorder.none,
+                                hintText: "Subject ",
+                                hintStyle: TextStyle(
+                                  color: Colors.grey[400],
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Container(
+                            child: Text(
+                              "Topic : ",
+                              style: TextStyle(
+                                fontFamily: 'Poppins',
+                              ),
+                            ),
+                          ),
+                          Container(
+                            width: 200,
+                            padding: const EdgeInsets.all(4.0),
+                            decoration: const BoxDecoration(
+                              border: Border(
+                                  bottom: BorderSide(
+                                color: Color(0xFFBDBDBD),
+                              )),
+                            ),
+                            child: TextField(
+                              onChanged: (value) => top = value,
+                              decoration: InputDecoration(
+                                border: InputBorder.none,
+                                hintText: "Topic",
+                                hintStyle: TextStyle(
+                                  color: Colors.grey[400],
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 30,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Container(
+                            child: Text(
+                              "Class : ",
+                              style: TextStyle(
+                                fontFamily: 'Poppins',
+                              ),
+                            ),
+                          ),
+                          DropdownButton<int>(
+                            value: cls,
+                            hint: Text('Select class'),
+                            items: List.generate(10, (index) {
+                              return DropdownMenuItem<int>(
+                                value: index + 1,
+                                child: Text((index + 1).toString()),
+                              );
+                            }),
+                            onChanged: (value) {
+                              setState(() {
+                                cls = value;
+                              });
+                            },
+                          ),
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 30,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Container(
+                            child: Text(
+                              "Select Material : ",
+                              style: TextStyle(
+                                fontFamily: 'Poppins',
+                              ),
+                            ),
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              print("SIGN UP");
+                              filepicker();
+                            },
+                            child: Container(
+                              width: 150,
+                              height: 40,
+                              padding: const EdgeInsets.all(4),
+                              decoration: BoxDecoration(
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.grey.withOpacity(0.5),
+                                    spreadRadius: 2,
+                                    blurRadius: 5,
+                                    offset: Offset(0, 3),
+                                  ),
+                                ],
+                                borderRadius: BorderRadius.circular(50),
+                                color: Colors.white,
+                              ),
+                              child: Container(
+                                width: 180,
+                                height: 67.5,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(50),
+                                  //shape: BoxShape.circle,
+                                  boxShadow: [
                                     BoxShadow(
-                                      offset: const Offset(4, 4),
-                                      color: Colors.grey.shade500,
-                                      blurRadius: 4,
-                                      spreadRadius: 1,
+                                      color: Colors.grey.withOpacity(0.5),
+                                      spreadRadius: 2,
+                                      blurRadius: 5,
+                                      offset: Offset(0, 3),
                                     ),
-                          ]
-                  ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Container(
-                        child: Text(
-                          "Subject : ",
-                          style: TextStyle(
-                            fontFamily: 'Poppins',
-                          ),
-                        ),
-                      ),
-                      Container(
-                        width: 200,
-                        padding: const EdgeInsets.all(4.0),
-                        decoration: const BoxDecoration(
-                          border: Border(
-                              bottom: BorderSide(
-                            color: Color(0xFFBDBDBD),
-                          )),
-                        ),
-                        child: TextField(
-                          onChanged: (value) => sub = value,
-                          decoration: InputDecoration(
-                            border: InputBorder.none,
-                            hintText: "Subject ",
-                            hintStyle: TextStyle(
-                              color: Colors.grey[400],
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Container(
-                        child: Text(
-                          "Topic : ",
-                          style: TextStyle(
-                            fontFamily: 'Poppins',
-                          ),
-                        ),
-                      ),
-                      Container(
-                        width: 200,
-                        padding: const EdgeInsets.all(4.0),
-                        decoration: const BoxDecoration(
-                          border: Border(
-                              bottom: BorderSide(
-                            color: Color(0xFFBDBDBD),
-                          )),
-                        ),
-                        child: TextField(
-                          onChanged: (value) => top = value,
-                          decoration: InputDecoration(
-                            border: InputBorder.none,
-                            hintText: "Topic",
-                            hintStyle: TextStyle(
-                              color: Colors.grey[400],
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 30,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Container(
-                        child: Text(
-                          "Class : ",
-                          style: TextStyle(
-                            fontFamily: 'Poppins',
-                          ),
-                        ),
-                      ),
-                      DropdownButton<int>(
-                        value: cls,
-                        hint: Text('Select class'),
-                        items: List.generate(10, (index) {
-                          return DropdownMenuItem<int>(
-                            value: index + 1,
-                            child: Text((index + 1).toString()),
-                          );
-                        }),
-                        onChanged: (value) {
-                          setState(() {
-                            cls = value;
-                          });
-                        },
-                      ),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 30,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Container(
-                        child: Text(
-                          "Select Material : ",
-                          style: TextStyle(
-                            fontFamily: 'Poppins',
-                          ),
-                        ),
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          print("SIGN UP");
-                          filepicker();
-                        },
-                        child: Container(
-                          width: 150,
-                          height: 40,
-                          padding: const EdgeInsets.all(4),
-                          decoration: BoxDecoration(
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey.withOpacity(0.5),
-                                spreadRadius: 2,
-                                blurRadius: 5,
-                                offset: Offset(0, 3),
-                              ),
-                            ],
-                            borderRadius: BorderRadius.circular(50),
-                            color: Colors.white,
-                          ),
-                          child: Container(
-                            width: 180,
-                            height: 67.5,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(50),
-                              //shape: BoxShape.circle,
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.grey.withOpacity(0.5),
-                                  spreadRadius: 2,
-                                  blurRadius: 5,
-                                  offset: Offset(0, 3),
+                                  ],
+                                  color: cc,
                                 ),
-                              ],
-                              color: cc,
-                            ),
-                            child: Center(
-                              child: Text(
-                                "$qxx",
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 12,
-                                  letterSpacing: 1.4,
-                                  fontWeight: FontWeight.bold,
-                                  fontFamily: 'Poppins',
+                                child: Center(
+                                  child: Text(
+                                    "$qxx",
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 12,
+                                      letterSpacing: 1.4,
+                                      fontWeight: FontWeight.bold,
+                                      fontFamily: 'Poppins',
+                                    ),
+                                  ),
                                 ),
                               ),
                             ),
                           ),
-                        ),
+                        ],
                       ),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 30,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Container(
-                        child: Text(
-                          "Select Deadline : ",
-                          style: TextStyle(
-                            fontFamily: 'Poppins',
-                          ),
-                        ),
+                      const SizedBox(
+                        height: 30,
                       ),
-                      GestureDetector(
-                        onTap: () {
-                          print("SIGN UP");
-                          // filepick();
-                          showdatepicker();
-                        },
-                        child: Container(
-                          width: 150,
-                          height: 60,
-                          padding: const EdgeInsets.all(4),
-                          decoration: BoxDecoration(
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey.withOpacity(0.5),
-                                spreadRadius: 2,
-                                blurRadius: 5,
-                                offset: Offset(0, 3),
-                              ),
-                            ],
-                            borderRadius: BorderRadius.circular(50),
-                            color: Colors.white,
-                          ),
-                          child: Container(
-                            width: 180,
-                            height: 77.5,
-                            padding: EdgeInsets.all(10),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(50),
-                              //shape: BoxShape.circle,
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.grey.withOpacity(0.5),
-                                  spreadRadius: 2,
-                                  blurRadius: 5,
-                                  offset: Offset(0, 3),
-                                ),
-                              ],
-                              color: Color.fromRGBO(117, 123, 255, 1),
-                            ),
-                            child: Center(
-                              child: Text(
-                                ff,
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 12,
-                                  letterSpacing: 1.4,
-                                  fontWeight: FontWeight.bold,
-                                  fontFamily: 'Poppins',
-                                ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Container(
+                            child: Text(
+                              "Select Deadline : ",
+                              style: TextStyle(
+                                fontFamily: 'Poppins',
                               ),
                             ),
                           ),
-                        ),
+                          GestureDetector(
+                            onTap: () {
+                              print("SIGN UP");
+                              // filepick();
+                              showdatepicker();
+                            },
+                            child: Container(
+                              width: 150,
+                              height: 60,
+                              padding: const EdgeInsets.all(4),
+                              decoration: BoxDecoration(
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.grey.withOpacity(0.5),
+                                    spreadRadius: 2,
+                                    blurRadius: 5,
+                                    offset: Offset(0, 3),
+                                  ),
+                                ],
+                                borderRadius: BorderRadius.circular(50),
+                                color: Colors.white,
+                              ),
+                              child: Container(
+                                width: 180,
+                                height: 77.5,
+                                padding: EdgeInsets.all(10),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(50),
+                                  //shape: BoxShape.circle,
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.grey.withOpacity(0.5),
+                                      spreadRadius: 2,
+                                      blurRadius: 5,
+                                      offset: Offset(0, 3),
+                                    ),
+                                  ],
+                                  color: Color.fromRGBO(117, 123, 255, 1),
+                                ),
+                                child: Center(
+                                  child: Text(
+                                    ff,
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 12,
+                                      letterSpacing: 1.4,
+                                      fontWeight: FontWeight.bold,
+                                      fontFamily: 'Poppins',
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                     ],
                   ),
-                ],
-              ),
-            ), context),
+                ),
+                context),
             SizedBox(
               height: 15,
             ),
@@ -469,5 +471,409 @@ class _AddassState extends State<Addass> {
         ),
       ),
     );
+  }
+}
+
+class deciderrr extends StatefulWidget {
+  const deciderrr({super.key});
+
+  @override
+  State<deciderrr> createState() => _deciderrrState();
+}
+
+class _deciderrrState extends State<deciderrr> {
+  String role = "";
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    gett();
+  }
+
+  void gett() async {
+    GetUserNamee gn = GetUserNamee();
+    role = (await gn.getRole())!;
+    if (role != "") {
+      setState(() {
+        role = role;
+      });
+    }
+  }
+
+  void adds() async {
+    Getname gn = Getname();
+    var fnxx = await gn.getRolefirst();
+    final db = FirebaseFirestore.instance;
+    if (fnxx != null) {
+      var ass = {
+        "Subject": top,
+        "Topic": desc,
+        "assign": DateTime.now(),
+        "class": "$cls"
+      };
+      db.collection("$fnxx").add(ass).then((DocumentReference doc) =>
+          print('DocumentSnapshot added with ID: ${doc.id}'));
+      showsuccess();
+    }
+  }
+
+  void showsuccess() {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return const AlertDialog(
+            backgroundColor: Colors.deepPurpleAccent,
+            title: Center(
+              child: Text(
+                ' ✅ Assignment Added',
+                style: TextStyle(
+                  fontSize: 14,
+                  color: Colors.white,
+                ),
+              ),
+            ),
+          );
+        });
+  }
+
+  int? cls;
+  String? top;
+  String? desc;
+
+  @override
+  Widget build(BuildContext context) {
+    if (role == "principal")
+      return Scaffold(
+        backgroundColor: Colors.grey[300],
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              const SizedBox(
+                height: 50,
+              ),
+              FadeAnimation3(
+                  1.6,
+                  Container(
+                    width: 500,
+                    margin: EdgeInsets.all(20),
+                    padding: EdgeInsets.all(25),
+                    decoration: BoxDecoration(
+                        color: Colors.grey[300],
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(10),
+                          topRight: Radius.circular(10),
+                          bottomLeft: Radius.circular(10),
+                          bottomRight: Radius.circular(10),
+                        ),
+                        boxShadow: [
+                          const BoxShadow(
+                            offset: Offset(-6, -6),
+                            color: Colors.white,
+                            blurRadius: 8,
+                            spreadRadius: 1,
+                          ),
+                          BoxShadow(
+                            offset: const Offset(4, 4),
+                            color: Colors.grey.shade500,
+                            blurRadius: 4,
+                            spreadRadius: 1,
+                          ),
+                        ]),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Container(
+                              child: Text(
+                                "Title : ",
+                                style: TextStyle(
+                                  fontFamily: 'Poppins',
+                                ),
+                              ),
+                            ),
+                            Container(
+                              width: 200,
+                              padding: const EdgeInsets.all(4.0),
+                              decoration: const BoxDecoration(
+                                border: Border(
+                                    bottom: BorderSide(
+                                  color: Color(0xFFBDBDBD),
+                                )),
+                              ),
+                              child: TextField(
+                                onChanged: (value) => top = value,
+                                decoration: InputDecoration(
+                                  border: InputBorder.none,
+                                  hintText: "Subject ",
+                                  hintStyle: TextStyle(
+                                    color: Colors.grey[400],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Container(
+                              child: Text(
+                                "Description : ",
+                                style: TextStyle(
+                                  fontFamily: 'Poppins',
+                                ),
+                              ),
+                            ),
+                            Container(
+                              width: 200,
+                              padding: const EdgeInsets.all(4.0),
+                              decoration: const BoxDecoration(
+                                border: Border(
+                                    bottom: BorderSide(
+                                  color: Color(0xFFBDBDBD),
+                                )),
+                              ),
+                              child: TextField(
+                                onChanged: (value) => desc = value,
+                                decoration: InputDecoration(
+                                  border: InputBorder.none,
+                                  hintText: "desc",
+                                  hintStyle: TextStyle(
+                                    color: Colors.grey[400],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 30,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Container(
+                              child: Text(
+                                "Class : ",
+                                style: TextStyle(
+                                  fontFamily: 'Poppins',
+                                ),
+                              ),
+                            ),
+                            DropdownButton<int>(
+                              value: cls,
+                              hint: Text('Select class'),
+                              items: List.generate(10, (index) {
+                                return DropdownMenuItem<int>(
+                                  value: index + 1,
+                                  child: Text((index + 1).toString()),
+                                );
+                              }),
+                              onChanged: (value) {
+                                setState(() {
+                                  cls = value;
+                                });
+                              },
+                            ),
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 30,
+                        ),
+                        // Row(
+                        //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        //   children: [
+                        //     Container(
+                        //       child: Text(
+                        //         "Select Material : ",
+                        //         style: TextStyle(
+                        //           fontFamily: 'Poppins',
+                        //         ),
+                        //       ),
+                        //     ),
+                        //     GestureDetector(
+                        //       onTap: () {
+                        //         print("SIGN UP");
+                        //         //filepicker();
+                        //       },
+                        //       child: Container(
+                        //         width: 150,
+                        //         height: 40,
+                        //         padding: const EdgeInsets.all(4),
+                        //         decoration: BoxDecoration(
+                        //           boxShadow: [
+                        //             BoxShadow(
+                        //               color: Colors.grey.withOpacity(0.5),
+                        //               spreadRadius: 2,
+                        //               blurRadius: 5,
+                        //               offset: Offset(0, 3),
+                        //             ),
+                        //           ],
+                        //           borderRadius: BorderRadius.circular(50),
+                        //           color: Colors.white,
+                        //         ),
+                        //         child: Container(
+                        //           width: 180,
+                        //           height: 67.5,
+                        //           decoration: BoxDecoration(
+                        //             borderRadius: BorderRadius.circular(50),
+                        //             //shape: BoxShape.circle,
+                        //             boxShadow: [
+                        //               BoxShadow(
+                        //                 color: Colors.grey.withOpacity(0.5),
+                        //                 spreadRadius: 2,
+                        //                 blurRadius: 5,
+                        //                 offset: Offset(0, 3),
+                        //               ),
+                        //             ],
+                        //             color: cc,
+                        //           ),
+                        //           child: Center(
+                        //             child: Text(
+                        //               "$qxx",
+                        //               style: TextStyle(
+                        //                 color: Colors.white,
+                        //                 fontSize: 12,
+                        //                 letterSpacing: 1.4,
+                        //                 fontWeight: FontWeight.bold,
+                        //                 fontFamily: 'Poppins',
+                        //               ),
+                        //             ),
+                        //           ),
+                        //         ),
+                        //       ),
+                        //     ),
+                        //   ],
+                        // ),
+                        // const SizedBox(
+                        //   height: 30,
+                        // ),
+                        // Row(
+                        //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        //   children: [
+                        //     Container(
+                        //       child: Text(
+                        //         "Select Deadline : ",
+                        //         style: TextStyle(
+                        //           fontFamily: 'Poppins',
+                        //         ),
+                        //       ),
+                        //     ),
+                        //     GestureDetector(
+                        //       onTap: () {
+                        //         print("SIGN UP");
+                        //         // filepick();
+                        //         //showdatepicker();
+                        //       },
+                        //       child: Container(
+                        //         width: 150,
+                        //         height: 60,
+                        //         padding: const EdgeInsets.all(4),
+                        //         decoration: BoxDecoration(
+                        //           boxShadow: [
+                        //             BoxShadow(
+                        //               color: Colors.grey.withOpacity(0.5),
+                        //               spreadRadius: 2,
+                        //               blurRadius: 5,
+                        //               offset: Offset(0, 3),
+                        //             ),
+                        //           ],
+                        //           borderRadius: BorderRadius.circular(50),
+                        //           color: Colors.white,
+                        //         ),
+                        //         child: Container(
+                        //           width: 180,
+                        //           height: 77.5,
+                        //           padding: EdgeInsets.all(10),
+                        //           decoration: BoxDecoration(
+                        //             borderRadius: BorderRadius.circular(50),
+                        //             //shape: BoxShape.circle,
+                        //             boxShadow: [
+                        //               BoxShadow(
+                        //                 color: Colors.grey.withOpacity(0.5),
+                        //                 spreadRadius: 2,
+                        //                 blurRadius: 5,
+                        //                 offset: Offset(0, 3),
+                        //               ),
+                        //             ],
+                        //             color: Color.fromRGBO(117, 123, 255, 1),
+                        //           ),
+                        //           child: Center(
+                        //             child: Text(
+                        //               "ff",
+                        //               style: TextStyle(
+                        //                 color: Colors.white,
+                        //                 fontSize: 12,
+                        //                 letterSpacing: 1.4,
+                        //                 fontWeight: FontWeight.bold,
+                        //                 fontFamily: 'Poppins',
+                        //               ),
+                        //             ),
+                        //           ),
+                        //         ),
+                        //       ),
+                        //     ),
+                        //   ],
+                        // ),
+                      ],
+                    ),
+                  ),
+                  context),
+              SizedBox(
+                height: 15,
+              ),
+              Center(
+                child: GestureDetector(
+                  onTap: () => {
+                    //refresh()
+                    adds(),
+                  },
+                  child: Container(
+                    width: 240,
+                    height: 40,
+                    decoration: BoxDecoration(
+                      gradient: const LinearGradient(
+                        colors: [
+                          Color.fromRGBO(143, 148, 251, 1),
+                          Color.fromRGBO(143, 148, 251, 0.6),
+                        ],
+                      ),
+                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                      border: Border.all(color: Colors.white, width: 2),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          "Add Notice",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontFamily: 'Poppins',
+                            fontSize: 16,
+                          ),
+                        ),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        Icon(
+                          Icons.add,
+                          color: Colors.white,
+                          size: 20,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
+    else
+      return Addass();
   }
 }

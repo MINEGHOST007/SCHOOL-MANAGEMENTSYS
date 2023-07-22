@@ -222,11 +222,12 @@ class _CardclassState extends State<Cardclass> {
   void getRole2() async {
     GetUserNamee gr = GetUserNamee();
     role = await gr.getRole();
-    if (role == "teacher") {
+    if (role == "teacher" || role == "principal") {
       setState(() {
         role = role;
       });
     }
+
   }
 
   @override
@@ -251,7 +252,7 @@ class _CardclassState extends State<Cardclass> {
           builder: (context) => GetSyllabus(collecti: widget.subs, role: role),
         ),
       );
-    } else if (role == "teacher") {
+    } else if (role == "teacher" || role == "principal") {
       Navigator.push(
           context,
           MaterialPageRoute(
@@ -264,7 +265,7 @@ class _CardclassState extends State<Cardclass> {
   Widget build(BuildContext context) {
     Color xx = const Color.fromRGBO(143, 148, 251, 0.6);
     Color yy = const Color.fromRGBO(143, 148, 251, 1);
-    if (role == "teacher") {
+    if (role == "teacher" || role == "principal") {
       return GestureDetector(
         onTap: () => {getRole(context)},
         child: FadeAnimation3(
@@ -528,7 +529,97 @@ class list extends StatelessWidget {
           ],
         ),
       );
-    } else {
+    } 
+    else if (role == "principal") {
+      double att = doc['present'] * 100 / (doc['absent'] + doc['present']);
+      double x = doc['present'] / 1;
+      double y = doc['absent'] / 1;
+      Map<String, double> dataMap = {
+        'Present': x,
+        'Absent': y,
+      };
+      void clickprofile(Map<String, double> dataMapx, DocumentSnapshot docx) {
+        if(docx['role']=="student")
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => Getprofile(pie: dataMapx, doc: docx)),
+        );
+        else
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => Getprofile2(pie: dataMapx, doc: docx)),
+        );
+      }
+
+      return GestureDetector(
+        onTap: (){
+          clickprofile(dataMap, doc);
+        },
+        child: Container(
+          margin: EdgeInsets.only(bottom: 10),
+          width: 500,
+          height: 75,
+          padding: EdgeInsets.all(5),
+          decoration: BoxDecoration(
+              border: Border.all(
+                  color: Color.fromARGB(0, 0, 0, 0), style: BorderStyle.solid)),
+          child: Row(
+            children: [
+              Container(
+                padding: EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(50),
+                ),
+                child: Image.asset(
+                  'assets/images/teacher.png',
+                  fit: BoxFit.fitHeight,
+                ),
+              ),
+              SizedBox(
+                width: 10,
+              ),
+              Expanded(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          doc['first_name'],
+                          style: TextStyle(
+                            fontFamily: 'Poppins',
+                            color: Color.fromRGBO(118, 125, 255, 1),
+                          ),
+                        ),
+                        SizedBox(
+                          width: 6,
+                        ),
+                        Text(
+                          doc['second_name'],
+                          style: TextStyle(
+                            fontFamily: 'Poppins',
+                            color: Color.fromRGBO(120, 127, 255, 1),
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 8,
+                    ),
+                    Text(doc['email']),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
+    }
+    else {
       double att = doc['present'] * 100 / (doc['absent'] + doc['present']);
       double x = doc['present'] / 1;
       double y = doc['absent'] / 1;
@@ -1204,6 +1295,254 @@ class _listAssState extends State<listAss> {
   }
 }
 
+class listAss2 extends StatefulWidget {
+  String? Subject;
+  String? topic;
+  DateTime? x;
+  DateTime? y;
+  String? urr;
+  String? role;
+  //DateTime
+  listAss2(
+      {super.key,
+      required this.Subject,
+      required this.topic,
+      required this.x,
+      required this.role});
+
+  @override
+  State<listAss2> createState() => _listAss2State();
+}
+
+class _listAss2State extends State<listAss2> {
+  double progressx = 0.0;
+  final Snackb = SnackBar(
+    content: Row(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: [
+        Container(
+          margin: EdgeInsets.only(bottom: 80),
+          height: 40,
+          decoration: BoxDecoration(
+            color: Color.fromARGB(0, 224, 224, 224),
+            borderRadius: BorderRadius.all(Radius.circular(20)),
+          ),
+          child: Center(
+            child: CircularPercentIndicator(
+              radius: 16,
+              lineWidth: 10,
+              // percent: progressx,
+              progressColor: Color.fromRGBO(110, 118, 255, 1),
+              backgroundColor: Color.fromRGBO(162, 166, 255, 1),
+              circularStrokeCap: CircularStrokeCap.round,
+              center: Icon(
+                Icons.upload_file_rounded,
+                color: Color.fromRGBO(110, 118, 255, 1),
+              ),
+            ),
+          ),
+        ),
+        Center(
+            child: Text(
+          "Uploading",
+          style: TextStyle(
+            fontFamily: 'Poppins',
+            color: Color.fromRGBO(110, 118, 255, 1),
+          ),
+        )),
+      ],
+    ),
+    behavior: SnackBarBehavior.floating,
+    backgroundColor: Colors.transparent,
+    elevation: 0,
+  );
+  final Snackb2 = SnackBar(
+    content: Row(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: [
+        Container(
+          margin: EdgeInsets.only(bottom: 80),
+          height: 40,
+          decoration: BoxDecoration(
+            color: Color.fromARGB(0, 224, 224, 224),
+            borderRadius: BorderRadius.all(Radius.circular(20)),
+          ),
+          child: Center(
+            child: CircularPercentIndicator(
+              radius: 16,
+              lineWidth: 10,
+              // percent: progressx,
+              progressColor: Color.fromRGBO(110, 118, 255, 1),
+              backgroundColor: Color.fromRGBO(162, 166, 255, 1),
+              circularStrokeCap: CircularStrokeCap.round,
+              center: Icon(
+                Icons.done_all_rounded,
+                color: Color.fromRGBO(110, 118, 255, 1),
+              ),
+            ),
+          ),
+        ),
+        Center(
+            child: Text(
+          "Completed",
+          style: TextStyle(
+            fontFamily: 'Poppins',
+            color: Color.fromRGBO(110, 118, 255, 1),
+          ),
+        )),
+      ],
+    ),
+    behavior: SnackBarBehavior.floating,
+    backgroundColor: Colors.transparent,
+    elevation: 0,
+  );
+  Future<String> uploadpdf(String fn, File file) async {
+    final refer =
+        FirebaseStorage.instance.ref("Assignments/Hermoine/10/Answers/$fn.pdf");
+
+    final uploadTask = refer.putFile(file);
+
+    await uploadTask.whenComplete(() => {});
+
+    final downlink = await refer.getDownloadURL();
+
+    return downlink;
+  }
+
+  void filepicker() async {
+    User? user = FirebaseAuth.instance.currentUser;
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
+      type: FileType.custom,
+      allowedExtensions: ['pdf'],
+    );
+    ScaffoldMessenger.of(context).showSnackBar(Snackb);
+    if (result != null) {
+      File file = File("${result.files.single.path}");
+
+      String fn = result.files[0].name;
+
+      final fownload = await uploadpdf(fn, file);
+
+      await FirebaseFirestore.instance.collection("Answers").add({
+        "link": fownload,
+        "name": "$fn",
+        "topic": "${widget.topic}",
+        "by": user!.email
+      });
+      ScaffoldMessenger.of(context).hideCurrentSnackBar();
+
+      ScaffoldMessenger.of(context).showSnackBar(Snackb2);
+    }
+  }
+
+  Future<void> downloadfile(String urr, String xx) async {
+    var httpClient = http.Client();
+    var req = await httpClient.get(Uri.parse(urr));
+
+    var bytes = req.bodyBytes;
+    var dir = await getApplicationDocumentsDirectory();
+
+    var file = File("${dir.path}/$xx.pdf");
+    print(file);
+    await file.writeAsBytes(bytes);
+  }
+
+  void status() async {
+    User? user = FirebaseAuth.instance.currentUser;
+    CollectionReference Ans = FirebaseFirestore.instance.collection("Answers");
+    QuerySnapshot snapshot = await Ans.where('by', isEqualTo: user!.email)
+        .where('topic', isEqualTo: widget.topic)
+        .get();
+
+    print(snapshot);
+
+    if (snapshot.docs.isNotEmpty) {
+      xo = "Finished";
+      xvv = Color.fromARGB(255, 104, 104, 104);
+    }
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    status();
+  }
+
+  String xo = "Unfinished";
+  Color xvv = Color.fromRGBO(149, 155, 255, 0.836);
+
+  @override
+  Widget build(BuildContext context) {
+      return GestureDetector(
+        onTap: () {},
+        child: Container(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              FadeAnimation2(
+                  1.6,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Container(
+                        width: 80,
+                        height: 20,
+                        margin: EdgeInsets.only(top: 4, left: 0, bottom: 5),
+                        padding: EdgeInsets.all(0),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(25)),
+                          color: Colors.white,
+                        ),
+                        child: Center(
+                          child: Text(
+                            "${widget.Subject}",
+                            style: TextStyle(
+                              color: Color.fromRGBO(93, 101, 255, 1),
+                              fontSize: 10,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  context),
+              Text(
+                "${widget.topic}",
+                style: TextStyle(fontFamily: 'Poppins'),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Text(
+                    "Assign Date : ",
+                    style: TextStyle(color: Colors.grey[600]),
+                  ),
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  Text(
+                    "${widget.x!.year}/${widget.x!.month}/${widget.x!.day}",
+                    style: TextStyle(
+                      color: Colors.grey[600],
+                      // fontFamily: 'Poppins',
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(
+                height: 25,
+              ),
+              
+            ],
+          ),
+        ),
+      );
+    }
+  }
+
+
+
 class GetAnswers extends StatefulWidget {
   String? topic;
   GetAnswers({super.key, required this.topic});
@@ -1518,7 +1857,7 @@ class _listzState extends State<listz> {
                     children: [
                       Text(
                         widget.doc['first_name'],
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontFamily: 'Poppins',
                           color: Color.fromRGBO(118, 125, 255, 1),
                         ),
@@ -1648,8 +1987,36 @@ class Updateatt {
         '$ff': false,
       }, SetOptions(merge: true));
     }
+    Getstudentdocs x = Getstudentdocs();
+    List<DocumentSnapshot> doo = await x.getteacher();
+    if (doo != null) {
+      //doo.removeWhere((element) => abs.contains(element));
+      for (int i = 0; i < doo.length; i++) {
+        CollectionReference users =
+            FirebaseFirestore.instance.collection("Attendance");
+        if ((abs.contains(doo[i])) == false) {
+          await users.doc('${doo[i].get('email')}').set({
+          '$ff': true,
+        }, SetOptions(merge: true));
+        }
+        
+      }
+      //   for (int i = 0; i < doo.length; i++) {
+      //   print(abs[i]);
+      //   CollectionReference users =
+      //       FirebaseFirestore.instance.collection("Attendance");
+
+      //   await users.doc('${doo[i].get('email')}').set({
+      //     '$ff': true,
+      //   }, SetOptions(merge: true));
+      // }
+    }
+
     uppate();
   }
+
+
+  
   // void uppate(){
   //   CollectionReference attt =
   //         FirebaseFirestore.instance.collection("Attendance");
@@ -1657,36 +2024,301 @@ class Updateatt {
   //   CollectionReference users =
   //         FirebaseFirestore.instance.collection("users");
 
+  // }
 
+  void uppate() async {
+    CollectionReference attt =
+        FirebaseFirestore.instance.collection("Attendance");
+    CollectionReference users = FirebaseFirestore.instance.collection("users");
+
+    QuerySnapshot attendanceSnapshot = await attt.get();
+
+    for (QueryDocumentSnapshot attendanceDoc in attendanceSnapshot.docs) {
+      String email = attendanceDoc.id;
+      Map<String, dynamic> attendanceData =
+          attendanceDoc.data() as Map<String, dynamic>;
+
+      int trueCount =
+          attendanceData.values.where((value) => value == true).length;
+      int falseCount =
+          attendanceData.values.where((value) => value == false).length;
+
+      // Find the matching user document in the 'users' collection
+      QuerySnapshot userSnapshot =
+          await users.where('email', isEqualTo: email).get();
+
+      if (userSnapshot.docs.isNotEmpty) {
+        // Update the 'present' and 'absent' fields in the user document
+        String userId = userSnapshot.docs[0].id;
+        await users.doc(userId).update({
+          'present': trueCount,
+          'absent': falseCount,
+        });
+
+        print('Attendance updated for email: $email');
+      }
+    }
+  }
+}
+
+
+
+class Updateatt2 {
+  void upp(List<DocumentSnapshot>? abs, String ff) async {
+    for (int i = 0; i < abs!.length; i++) {
+      print(abs[i]);
+      CollectionReference users =
+          FirebaseFirestore.instance.collection("Attendanceteach");
+
+      await users.doc('${abs[i].get('email')}').set({
+        '$ff': false,
+      }, SetOptions(merge: true));
+    }
+    Getteacherdocs x = Getteacherdocs();
+    List<DocumentSnapshot> doo = await x.getteacher();
+    if (doo != null) {
+      //doo.removeWhere((element) => abs.contains(element));
+      for (int i = 0; i < doo.length; i++) {
+        CollectionReference users =
+            FirebaseFirestore.instance.collection("Attendance");
+        if ((abs.contains(doo[i])) == false) {
+          await users.doc('${doo[i].get('email')}').set({
+          '$ff': true,
+        }, SetOptions(merge: true));
+        }
+        
+      }
+      //   for (int i = 0; i < doo.length; i++) {
+      //   print(abs[i]);
+      //   CollectionReference users =
+      //       FirebaseFirestore.instance.collection("Attendance");
+
+      //   await users.doc('${doo[i].get('email')}').set({
+      //     '$ff': true,
+      //   }, SetOptions(merge: true));
+      // }
+    }
+
+    uppate();
+  }
+
+
+  
+  // void uppate(){
+  //   CollectionReference attt =
+  //         FirebaseFirestore.instance.collection("Attendance");
+
+  //   CollectionReference users =
+  //         FirebaseFirestore.instance.collection("users");
 
   // }
 
   void uppate() async {
-  CollectionReference attt = FirebaseFirestore.instance.collection("Attendance");
-  CollectionReference users = FirebaseFirestore.instance.collection("users");
+    CollectionReference attt =
+        FirebaseFirestore.instance.collection("Attendance");
+    CollectionReference users = FirebaseFirestore.instance.collection("users");
 
-  QuerySnapshot attendanceSnapshot = await attt.get();
+    QuerySnapshot attendanceSnapshot = await attt.get();
 
-  for (QueryDocumentSnapshot attendanceDoc in attendanceSnapshot.docs) {
-    String email = attendanceDoc.id;
-    Map<String, dynamic> attendanceData = attendanceDoc.data() as Map<String,dynamic>;
+    for (QueryDocumentSnapshot attendanceDoc in attendanceSnapshot.docs) {
+      String email = attendanceDoc.id;
+      Map<String, dynamic> attendanceData =
+          attendanceDoc.data() as Map<String, dynamic>;
 
-    int trueCount = attendanceData.values.where((value) => value == true).length;
-    int falseCount = attendanceData.values.where((value) => value == false).length;
+      int trueCount =
+          attendanceData.values.where((value) => value == true).length;
+      int falseCount =
+          attendanceData.values.where((value) => value == false).length;
 
-    // Find the matching user document in the 'users' collection
-    QuerySnapshot userSnapshot = await users.where('email', isEqualTo: email).get();
+      // Find the matching user document in the 'users' collection
+      QuerySnapshot userSnapshot =
+          await users.where('email', isEqualTo: email).get();
 
-    if (userSnapshot.docs.isNotEmpty) {
-      // Update the 'present' and 'absent' fields in the user document
-      String userId = userSnapshot.docs[0].id;
-      await users.doc(userId).update({
-        'present': trueCount,
-        'absent': falseCount,
-      });
+      if (userSnapshot.docs.isNotEmpty) {
+        // Update the 'present' and 'absent' fields in the user document
+        String userId = userSnapshot.docs[0].id;
+        await users.doc(userId).update({
+          'present': trueCount,
+          'absent': falseCount,
+        });
 
-      print('Attendance updated for email: $email');
+        print('Attendance updated for email: $email');
+      }
     }
   }
 }
+
+class listb extends StatefulWidget {
+  DocumentSnapshot doc;
+  String? role;
+
+  listb({super.key, required this.doc, required this.role});
+
+  @override
+  State<listb> createState() => _listbState();
+}
+
+class _listbState extends State<listb> {
+  @override
+  Widget build(BuildContext context) {
+    print('ttttttttttttttttttttttttttt');
+    print(widget.doc);
+    if (widget.role == "student") {
+      return Container(
+        margin: EdgeInsets.only(bottom: 10),
+        width: 500,
+        height: 75,
+        padding: EdgeInsets.all(5),
+        decoration: BoxDecoration(
+            border: Border.all(
+                color: Color.fromARGB(0, 0, 0, 0), style: BorderStyle.solid)),
+        child: Row(
+          children: [
+            Container(
+              padding: EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(50),
+              ),
+              child: Image.asset(
+                'assets/images/teacher.png',
+                fit: BoxFit.fitHeight,
+              ),
+            ),
+            SizedBox(
+              width: 10,
+            ),
+            Expanded(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        widget.doc['first_name'],
+                        style: const TextStyle(
+                          fontFamily: 'Poppins',
+                          color: Color.fromRGBO(118, 125, 255, 1),
+                        ),
+                      ),
+                      SizedBox(
+                        width: 6,
+                      ),
+                      Text(
+                        widget.doc['second_name'],
+                        style: TextStyle(
+                          fontFamily: 'Poppins',
+                          color: Color.fromRGBO(120, 127, 255, 1),
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 8,
+                  ),
+                  Text(widget.doc['email']),
+                ],
+              ),
+            ),
+          ],
+        ),
+      );
+    } else {
+      double att = widget.doc['present'] *
+          100 /
+          (widget.doc['absent'] + widget.doc['present']);
+      double x = widget.doc['present'] / 1;
+      double y = widget.doc['absent'] / 1;
+      Map<String, double> dataMap = {
+        'Present': x,
+        'Absent': y,
+      };
+
+      void clickprofile(DocumentSnapshot docx) {
+        if (absentee!.contains(docx)) {
+          absentee!.remove(docx);
+          print("x");
+          setState(() {
+            absentee = absentee;
+          });
+        } else {
+          print(absentee!.length);
+          absentee!.add(docx);
+          print(absentee!.length);
+          setState(() {
+            absentee = absentee;
+          });
+        }
+      }
+
+      return GestureDetector(
+        onTap: () {
+          clickprofile(widget.doc);
+        },
+        child: Container(
+          margin: EdgeInsets.only(bottom: 10),
+          width: 500,
+          height: 75,
+          padding: EdgeInsets.all(5),
+          decoration: BoxDecoration(
+              border: Border.all(
+                  color: Color.fromARGB(0, 0, 0, 0), style: BorderStyle.solid)),
+          child: Row(
+            children: [
+              Container(
+                padding: EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(50),
+                ),
+                child: Image.asset(
+                  'assets/images/teacher.png',
+                  fit: BoxFit.contain,
+                ),
+              ),
+              SizedBox(
+                width: 10,
+              ),
+              Expanded(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          widget.doc['first_name'],
+                          style: TextStyle(
+                            fontFamily: 'Poppins',
+                            color: Color.fromRGBO(93, 101, 255, 1),
+                          ),
+                        ),
+                        Text(
+                          widget.doc['second_name'],
+                          style: TextStyle(
+                            fontFamily: 'Poppins',
+                            color: Color.fromRGBO(93, 101, 255, 1),
+                          ),
+                        ),
+                        if (absentee!.contains(widget.doc))
+                          Icon(
+                            Icons.done_all,
+                            color: Color.fromRGBO(109, 116, 255, 1),
+                          ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 8,
+                    ),
+                    Text(widget.doc['email']),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
+    }
+  }
 }

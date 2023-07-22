@@ -31,16 +31,6 @@ class _HiddenDrawerState extends State<HiddenDrawer> {
                 fontFamily: 'Poppins',
               )),
           tasks()),
-      ScreenHiddenDrawer(
-          ItemHiddenMenu(
-              name: 'Attendance',
-              baseStyle: TextStyle(
-                fontWeight: FontWeight.w700,
-              ),
-              selectedStyle: TextStyle(
-                fontFamily: 'Poppins',
-              )),
-          Attendance()),
     ];
     getrole();
   }
@@ -71,16 +61,6 @@ class _HiddenDrawerState extends State<HiddenDrawer> {
           tasks()),
       ScreenHiddenDrawer(
           ItemHiddenMenu(
-              name: 'Attendance',
-              baseStyle: TextStyle(
-                fontWeight: FontWeight.w700,
-              ),
-              selectedStyle: TextStyle(
-                fontFamily: 'Poppins',
-              )),
-          Attendance()),
-      ScreenHiddenDrawer(
-          ItemHiddenMenu(
               name: 'Add Assignments',
               baseStyle: TextStyle(
                 fontWeight: FontWeight.w700,
@@ -99,6 +79,40 @@ class _HiddenDrawerState extends State<HiddenDrawer> {
                 fontFamily: 'Poppins',
               )),
           addAtt()),
+    ];
+    }
+    else if(role == "principal"){
+            pages = [
+      ScreenHiddenDrawer(
+          ItemHiddenMenu(
+              name: 'Your Notices',
+              baseStyle: TextStyle(
+                fontWeight: FontWeight.w700,
+              ),
+              selectedStyle: TextStyle(
+                fontFamily: 'Poppins',
+              )),
+          notices()),
+      ScreenHiddenDrawer(
+          ItemHiddenMenu(
+              name: 'Add Notices',
+              baseStyle: TextStyle(
+                fontWeight: FontWeight.w700,
+              ),
+              selectedStyle: TextStyle(
+                fontFamily: 'Poppins',
+              )),
+          deciderrr()),
+                ScreenHiddenDrawer(
+          ItemHiddenMenu(
+              name: 'Add Attendance',
+              baseStyle: TextStyle(
+                fontWeight: FontWeight.w700,
+              ),
+              selectedStyle: TextStyle(
+                fontFamily: 'Poppins',
+              )),
+          addteachatt()),
     ];
     }
     return HiddenDrawerMenu(

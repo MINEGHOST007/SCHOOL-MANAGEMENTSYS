@@ -1,9 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:edusphere/data/providers.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:table_calendar/table_calendar.dart';
+import 'package:intl/intl.dart';
 
 class acadcalender extends StatefulWidget {
   const acadcalender({super.key});
@@ -19,6 +21,8 @@ class _acadcalenderState extends State<acadcalender> {
   String? role;
   final tc = TextEditingController();
   final dc = TextEditingController();
+  DocumentSnapshot? attendance;
+  Map<String, dynamic>? data;
 
   @override
   void initState() {
@@ -26,6 +30,7 @@ class _acadcalenderState extends State<acadcalender> {
     super.initState();
     selected = focusday;
     getacc();
+    getatt();
   }
 
   void getacc() async {
@@ -101,9 +106,25 @@ class _acadcalenderState extends State<acadcalender> {
             ));
   }
 
+  void getatt() async {
+    User? user = FirebaseAuth.instance.currentUser;
+    CollectionReference users =
+        FirebaseFirestore.instance.collection('Attendance');
+    print("zzzzzzzzzzzz");
+    DocumentSnapshot snapshot = await users.doc('${user!.email}').get();
+    if (snapshot != null) {
+      attendance = snapshot;
+      print(attendance!['2023-06-30']);
+      setState(() {
+        attendance = attendance;
+        data = snapshot.data() as Map<String, dynamic>?;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    if (role == "teacher") {
+    if (role == "teacher" || role == "principal") {
       return Scaffold(
         backgroundColor: Colors.grey[300],
         body: Stack(
@@ -169,6 +190,55 @@ class _acadcalenderState extends State<acadcalender> {
                         });
                       }
                     },
+                    calendarBuilders: CalendarBuilders(
+                      markerBuilder: (context, day, events) {
+                        if (attendance != null) {
+                          print("fffffffffff");
+                          String z = DateFormat('yyyy-MM-dd').format(day);
+                          data = attendance!.data() as Map<String, dynamic>?;
+                          if (data != null) {
+                            if (data!.containsKey(z)) {
+                              if (attendance![z])
+                                return Row(
+                                  children: [
+                                    Expanded(
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          color: Color.fromARGB(
+                                              100, 140, 255, 144),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                );
+                              else
+                                return Row(
+                                  children: [
+                                    Expanded(
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          color:
+                                              Color.fromARGB(98, 255, 124, 124),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                );
+                            }
+                          }
+                        }
+                        // return Expanded(
+                        //   child: Container(
+                        //     decoration: BoxDecoration(
+                        //       shape: BoxShape.circle,
+                        //       color: Color.fromARGB(100, 140, 255, 144),
+                        //     ),
+                        //   ),
+                        // );
+                      },
+                    ),
                   ),
                 )),
             Positioned(
@@ -197,13 +267,13 @@ class _acadcalenderState extends State<acadcalender> {
                           child: Text('Error: ${snapshot.error}'),
                         );
                       }
-              
+
                       if (snapshot.connectionState == ConnectionState.waiting) {
                         return const Center(
                           child: CircularProgressIndicator(),
                         );
                       }
-              
+
                       if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
                         print(
                             '${selected!.year.toString().padLeft(2, '0')}-${selected!.month.toString().padLeft(2, '0')}-${selected!.day.toString().padLeft(2, '0')}');
@@ -214,16 +284,16 @@ class _acadcalenderState extends State<acadcalender> {
                         );
                       }
                       print("xxxxxxxxxxxxxxxxyyyyyyyyyyyyyyyyy");
-                      
+
                       return Container(
                         decoration: const BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.only(
-                        bottomLeft: Radius.circular(10),
-                        bottomRight: Radius.circular(10),
-                        topLeft: Radius.circular(10),
-                        topRight: Radius.circular(10),
-                      ),
+                            bottomLeft: Radius.circular(10),
+                            bottomRight: Radius.circular(10),
+                            topLeft: Radius.circular(10),
+                            topRight: Radius.circular(10),
+                          ),
                         ),
                         child: ListView.builder(
                           itemCount: snapshot.data!.docs.length,
@@ -237,10 +307,10 @@ class _acadcalenderState extends State<acadcalender> {
                             if (event.id ==
                                 '${selected!.year.toString().padLeft(2, '0')}-${selected!.month.toString().padLeft(2, '0')}-${selected!.day.toString().padLeft(2, '0')}') {
                               return ListTile(
-                                title: Text(title,
-                            style: const TextStyle(
-                              fontFamily: 'Poppins'
-                            ),),
+                                title: Text(
+                                  title,
+                                  style: const TextStyle(fontFamily: 'Poppins'),
+                                ),
                                 subtitle: Text(description),
                               );
                             }
@@ -321,14 +391,63 @@ class _acadcalenderState extends State<acadcalender> {
                         });
                       }
                     },
+                    calendarBuilders: CalendarBuilders(
+                      markerBuilder: (context, day, events) {
+                        if (attendance != null) {
+                          print("fffffffffff");
+                          String z = DateFormat('yyyy-MM-dd').format(day);
+                          data = attendance!.data() as Map<String, dynamic>?;
+                          if (data != null) {
+                            if (data!.containsKey(z)) {
+                              if (attendance![z])
+                                return Row(
+                                  children: [
+                                    Expanded(
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          color: Color.fromARGB(
+                                              100, 140, 255, 144),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                );
+                              else
+                                return Row(
+                                  children: [
+                                    Expanded(
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          color:
+                                              Color.fromARGB(98, 255, 124, 124),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                );
+                            }
+                          }
+                        }
+                        // return Expanded(
+                        //   child: Container(
+                        //     decoration: BoxDecoration(
+                        //       shape: BoxShape.circle,
+                        //       color: Color.fromARGB(100, 140, 255, 144),
+                        //     ),
+                        //   ),
+                        // );
+                      },
+                    ),
                   ),
                 )),
+                const SizedBox(height: 30,),
             Positioned(
-              bottom: 48,
+              bottom: 32,
               child: StreamBuilder<QuerySnapshot>(
-                stream: FirebaseFirestore.instance
-                    .collection('events')
-                    .snapshots(),
+                stream:
+                    FirebaseFirestore.instance.collection('events').snapshots(),
                 builder: (context, snapshot) {
                   if (snapshot.hasError) {
                     print("hhhhhhhhhhhhhhhh");
@@ -350,38 +469,39 @@ class _acadcalenderState extends State<acadcalender> {
                     );
                   }
                   print("xxxxxxxxxxxxxxxxyyyyyyyyyyyyyyyyy");
-                  return Container(
-                    width: 300,
-                    height: 200,
-                    margin: const EdgeInsets.all(10),
-                    padding: const EdgeInsets.all(10),
-                    decoration: const BoxDecoration(
+                  return Center(
+                    child: Container(
+                      width: 350,
+                      height: 200,
+                      margin: const EdgeInsets.all(30),
+                      padding: const EdgeInsets.all(10),
+                      decoration: const BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(10),
-                      bottomRight: Radius.circular(10),
-                      topLeft: Radius.circular(10),
-                      topRight: Radius.circular(10),
-                    ),
+                          bottomLeft: Radius.circular(10),
+                          bottomRight: Radius.circular(10),
+                          topLeft: Radius.circular(10),
+                          topRight: Radius.circular(10),
+                        ),
                       ),
-                    child: ListView.builder(
-                      itemCount: snapshot.data!.docs.length,
-                      itemBuilder: (context, index) {
-                        var event = snapshot.data!.docs[index];
-                        var title = event['title'];
-                        var description = event['description'];
-                        if (event.id ==
-                                '${selected!.year.toString().padLeft(2, '0')}-${selected!.month.toString().padLeft(2, '0')}-${selected!.day.toString().padLeft(2, '0')}') {
-                          return ListTile(
-                          title: Text(title,
-                          style: const TextStyle(
-                            fontFamily: 'Poppins'
-                          ),
-                          ),
-                          subtitle: Text(description),
-                        );
-                        }
-                      },
+                      child: ListView.builder(
+                        itemCount: snapshot.data!.docs.length,
+                        itemBuilder: (context, index) {
+                          var event = snapshot.data!.docs[index];
+                          var title = event['title'];
+                          var description = event['description'];
+                          if (event.id ==
+                              '${selected!.year.toString().padLeft(2, '0')}-${selected!.month.toString().padLeft(2, '0')}-${selected!.day.toString().padLeft(2, '0')}') {
+                            return ListTile(
+                              title: Text(
+                                title,
+                                style: const TextStyle(fontFamily: 'Poppins'),
+                              ),
+                              subtitle: Text(description),
+                            );
+                          }
+                        },
+                      ),
                     ),
                   );
                 },
