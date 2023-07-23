@@ -323,7 +323,7 @@ class _HomePage1State extends State<HomePage1> {
   List<String> Subjects = ["Mathematics", "English", "Science", "Social"];
   List<DocumentSnapshot>? teacherList = [];
   List<DocumentSnapshot>? teacherListx = [];
-    List<DocumentSnapshot>? teacherListy = [];
+  List<DocumentSnapshot>? teacherListy = [];
   int count = 0;
   int cx = 0;
   List<DocumentSnapshot>? teacherList2;
@@ -362,7 +362,7 @@ class _HomePage1State extends State<HomePage1> {
       print("nnnnnnnnnnnnnnnnnnnnn");
       print("${teacherList!.length}");
     }
-    if (teacherList != null && count == 0 ) {
+    if (teacherList != null && count == 0) {
       setState(() {
         teacherList = teacherList;
         teacherList2 = teacherList2;
@@ -420,11 +420,10 @@ class _HomePage1State extends State<HomePage1> {
   void runFilter2(String search, String bar) {
     print(search);
     print(bar);
-    
+
     List<DocumentSnapshot>? newteacherList = [];
     List<DocumentSnapshot>? newteacherListb = [];
     if (bar == "student") {
-      
       if (search.isEmpty) {
         newteacherList = teacherListx;
       } else {
@@ -522,11 +521,11 @@ class _HomePage1State extends State<HomePage1> {
             children: [
               Container(
                 width: 500,
-                height: 200,
+                height: 220,
                 child: AppBar(
                   leading: Container(),
                   elevation: 0,
-                  toolbarHeight: 150,
+                  toolbarHeight: 200,
                   backgroundColor: Color.fromARGB(0, 224, 224, 224),
                   actions: [
                     IconButton(
@@ -534,7 +533,7 @@ class _HomePage1State extends State<HomePage1> {
                         icon: const Icon(Icons.logout_rounded))
                   ],
                   flexibleSpace: Container(
-                    height: 170,
+                    height: 200,
                     width: double.infinity,
                     padding:
                         const EdgeInsets.only(top: 80, left: 25, bottom: 40),
@@ -568,7 +567,7 @@ class _HomePage1State extends State<HomePage1> {
                           height: 3,
                         ),
                         Text(
-                          "$z",
+                          "${z!.length<16 ? z : z!.substring(0,16)}",
                           style: const TextStyle(
                             fontFamily: 'Poppins',
                             fontWeight: FontWeight.w500,

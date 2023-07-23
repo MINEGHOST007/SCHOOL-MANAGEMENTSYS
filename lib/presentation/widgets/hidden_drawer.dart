@@ -31,6 +31,16 @@ class _HiddenDrawerState extends State<HiddenDrawer> {
                 fontFamily: 'Poppins',
               )),
           tasks()),
+          ScreenHiddenDrawer(
+          ItemHiddenMenu(
+              name: 'Notices',
+              baseStyle: TextStyle(
+                fontWeight: FontWeight.w700,
+              ),
+              selectedStyle: TextStyle(
+                fontFamily: 'Poppins',
+              )),
+          notices()),
     ];
     getrole();
   }
@@ -79,6 +89,16 @@ class _HiddenDrawerState extends State<HiddenDrawer> {
                 fontFamily: 'Poppins',
               )),
           addAtt()),
+          ScreenHiddenDrawer(
+          ItemHiddenMenu(
+              name: 'Notices',
+              baseStyle: TextStyle(
+                fontWeight: FontWeight.w700,
+              ),
+              selectedStyle: TextStyle(
+                fontFamily: 'Poppins',
+              )),
+          notices()),
     ];
     }
     else if(role == "principal"){

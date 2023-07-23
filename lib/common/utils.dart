@@ -227,7 +227,6 @@ class _CardclassState extends State<Cardclass> {
         role = role;
       });
     }
-
   }
 
   @override
@@ -529,8 +528,7 @@ class list extends StatelessWidget {
           ],
         ),
       );
-    } 
-    else if (role == "principal") {
+    } else if (role == "principal") {
       double att = doc['present'] * 100 / (doc['absent'] + doc['present']);
       double x = doc['present'] / 1;
       double y = doc['absent'] / 1;
@@ -539,22 +537,22 @@ class list extends StatelessWidget {
         'Absent': y,
       };
       void clickprofile(Map<String, double> dataMapx, DocumentSnapshot docx) {
-        if(docx['role']=="student")
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => Getprofile(pie: dataMapx, doc: docx)),
-        );
+        if (docx['role'] == "student")
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => Getprofile(pie: dataMapx, doc: docx)),
+          );
         else
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => Getprofile2(pie: dataMapx, doc: docx)),
-        );
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => Getprofile2(pie: dataMapx, doc: docx)),
+          );
       }
 
       return GestureDetector(
-        onTap: (){
+        onTap: () {
           clickprofile(dataMap, doc);
         },
         child: Container(
@@ -618,8 +616,7 @@ class list extends StatelessWidget {
           ),
         ),
       );
-    }
-    else {
+    } else {
       double att = doc['present'] * 100 / (doc['absent'] + doc['present']);
       double x = doc['present'] / 1;
       double y = doc['absent'] / 1;
@@ -1474,74 +1471,71 @@ class _listAss2State extends State<listAss2> {
 
   @override
   Widget build(BuildContext context) {
-      return GestureDetector(
-        onTap: () {},
-        child: Container(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              FadeAnimation2(
-                  1.6,
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Container(
-                        width: 80,
-                        height: 20,
-                        margin: EdgeInsets.only(top: 4, left: 0, bottom: 5),
-                        padding: EdgeInsets.all(0),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(25)),
-                          color: Colors.white,
-                        ),
-                        child: Center(
-                          child: Text(
-                            "${widget.Subject}",
-                            style: TextStyle(
-                              color: Color.fromRGBO(93, 101, 255, 1),
-                              fontSize: 10,
-                            ),
+    return GestureDetector(
+      onTap: () {},
+      child: Container(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            FadeAnimation2(
+                1.6,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Container(
+                      width: 80,
+                      height: 20,
+                      margin: EdgeInsets.only(top: 4, left: 0, bottom: 5),
+                      padding: EdgeInsets.all(0),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(25)),
+                        color: Colors.white,
+                      ),
+                      child: Center(
+                        child: Text(
+                          "${widget.Subject}",
+                          style: TextStyle(
+                            color: Color.fromRGBO(93, 101, 255, 1),
+                            fontSize: 10,
                           ),
                         ),
                       ),
-                    ],
-                  ),
-                  context),
-              Text(
-                "${widget.topic}",
-                style: TextStyle(fontFamily: 'Poppins'),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Text(
-                    "Assign Date : ",
-                    style: TextStyle(color: Colors.grey[600]),
-                  ),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  Text(
-                    "${widget.x!.year}/${widget.x!.month}/${widget.x!.day}",
-                    style: TextStyle(
-                      color: Colors.grey[600],
-                      // fontFamily: 'Poppins',
                     ),
+                  ],
+                ),
+                context),
+            Text(
+              "${widget.topic}",
+              style: TextStyle(fontFamily: 'Poppins'),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Text(
+                  "Assign Date : ",
+                  style: TextStyle(color: Colors.grey[600]),
+                ),
+                const SizedBox(
+                  width: 10,
+                ),
+                Text(
+                  "${widget.x!.year}/${widget.x!.month}/${widget.x!.day}",
+                  style: TextStyle(
+                    color: Colors.grey[600],
+                    // fontFamily: 'Poppins',
                   ),
-                ],
-              ),
-              const SizedBox(
-                height: 25,
-              ),
-              
-            ],
-          ),
+                ),
+              ],
+            ),
+            const SizedBox(
+              height: 25,
+            ),
+          ],
         ),
-      );
-    }
+      ),
+    );
   }
-
-
+}
 
 class GetAnswers extends StatefulWidget {
   String? topic;
@@ -1996,10 +1990,9 @@ class Updateatt {
             FirebaseFirestore.instance.collection("Attendance");
         if ((abs.contains(doo[i])) == false) {
           await users.doc('${doo[i].get('email')}').set({
-          '$ff': true,
-        }, SetOptions(merge: true));
+            '$ff': true,
+          }, SetOptions(merge: true));
         }
-        
       }
       //   for (int i = 0; i < doo.length; i++) {
       //   print(abs[i]);
@@ -2015,8 +2008,6 @@ class Updateatt {
     uppate();
   }
 
-
-  
   // void uppate(){
   //   CollectionReference attt =
   //         FirebaseFirestore.instance.collection("Attendance");
@@ -2061,8 +2052,6 @@ class Updateatt {
   }
 }
 
-
-
 class Updateatt2 {
   void upp(List<DocumentSnapshot>? abs, String ff) async {
     for (int i = 0; i < abs!.length; i++) {
@@ -2083,10 +2072,9 @@ class Updateatt2 {
             FirebaseFirestore.instance.collection("Attendance");
         if ((abs.contains(doo[i])) == false) {
           await users.doc('${doo[i].get('email')}').set({
-          '$ff': true,
-        }, SetOptions(merge: true));
+            '$ff': true,
+          }, SetOptions(merge: true));
         }
-        
       }
       //   for (int i = 0; i < doo.length; i++) {
       //   print(abs[i]);
@@ -2102,8 +2090,6 @@ class Updateatt2 {
     uppate();
   }
 
-
-  
   // void uppate(){
   //   CollectionReference attt =
   //         FirebaseFirestore.instance.collection("Attendance");
@@ -2320,5 +2306,101 @@ class _listbState extends State<listb> {
         ),
       );
     }
+  }
+}
+
+class Getnotice {
+  // GetUserNamee gr = GetUserNamee();
+
+  // String? x;
+  // Future<List<DocumentSnapshot>?> gett() async {
+  //   List<DocumentSnapshot> fass = [];
+  //   List<DocumentSnapshot> assg = [];
+  //   String? role = await gr.getRole();
+  //   if (role == "student") {
+  //     Getteacherdocs gd = Getteacherdocs();
+  //     List<DocumentSnapshot> docc = await gd.getteacher();
+  //     Getclass gc = Getclass();
+  //     String? cls = await gc.getRole();
+  //     if (cls != null) {
+  //       docc.map((e) => {
+  //             assg = getcoll(e, cls) as List<DocumentSnapshot>,
+  //             fass.addAll(assg)
+  //           });
+  //       if (fass != null) {
+  //         print(fass);
+  //         print("fass");
+
+  //       }
+  //     }
+  //   } else {}
+  // }
+
+  // Future<List<DocumentSnapshot>> getcoll(
+  //     DocumentSnapshot doc, String? cls) async {
+  //   List<DocumentSnapshot> asse = [];
+  //   CollectionReference users =
+  //       FirebaseFirestore.instance.collection("${doc['first_name']}");
+  //   QuerySnapshot snapshot =
+  //       await users.where('class', isEqualTo: "$cls").get();
+  //   asse = snapshot.docs.toList();
+  //   print("11111111111");
+  //   return asse;
+  // }
+
+  Future<List<DocumentSnapshot?>?> getassignment() async {
+    List<DocumentSnapshot> doc = [];
+    List<DocumentSnapshot> fdoc = [];
+    Getteacherdocs x = Getteacherdocs();
+    List<DocumentSnapshot> y = await x.getteacher();
+    print("xxxxxxxxxxxxxxxxxx");
+    User? user = FirebaseAuth.instance.currentUser;
+    Getclass h = Getclass();
+    String? cls = await h.getRole();
+    if (cls != null) {
+      int x = int.parse(cls);
+      for (int i = 0; i < y.length; i++) {
+        CollectionReference users =
+            FirebaseFirestore.instance.collection("${y[i]['first_name']}");
+        QuerySnapshot snapshot =
+            await users.where('class', isEqualTo: x).get();
+        doc = snapshot.docs.toList();
+        fdoc = fdoc + doc;
+      }
+    }
+    if (fdoc != null) return fdoc;
+  }
+
+  Future<List<DocumentSnapshot?>?> getassignment2() async {
+    List<DocumentSnapshot> doc = [];
+    List<DocumentSnapshot> fdoc = [];
+    Getteacherdocs x = Getteacherdocs();
+    List<DocumentSnapshot> y = await x.getteacher();
+    Getname gx = Getname();
+    String? zz = await gx.getRolefirst();
+    if (zz != null) {
+      CollectionReference users = FirebaseFirestore.instance.collection(zz);
+      QuerySnapshot snapshot = await users.get();
+      doc = snapshot.docs.toList();
+      fdoc = fdoc + doc;
+      if (fdoc != null) return fdoc;
+    }
+  }
+
+  Future<List<DocumentSnapshot?>?> getassignment3() async {
+    List<DocumentSnapshot> doc = [];
+    List<DocumentSnapshot> fdoc = [];
+    Getteacherdocs x = Getteacherdocs();
+    List<DocumentSnapshot> y = await x.getprincipal();
+    print("xxxxxxxxxxxxxxxxxx");
+    for (int i = 0; i < y.length; i++) {
+      CollectionReference users =
+          FirebaseFirestore.instance.collection("${y[i]['first_name']}");
+      QuerySnapshot snapshot =
+          await users.get();
+      doc = snapshot.docs.toList();
+      fdoc = fdoc + doc;
+    }
+    if (fdoc != null) return fdoc;
   }
 }

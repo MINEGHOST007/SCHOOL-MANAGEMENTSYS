@@ -377,6 +377,7 @@ class _addteachattState extends State<addteachatt> {
   String ff = "Choose Date";
   DateTime? dd;
   List<DocumentSnapshot>? teacherList = [];
+  List<DocumentSnapshot>? teacherListx = [];
   String? role = "teacher";
 
   void showdatepicker() {
@@ -398,6 +399,7 @@ class _addteachattState extends State<addteachatt> {
     if (teacherList != null) {
       setState(() {
         teacherList = teacherList;
+        teacherListx = teacherList;
       });
     }
   }
@@ -405,10 +407,10 @@ class _addteachattState extends State<addteachatt> {
   void runFilter(String search) {
     List<DocumentSnapshot>? newteacherList = [];
     if (search.isEmpty) {
-      newteacherList = teacherList;
+      newteacherList = teacherListx;
     } else {
       newteacherList = teacherList
-          ?.where((user) => user['name']
+          ?.where((user) => user['first_name']
               .toString()
               .toLowerCase()
               .contains(search.toLowerCase()))
@@ -511,7 +513,7 @@ class _addteachattState extends State<addteachatt> {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 Text(
-                  "Select Absentees",
+                  "Select Present",
                   style: TextStyle(
                     fontFamily: 'Poppins',
                   ),

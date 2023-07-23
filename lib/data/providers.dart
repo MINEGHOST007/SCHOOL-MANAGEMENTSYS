@@ -310,6 +310,15 @@ class Getteacherdocs {
     print(teachers);
     return teachers;
   }
+    Future<List<DocumentSnapshot>> getprincipal() async {
+    List<DocumentSnapshot> teachers = [];
+    CollectionReference users = FirebaseFirestore.instance.collection("users");
+    QuerySnapshot snapshot =
+        await users.where('role', isEqualTo: "principal").get();
+    teachers = snapshot.docs.toList();
+    print(teachers);
+    return teachers;
+  }
 }
 
 class Getstudentdocs {

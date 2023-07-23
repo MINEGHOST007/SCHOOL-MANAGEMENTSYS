@@ -307,8 +307,8 @@ class _noticesState extends State<notices> {
     GetUserNamee gu = GetUserNamee();
     role = await gu.getRole();
     if (role == "student") {
-      GetAss ga = GetAss();
-      List<DocumentSnapshot?>? doc = await ga.getassignment();
+      Getnotice ga = Getnotice();
+      List<DocumentSnapshot?>? doc = await ga.getassignment3();
       if (doc![0] != null) {
         setState(() {
           len = doc.length;
@@ -317,15 +317,13 @@ class _noticesState extends State<notices> {
             dub.add(doc[i]!['Subject']);
             topic.add(doc[i]!['Topic']);
             x.add((doc[i]!['assign'] as Timestamp).toDate());
-            y.add((doc[i]!['Deadline'] as Timestamp).toDate());
-            urr.add(doc[i]!['url']);
             counter = 1;
           }
         });
       }
     } else if (role == "teacher") {
-      GetAss ga = GetAss();
-      List<DocumentSnapshot?>? doc = await ga.getassignment2();
+      Getnotice ga = Getnotice();
+      List<DocumentSnapshot?>? doc = await ga.getassignment3();
       if (doc![0] != null) {
         setState(() {
           len = doc.length;
@@ -334,8 +332,6 @@ class _noticesState extends State<notices> {
             dub.add(doc[i]!['Subject']);
             topic.add(doc[i]!['Topic']);
             x.add((doc[i]!['assign'] as Timestamp).toDate());
-            y.add((doc[i]!['Deadline'] as Timestamp).toDate());
-            urr.add(doc[i]!['url']);
             counter = 1;
           }
         });

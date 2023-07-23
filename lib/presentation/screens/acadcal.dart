@@ -122,18 +122,31 @@ class _acadcalenderState extends State<acadcalender> {
     }
   }
 
+  List<DocumentSnapshot> jj = [];
+  void eve(DateTime day) async {
+    String z = DateFormat('yyyy-MM-dd').format(day);
+    CollectionReference events = FirebaseFirestore.instance.collection("$z");
+    QuerySnapshot snapshot = await events.get();
+    if (snapshot != null) {
+      jj = snapshot.docs.toList();
+      // setState(() {
+      //   jj = jj;
+      // });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     if (role == "teacher" || role == "principal") {
       return Scaffold(
-        backgroundColor: Colors.grey[300],
+        backgroundColor: Color.fromRGBO(104, 112, 255, 1),
         body: Stack(
           children: [
             AppBar(
               leading: Container(),
               elevation: 0,
               toolbarHeight: 160,
-              backgroundColor: const Color.fromARGB(176, 196, 195, 195),
+              backgroundColor: Color.fromRGBO(104, 112, 255, 1),
               flexibleSpace: Container(
                 width: 500,
                 height: 220,
@@ -158,15 +171,40 @@ class _acadcalenderState extends State<acadcalender> {
                   margin: const EdgeInsets.all(30),
                   width: 350,
                   height: 400,
-                  decoration: const BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(10),
-                      bottomRight: Radius.circular(10),
-                      topLeft: Radius.circular(10),
-                      topRight: Radius.circular(10),
-                    ),
-                  ),
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.only(
+                        bottomLeft: Radius.circular(10),
+                        bottomRight: Radius.circular(10),
+                        topLeft: Radius.circular(10),
+                        topRight: Radius.circular(10),
+                      ),
+                      boxShadow: [
+                        BoxShadow(
+                          offset: Offset(-6, -6),
+                          color: Colors.white,
+                          blurRadius: 12,
+                          spreadRadius: 1,
+                        ),
+                        BoxShadow(
+                          offset: Offset(6, 6),
+                          color: Colors.white,
+                          blurRadius: 12,
+                          spreadRadius: 1,
+                        ),
+                        BoxShadow(
+                          offset: Offset(-6, 6),
+                          color: Color.fromRGBO(133, 139, 255, 1),
+                          blurRadius: 12,
+                          spreadRadius: 1,
+                        ),
+                        BoxShadow(
+                          offset: Offset(6, -6),
+                          color: Color.fromRGBO(133, 139, 255, 1),
+                          blurRadius: 12,
+                          spreadRadius: 1,
+                        ),
+                      ]),
                   child: TableCalendar(
                     firstDay: DateTime(2020),
                     lastDay: DateTime(2050),
@@ -229,6 +267,25 @@ class _acadcalenderState extends State<acadcalender> {
                             }
                           }
                         }
+                        if (day.weekday == 7) {
+                          return Container(
+                            width: 10,
+                            height: 10,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: Color.fromARGB(98, 255, 124, 124),
+                            ),
+                          );
+                        }
+                        // eve(day);
+                        // if (jj.isNotEmpty) {
+                        //   // return Container(
+                        //   //   decoration: BoxDecoration(
+                        //   //     shape: BoxShape.circle,
+                        //   //     color: Color.fromARGB(98, 0, 47, 255),
+                        //   //   ),
+                        //   // );
+                        // }
                         // return Expanded(
                         //   child: Container(
                         //     decoration: BoxDecoration(
@@ -241,87 +298,145 @@ class _acadcalenderState extends State<acadcalender> {
                     ),
                   ),
                 )),
-            Positioned(
-              bottom: 48.0,
-              right: 16.0,
-              child: FloatingActionButton.extended(
-                onPressed: showaddevent,
-                label: const Text('Add Event'),
-              ),
-            ),
-            Positioned(
-              bottom: 150,
-              left: 30,
-              child: SingleChildScrollView(
-                child: Container(
-                  width: 350,
-                  height: 100,
-                  child: StreamBuilder<QuerySnapshot>(
-                    stream: FirebaseFirestore.instance
-                        .collection('events')
-                        .snapshots(),
-                    builder: (context, snapshot) {
-                      if (snapshot.hasError) {
-                        print("hhhhhhhhhhhhhhhh");
-                        return Center(
-                          child: Text('Error: ${snapshot.error}'),
-                        );
-                      }
-
-                      if (snapshot.connectionState == ConnectionState.waiting) {
-                        return const Center(
-                          child: CircularProgressIndicator(),
-                        );
-                      }
-
-                      if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
-                        print(
-                            '${selected!.year.toString().padLeft(2, '0')}-${selected!.month.toString().padLeft(2, '0')}-${selected!.day.toString().padLeft(2, '0')}');
-                        print("object");
-                        print("xxxxxxxxxxxxxxxx");
-                        return const Center(
-                          child: Text('No events found for the selected date.'),
-                        );
-                      }
-                      print("xxxxxxxxxxxxxxxxyyyyyyyyyyyyyyyyy");
-
-                      return Container(
-                        decoration: const BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.only(
-                            bottomLeft: Radius.circular(10),
-                            bottomRight: Radius.circular(10),
-                            topLeft: Radius.circular(10),
-                            topRight: Radius.circular(10),
+                if(role == "principal")
+                Positioned(
+                  bottom: 150,
+                  left: 30,
+                  child: Center(
+                    child: Container(
+                      padding: EdgeInsets.all(20),
+                      child: Center(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Icon(Icons.star_border_purple500,
+                        color: Colors.white,
+                        ),
+                        const Text(
+                          "You have no work here",
+                          style: TextStyle(
+                            fontFamily: 'Poppins',
+                            color: Colors.white,
                           ),
                         ),
-                        child: ListView.builder(
-                          itemCount: snapshot.data!.docs.length,
-                          itemBuilder: (context, index) {
-                            var event = snapshot.data!.docs[index];
-                            var title = event['title'];
-                            var description = event['description'];
-                            print(event.id);
-                            print(
-                                '${selected!.year.toString().padLeft(2, '0')}-${selected!.month.toString().padLeft(2, '0')}-${selected!.day.toString().padLeft(2, '0')}');
-                            if (event.id ==
-                                '${selected!.year.toString().padLeft(2, '0')}-${selected!.month.toString().padLeft(2, '0')}-${selected!.day.toString().padLeft(2, '0')}') {
-                              return ListTile(
-                                title: Text(
-                                  title,
-                                  style: const TextStyle(fontFamily: 'Poppins'),
-                                ),
-                                subtitle: Text(description),
-                              );
-                            }
-                          },
-                        ),
-                      );
-                    },
+                        const Icon(Icons.star_border_purple500,
+                        color: Colors.white,),
+                      ],
+                    ),
+                  ),
+                    ),
                   ),
                 ),
-              ),
-            ),
+                if(role == "teacher")
+                Positioned(
+                  bottom: 150,
+                  left: 30,
+                  child: Center(
+                    child: Container(
+                      padding: EdgeInsets.all(20),
+                      child: Center(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Icon(Icons.star_border_purple500,
+                        color: Colors.white,
+                        ),
+                        const Text(
+                          "Contact Principal for any ambiguity",
+                          style: TextStyle(
+                            fontFamily: 'Poppins',
+                            color: Colors.white,
+                          ),
+                        ),
+                        const Icon(Icons.star_border_purple500,
+                        color: Colors.white,),
+                      ],
+                    ),
+                  ),
+                    ),
+                  ),
+                ),
+            // Positioned(
+            //   bottom: 48.0,
+            //   right: 16.0,
+            //   child: FloatingActionButton.extended(
+            //     onPressed: showaddevent,
+            //     label: const Text('Add Event'),
+            //   ),
+            // ),
+            // Positioned(
+            //   bottom: 150,
+            //   left: 30,
+            //   child: SingleChildScrollView(
+            //     child: Container(
+            //       width: 350,
+            //       height: 100,
+            //       child: StreamBuilder<QuerySnapshot>(
+            //         stream: FirebaseFirestore.instance
+            //             .collection('events')
+            //             .snapshots(),
+            //         builder: (context, snapshot) {
+            //           if (snapshot.hasError) {
+            //             print("hhhhhhhhhhhhhhhh");
+            //             return Center(
+            //               child: Text('Error: ${snapshot.error}'),
+            //             );
+            //           }
+
+            //           if (snapshot.connectionState == ConnectionState.waiting) {
+            //             return const Center(
+            //               child: CircularProgressIndicator(),
+            //             );
+            //           }
+
+            //           if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+            //             print(
+            //                 '${selected!.year.toString().padLeft(2, '0')}-${selected!.month.toString().padLeft(2, '0')}-${selected!.day.toString().padLeft(2, '0')}');
+            //             print("object");
+            //             print("xxxxxxxxxxxxxxxx");
+            //             return const Center(
+            //               child: Text('No events found for the selected date.'),
+            //             );
+            //           }
+            //           print("xxxxxxxxxxxxxxxxyyyyyyyyyyyyyyyyy");
+
+            //           return Container(
+            //             decoration: const BoxDecoration(
+            //               color: Colors.white,
+            //               borderRadius: BorderRadius.only(
+            //                 bottomLeft: Radius.circular(10),
+            //                 bottomRight: Radius.circular(10),
+            //                 topLeft: Radius.circular(10),
+            //                 topRight: Radius.circular(10),
+            //               ),
+            //             ),
+            //             child: ListView.builder(
+            //               itemCount: snapshot.data!.docs.length,
+            //               itemBuilder: (context, index) {
+            //                 var event = snapshot.data!.docs[index];
+            //                 var title = event['title'];
+            //                 var description = event['description'];
+            //                 print(event.id);
+            //                 print(
+            //                     '${selected!.year.toString().padLeft(2, '0')}-${selected!.month.toString().padLeft(2, '0')}-${selected!.day.toString().padLeft(2, '0')}');
+            //                 if (event.id ==
+            //                     '${selected!.year.toString().padLeft(2, '0')}-${selected!.month.toString().padLeft(2, '0')}-${selected!.day.toString().padLeft(2, '0')}') {
+            //                   return ListTile(
+            //                     title: Text(
+            //                       title,
+            //                       style: const TextStyle(fontFamily: 'Poppins'),
+            //                     ),
+            //                     subtitle: Text(description),
+            //                   );
+            //                 }
+            //               },
+            //             ),
+            //           );
+            //         },
+            //       ),
+            //     ),
+            //   ),
+            // ),
           ],
         ),
       );
@@ -334,7 +449,7 @@ class _acadcalenderState extends State<acadcalender> {
               leading: Container(),
               elevation: 0,
               toolbarHeight: 160,
-              backgroundColor: Colors.grey[300],
+              backgroundColor: Color.fromRGBO(104, 112, 255, 1),
               flexibleSpace: Container(
                 width: 500,
                 height: 220,
@@ -367,7 +482,32 @@ class _acadcalenderState extends State<acadcalender> {
                       topLeft: Radius.circular(10),
                       topRight: Radius.circular(10),
                     ),
-                  ),
+                  boxShadow: [
+                        BoxShadow(
+                          offset: Offset(-6, -6),
+                          color: Colors.white,
+                          blurRadius: 12,
+                          spreadRadius: 1,
+                        ),
+                        BoxShadow(
+                          offset: Offset(6, 6),
+                          color: Colors.white,
+                          blurRadius: 12,
+                          spreadRadius: 1,
+                        ),
+                        BoxShadow(
+                          offset: Offset(-6, 6),
+                          color: Color.fromRGBO(133, 139, 255, 1),
+                          blurRadius: 12,
+                          spreadRadius: 1,
+                        ),
+                        BoxShadow(
+                          offset: Offset(6, -6),
+                          color: Color.fromRGBO(133, 139, 255, 1),
+                          blurRadius: 12,
+                          spreadRadius: 1,
+                        ),
+                      ]),
                   child: TableCalendar(
                     firstDay: DateTime(2020),
                     lastDay: DateTime(2050),
@@ -430,6 +570,17 @@ class _acadcalenderState extends State<acadcalender> {
                             }
                           }
                         }
+                        if(day.weekday == 7)
+                        {
+                          return Container(
+                            width: 10,
+                            height: 10,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: Color.fromARGB(98, 255, 124, 124),
+                            ),
+                          );
+                        }
                         // return Expanded(
                         //   child: Container(
                         //     decoration: BoxDecoration(
@@ -442,71 +593,104 @@ class _acadcalenderState extends State<acadcalender> {
                     ),
                   ),
                 )),
-                const SizedBox(height: 30,),
-            Positioned(
-              bottom: 32,
-              child: StreamBuilder<QuerySnapshot>(
-                stream:
-                    FirebaseFirestore.instance.collection('events').snapshots(),
-                builder: (context, snapshot) {
-                  if (snapshot.hasError) {
-                    print("hhhhhhhhhhhhhhhh");
-                    return Center(
-                      child: Text('Error: ${snapshot.error}'),
-                    );
-                  }
 
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const Center(
-                      child: CircularProgressIndicator(),
-                    );
-                  }
 
-                  if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
-                    print("xxxxxxxxxxxxxxxx");
-                    return const Center(
-                      child: Text('No events found for the selected date.'),
-                    );
-                  }
-                  print("xxxxxxxxxxxxxxxxyyyyyyyyyyyyyyyyy");
-                  return Center(
-                    child: Container(
-                      width: 350,
-                      height: 200,
-                      margin: const EdgeInsets.all(30),
-                      padding: const EdgeInsets.all(10),
-                      decoration: const BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.only(
-                          bottomLeft: Radius.circular(10),
-                          bottomRight: Radius.circular(10),
-                          topLeft: Radius.circular(10),
-                          topRight: Radius.circular(10),
-                        ),
-                      ),
-                      child: ListView.builder(
-                        itemCount: snapshot.data!.docs.length,
-                        itemBuilder: (context, index) {
-                          var event = snapshot.data!.docs[index];
-                          var title = event['title'];
-                          var description = event['description'];
-                          if (event.id ==
-                              '${selected!.year.toString().padLeft(2, '0')}-${selected!.month.toString().padLeft(2, '0')}-${selected!.day.toString().padLeft(2, '0')}') {
-                            return ListTile(
-                              title: Text(
-                                title,
-                                style: const TextStyle(fontFamily: 'Poppins'),
-                              ),
-                              subtitle: Text(description),
-                            );
-                          }
-                        },
-                      ),
-                    ),
-                  );
-                },
-              ),
+            const SizedBox(
+              height: 30,
             ),
+                Positioned(
+                  bottom: 150,
+                  left: 30,
+                  child: Center(
+                    child: Container(
+                      padding: EdgeInsets.all(20),
+                      child: Center(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Icon(Icons.star_border_purple500,
+                        color: Colors.white,
+                        ),
+                        const Text(
+                          "Contact your teachers for any ambiguity",
+                          style: TextStyle(
+                            fontFamily: 'Poppins',
+                            color: Colors.white,
+                          ),
+                        ),
+                        const Icon(Icons.star_border_purple500,
+                        color: Colors.white,),
+                      ],
+                    ),
+                  ),
+                    ),
+                  ),
+                ),
+
+            // Positioned(
+            //   bottom: 32,
+            //   child: StreamBuilder<QuerySnapshot>(
+            //     stream:
+            //         FirebaseFirestore.instance.collection('events').snapshots(),
+            //     builder: (context, snapshot) {
+            //       if (snapshot.hasError) {
+            //         print("hhhhhhhhhhhhhhhh");
+            //         return Center(
+            //           child: Text('Error: ${snapshot.error}'),
+            //         );
+            //       }
+
+            //       if (snapshot.connectionState == ConnectionState.waiting) {
+            //         return const Center(
+            //           child: CircularProgressIndicator(),
+            //         );
+            //       }
+
+            //       if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+            //         print("xxxxxxxxxxxxxxxx");
+            //         return const Center(
+            //           child: Text('No events found for the selected date.'),
+            //         );
+            //       }
+            //       print("xxxxxxxxxxxxxxxxyyyyyyyyyyyyyyyyy");
+            //       return Center(
+            //         child: Container(
+            //           width: 350,
+            //           height: 200,
+            //           margin: const EdgeInsets.all(30),
+            //           padding: const EdgeInsets.all(10),
+            //           decoration: const BoxDecoration(
+            //             color: Colors.white,
+            //             borderRadius: BorderRadius.only(
+            //               bottomLeft: Radius.circular(10),
+            //               bottomRight: Radius.circular(10),
+            //               topLeft: Radius.circular(10),
+            //               topRight: Radius.circular(10),
+            //             ),
+            //           ),
+            //           child: ListView.builder(
+            //             itemCount: snapshot.data!.docs.length,
+            //             itemBuilder: (context, index) {
+            //               var event = snapshot.data!.docs[index];
+            //               var title = event['title'];
+            //               var description = event['description'];
+            //               if (event.id ==
+            //                   '${selected!.year.toString().padLeft(2, '0')}-${selected!.month.toString().padLeft(2, '0')}-${selected!.day.toString().padLeft(2, '0')}') {
+            //                 return ListTile(
+            //                   title: Text(
+            //                     title,
+            //                     style: const TextStyle(fontFamily: 'Poppins'),
+            //                   ),
+            //                   subtitle: Text(description),
+            //                 );
+            //               }
+            //             },
+            //           ),
+            //         ),
+            //       );
+            //     },
+            //   ),
+            // ),
           ],
         ),
       );

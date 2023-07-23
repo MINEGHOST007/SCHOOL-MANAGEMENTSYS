@@ -380,7 +380,8 @@ class _ProfilepageState extends State<Profilepage> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            "Name : $name",
+                            "Name : ${name!.length<16 ? name : name!.substring(0, 16)}....",
+                            overflow: TextOverflow.ellipsis,
                             style: const TextStyle(fontFamily: 'Poppins'),
                           ),
                         ],
@@ -675,7 +676,10 @@ class _ProfilepageState extends State<Profilepage> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            "Name : $name",
+                            "Name : ${name!.length<16 ? name : name!.substring(0, 16)}.....",
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            softWrap: true,
                             style: const TextStyle(fontFamily: 'Poppins'),
                           ),
                         ],
@@ -985,7 +989,7 @@ class _deciderState extends State<decider> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            "Name : $name",
+                            "Name : ${name.length<16 ? name : name.substring(0, 16)}.....",
                             style: const TextStyle(fontFamily: 'Poppins'),
                           ),
                         ],
