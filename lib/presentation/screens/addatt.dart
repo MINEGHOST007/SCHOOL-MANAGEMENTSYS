@@ -421,7 +421,7 @@ class _addteachattState extends State<addteachatt> {
     });
   }
 
-  Updateatt xc = Updateatt();
+  Updateatt2 xc = Updateatt2();
   @override
   void initState() {
     // TODO: implement initState
@@ -513,7 +513,7 @@ class _addteachattState extends State<addteachatt> {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 Text(
-                  "Select Present",
+                  "Select Absent",
                   style: TextStyle(
                     fontFamily: 'Poppins',
                   ),

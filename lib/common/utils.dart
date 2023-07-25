@@ -2057,7 +2057,7 @@ class Updateatt2 {
     for (int i = 0; i < abs!.length; i++) {
       print(abs[i]);
       CollectionReference users =
-          FirebaseFirestore.instance.collection("Attendanceteach");
+          FirebaseFirestore.instance.collection("Attendance");
 
       await users.doc('${abs[i].get('email')}').set({
         '$ff': false,

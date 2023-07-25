@@ -139,165 +139,167 @@ class _acadcalenderState extends State<acadcalender> {
   Widget build(BuildContext context) {
     if (role == "teacher" || role == "principal") {
       return Scaffold(
-        backgroundColor: Color.fromRGBO(104, 112, 255, 1),
-        body: Stack(
+        backgroundColor: Colors.white,
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            AppBar(
-              leading: Container(),
-              elevation: 0,
-              toolbarHeight: 160,
-              backgroundColor: Color.fromRGBO(104, 112, 255, 1),
-              flexibleSpace: Container(
-                width: 500,
-                height: 220,
-                padding: const EdgeInsets.only(top: 80, left: 25),
-                decoration: const BoxDecoration(
-                  borderRadius: BorderRadius.only(
-                    bottomLeft: Radius.circular(50),
-                    bottomRight: Radius.circular(50),
-                  ),
-                  gradient: LinearGradient(
-                    colors: [
-                      Color.fromRGBO(104, 112, 255, 1),
-                      Color.fromRGBO(114, 120, 243, 0.6),
-                    ],
+
+            // AppBar(
+            //   leading: Container(),
+            //   elevation: 0,
+            //   toolbarHeight: 160,
+            //   backgroundColor: Color.fromRGBO(104, 112, 255, 1),
+            //   flexibleSpace: Container(
+            //     width: 500,
+            //     height: 220,
+            //     padding: const EdgeInsets.only(top: 80, left: 25),
+            //     decoration: const BoxDecoration(
+            //       borderRadius: BorderRadius.only(
+            //         bottomLeft: Radius.circular(50),
+            //         bottomRight: Radius.circular(50),
+            //       ),
+            //       gradient: LinearGradient(
+            //         colors: [
+            //           Color.fromRGBO(104, 112, 255, 1),
+            //           Color.fromRGBO(114, 120, 243, 0.6),
+            //         ],
+            //       ),
+            //     ),
+            //   ),
+            // ),
+            Center(
+              child: Container(
+                margin: const EdgeInsets.all(30),
+                width: 350,
+                height: 400,
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(10),
+                      bottomRight: Radius.circular(10),
+                      topLeft: Radius.circular(10),
+                      topRight: Radius.circular(10),
+                    ),
+                    boxShadow: [
+                      BoxShadow(
+                        offset: Offset(-6, -6),
+                        color: Colors.white,
+                        blurRadius: 12,
+                        spreadRadius: 1,
+                      ),
+                      BoxShadow(
+                        offset: Offset(6, 6),
+                        color: Colors.white,
+                        blurRadius: 12,
+                        spreadRadius: 1,
+                      ),
+                      BoxShadow(
+                        offset: Offset(-6, 6),
+                        color: Color.fromARGB(255, 255, 255, 255),
+                        blurRadius: 12,
+                        spreadRadius: 1,
+                      ),
+                      BoxShadow(
+                        offset: Offset(6, -6),
+                        color: Color.fromARGB(255, 255, 255, 255),
+                        blurRadius: 12,
+                        spreadRadius: 1,
+                      ),
+                    ]),
+                child: TableCalendar(
+                  firstDay: DateTime(2020),
+                  lastDay: DateTime(2050),
+                  focusedDay: focusday,
+                  calendarFormat: _calenderf,
+                  onDaySelected: (selectedDay, focusedDay) {
+                    if (!isSameDay(selected, selectedDay)) {
+                      setState(() {
+                        selected = selectedDay;
+                        focusday = focusedDay;
+                      });
+                    }
+                  },
+                  selectedDayPredicate: (day) {
+                    return isSameDay(selected, day);
+                  },
+                  onFormatChanged: (format) {
+                    if (_calenderf != format) {
+                      setState(() {
+                        _calenderf = format;
+                      });
+                    }
+                  },
+                  calendarBuilders: CalendarBuilders(
+                    markerBuilder: (context, day, events) {
+                      if (attendance != null) {
+                        print("fffffffffff");
+                        String z = DateFormat('yyyy-MM-dd').format(day);
+                        data = attendance!.data() as Map<String, dynamic>?;
+                        if (data != null) {
+                          if (data!.containsKey(z)) {
+                            if (attendance![z])
+                              return Row(
+                                children: [
+                                  Expanded(
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        color: Color.fromARGB(
+                                            100, 140, 255, 144),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              );
+                            else
+                              return Row(
+                                children: [
+                                  Expanded(
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        color:
+                                            Color.fromARGB(98, 255, 124, 124),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              );
+                          }
+                        }
+                      }
+                      if (day.weekday == 7) {
+                        return Container(
+                          width: 10,
+                          height: 10,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: Color.fromARGB(98, 255, 124, 124),
+                          ),
+                        );
+                      }
+                      // eve(day);
+                      // if (jj.isNotEmpty) {
+                      //   // return Container(
+                      //   //   decoration: BoxDecoration(
+                      //   //     shape: BoxShape.circle,
+                      //   //     color: Color.fromARGB(98, 0, 47, 255),
+                      //   //   ),
+                      //   // );
+                      // }
+                      // return Expanded(
+                      //   child: Container(
+                      //     decoration: BoxDecoration(
+                      //       shape: BoxShape.circle,
+                      //       color: Color.fromARGB(100, 140, 255, 144),
+                      //     ),
+                      //   ),
+                      // );
+                    },
                   ),
                 ),
               ),
             ),
-            Positioned(
-                top: 120,
-                child: Container(
-                  margin: const EdgeInsets.all(30),
-                  width: 350,
-                  height: 400,
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.only(
-                        bottomLeft: Radius.circular(10),
-                        bottomRight: Radius.circular(10),
-                        topLeft: Radius.circular(10),
-                        topRight: Radius.circular(10),
-                      ),
-                      boxShadow: [
-                        BoxShadow(
-                          offset: Offset(-6, -6),
-                          color: Colors.white,
-                          blurRadius: 12,
-                          spreadRadius: 1,
-                        ),
-                        BoxShadow(
-                          offset: Offset(6, 6),
-                          color: Colors.white,
-                          blurRadius: 12,
-                          spreadRadius: 1,
-                        ),
-                        BoxShadow(
-                          offset: Offset(-6, 6),
-                          color: Color.fromRGBO(133, 139, 255, 1),
-                          blurRadius: 12,
-                          spreadRadius: 1,
-                        ),
-                        BoxShadow(
-                          offset: Offset(6, -6),
-                          color: Color.fromRGBO(133, 139, 255, 1),
-                          blurRadius: 12,
-                          spreadRadius: 1,
-                        ),
-                      ]),
-                  child: TableCalendar(
-                    firstDay: DateTime(2020),
-                    lastDay: DateTime(2050),
-                    focusedDay: focusday,
-                    calendarFormat: _calenderf,
-                    onDaySelected: (selectedDay, focusedDay) {
-                      if (!isSameDay(selected, selectedDay)) {
-                        setState(() {
-                          selected = selectedDay;
-                          focusday = focusedDay;
-                        });
-                      }
-                    },
-                    selectedDayPredicate: (day) {
-                      return isSameDay(selected, day);
-                    },
-                    onFormatChanged: (format) {
-                      if (_calenderf != format) {
-                        setState(() {
-                          _calenderf = format;
-                        });
-                      }
-                    },
-                    calendarBuilders: CalendarBuilders(
-                      markerBuilder: (context, day, events) {
-                        if (attendance != null) {
-                          print("fffffffffff");
-                          String z = DateFormat('yyyy-MM-dd').format(day);
-                          data = attendance!.data() as Map<String, dynamic>?;
-                          if (data != null) {
-                            if (data!.containsKey(z)) {
-                              if (attendance![z])
-                                return Row(
-                                  children: [
-                                    Expanded(
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                          shape: BoxShape.circle,
-                                          color: Color.fromARGB(
-                                              100, 140, 255, 144),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                );
-                              else
-                                return Row(
-                                  children: [
-                                    Expanded(
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                          shape: BoxShape.circle,
-                                          color:
-                                              Color.fromARGB(98, 255, 124, 124),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                );
-                            }
-                          }
-                        }
-                        if (day.weekday == 7) {
-                          return Container(
-                            width: 10,
-                            height: 10,
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: Color.fromARGB(98, 255, 124, 124),
-                            ),
-                          );
-                        }
-                        // eve(day);
-                        // if (jj.isNotEmpty) {
-                        //   // return Container(
-                        //   //   decoration: BoxDecoration(
-                        //   //     shape: BoxShape.circle,
-                        //   //     color: Color.fromARGB(98, 0, 47, 255),
-                        //   //   ),
-                        //   // );
-                        // }
-                        // return Expanded(
-                        //   child: Container(
-                        //     decoration: BoxDecoration(
-                        //       shape: BoxShape.circle,
-                        //       color: Color.fromARGB(100, 140, 255, 144),
-                        //     ),
-                        //   ),
-                        // );
-                      },
-                    ),
-                  ),
-                )),
                 if(role == "principal")
                 Positioned(
                   bottom: 150,
@@ -339,17 +341,17 @@ class _acadcalenderState extends State<acadcalender> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         const Icon(Icons.star_border_purple500,
-                        color: Colors.white,
+                        color: Color.fromARGB(255, 0, 0, 0),
                         ),
                         const Text(
                           "Contact Principal for any ambiguity",
                           style: TextStyle(
                             fontFamily: 'Poppins',
-                            color: Colors.white,
+                            color: Color.fromARGB(255, 0, 0, 0),
                           ),
                         ),
                         const Icon(Icons.star_border_purple500,
-                        color: Colors.white,),
+                        color: Color.fromARGB(255, 0, 0, 0),),
                       ],
                     ),
                   ),
