@@ -302,61 +302,53 @@ class _acadcalenderState extends State<acadcalender> {
               ),
             ),
                 if(role == "principal")
-                Positioned(
-                  bottom: 150,
-                  left: 30,
-                  child: Center(
-                    child: Container(
-                      padding: EdgeInsets.all(20),
-                      child: Center(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Icon(Icons.star_border_purple500,
-                        color: Color.fromARGB(255, 0, 0, 0),
+                Center(
+                  child: Container(
+                    padding: EdgeInsets.all(20),
+                    child: Center(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Icon(Icons.star_border_purple500,
+                      color: Color.fromARGB(255, 0, 0, 0),
+                      ),
+                      const Text(
+                        "You have no work here",
+                        style: TextStyle(
+                          fontFamily: 'Poppins',
+                          color: Color.fromARGB(255, 0, 0, 0),
                         ),
-                        const Text(
-                          "You have no work here",
-                          style: TextStyle(
-                            fontFamily: 'Poppins',
-                            color: Color.fromARGB(255, 0, 0, 0),
-                          ),
-                        ),
-                        const Icon(Icons.star_border_purple500,
-                        color: Color.fromARGB(255, 0, 0, 0),),
-                      ],
-                    ),
+                      ),
+                      const Icon(Icons.star_border_purple500,
+                      color: Color.fromARGB(255, 0, 0, 0),),
+                    ],
                   ),
-                    ),
+                ),
                   ),
                 ),
                 if(role == "teacher")
-                Positioned(
-                  bottom: 150,
-                  left: 30,
-                  child: Center(
-                    child: Container(
-                      padding: EdgeInsets.all(20),
-                      child: Center(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Icon(Icons.star_border_purple500,
-                        color: Color.fromARGB(255, 0, 0, 0),
+                Center(
+                  child: Container(
+                    padding: EdgeInsets.all(20),
+                    child: Center(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Icon(Icons.star_border_purple500,
+                      color: Color.fromARGB(255, 0, 0, 0),
+                      ),
+                      const Text(
+                        "Contact Principal for any ambiguity",
+                        style: TextStyle(
+                          fontFamily: 'Poppins',
+                          color: Color.fromARGB(255, 0, 0, 0),
                         ),
-                        const Text(
-                          "Contact Principal for any ambiguity",
-                          style: TextStyle(
-                            fontFamily: 'Poppins',
-                            color: Color.fromARGB(255, 0, 0, 0),
-                          ),
-                        ),
-                        const Icon(Icons.star_border_purple500,
-                        color: Color.fromARGB(255, 0, 0, 0),),
-                      ],
-                    ),
+                      ),
+                      const Icon(Icons.star_border_purple500,
+                      color: Color.fromARGB(255, 0, 0, 0),),
+                    ],
                   ),
-                    ),
+                ),
                   ),
                 ),
             // Positioned(
@@ -580,32 +572,28 @@ class _acadcalenderState extends State<acadcalender> {
             const SizedBox(
               height: 30,
             ),
-                Positioned(
-                  bottom: 150,
-                  left: 30,
-                  child: Center(
-                    child: Container(
-                      padding: EdgeInsets.all(20),
-                      child: Center(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Icon(Icons.star_border_purple500,
-                        color: Color.fromARGB(255, 0, 0, 0),
+                Center(
+                  child: Container(
+                    padding: EdgeInsets.all(20),
+                    child: Center(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Icon(Icons.star_border_purple500,
+                      color: Color.fromARGB(255, 0, 0, 0),
+                      ),
+                      const Text(
+                        "Contact your teachers for any ambiguity",
+                        style: TextStyle(
+                          fontFamily: 'Poppins',
+                          color: Color.fromARGB(255, 0, 0, 0),
                         ),
-                        const Text(
-                          "Contact your teachers for any ambiguity",
-                          style: TextStyle(
-                            fontFamily: 'Poppins',
-                            color: Color.fromARGB(255, 0, 0, 0),
-                          ),
-                        ),
-                        const Icon(Icons.star_border_purple500,
-                        color: Color.fromARGB(255, 0, 0, 0),),
-                      ],
-                    ),
+                      ),
+                      const Icon(Icons.star_border_purple500,
+                      color: Color.fromARGB(255, 0, 0, 0),),
+                    ],
                   ),
-                    ),
+                ),
                   ),
                 ),
           ],

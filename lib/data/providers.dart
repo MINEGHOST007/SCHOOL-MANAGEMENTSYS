@@ -310,7 +310,8 @@ class Getteacherdocs {
     print(teachers);
     return teachers;
   }
-    Future<List<DocumentSnapshot>> getprincipal() async {
+
+  Future<List<DocumentSnapshot>> getprincipal() async {
     List<DocumentSnapshot> teachers = [];
     CollectionReference users = FirebaseFirestore.instance.collection("users");
     QuerySnapshot snapshot =
@@ -503,9 +504,8 @@ class GetSubjects extends StatelessWidget {
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
-                children: subjects
-                    .map((e) => Cardclass2(subs: e, cls: cls))
-                    .toList(),
+                children:
+                    subjects.map((e) => Cardclass2(subs: e, cls: cls)).toList(),
               ),
               const SizedBox(
                 height: 50,
@@ -568,31 +568,31 @@ class _GetSyllabus2State extends State<GetSyllabus2> {
                   margin: EdgeInsets.all(15),
                   padding: EdgeInsets.symmetric(vertical: 10),
                   decoration: BoxDecoration(
-                    
                     color: Colors.grey[300],
                     boxShadow: [
                       BoxShadow(
-                      color: Colors.grey.shade500,
-                      offset: Offset(6, 6),
-                      blurRadius: 15,
-                      spreadRadius: 1,
-                    ),
+                        color: Colors.grey.shade500,
+                        offset: Offset(6, 6),
+                        blurRadius: 15,
+                        spreadRadius: 1,
+                      ),
                       BoxShadow(
-                      color: Colors.white,
-                      offset: Offset(-6, -6),
-                      blurRadius: 10,
-                      spreadRadius: 1,
-                    )
+                        color: Colors.white,
+                        offset: Offset(-6, -6),
+                        blurRadius: 10,
+                        spreadRadius: 1,
+                      )
                     ],
                     borderRadius: BorderRadius.all(Radius.circular(20)),
                   ),
                   child: Column(
                     children: [
                       ListTile(
-                        title: Text(" Chapter $key : ${value.toString()}",
-                        style: TextStyle(
-                          fontFamily: 'Poppins',
-                        ),
+                        title: Text(
+                          " Chapter $key : ${value.toString()}",
+                          style: TextStyle(
+                            fontFamily: 'Poppins',
+                          ),
                         ),
                       ),
                     ],
@@ -637,6 +637,39 @@ class _GetprofileState extends State<Getprofile> {
         };
       });
     }
+  }
+
+  void Deleteprofile(String docId) async {
+    DocumentReference documentRef =
+        FirebaseFirestore.instance.collection("users").doc("$docId");
+    try {
+      // Deleting the document
+      await documentRef.delete();
+      print("Document deleted successfully");
+      Navigator.push(
+          context, MaterialPageRoute(builder: ((context) => HomePage1())));
+    } catch (e) {
+      print("Error deleting document: $e");
+    }
+  }
+
+  void showsuccess() {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return const AlertDialog(
+            backgroundColor: Colors.deepPurpleAccent,
+            title: Center(
+              child: Text(
+                ' ✅ Changes Saved Refresh ',
+                style: TextStyle(
+                  fontSize: 14,
+                  color: Colors.white,
+                ),
+              ),
+            ),
+          );
+        });
   }
 
   @override
@@ -743,7 +776,6 @@ class _GetprofileState extends State<Getprofile> {
                       spreadRadius: 1,
                     ),
                   ]),
-
               child: Column(
                 children: [
                   Row(
@@ -849,6 +881,65 @@ class _GetprofileState extends State<Getprofile> {
                 ),
               ),
             ),
+            const SizedBox(
+              height: 25,
+            ),
+            Center(
+              child: GestureDetector(
+                onTap: () => {
+                  print("xxxxxxxxxxxxxxxx"),
+                  Deleteprofile("${widget.doc.id}")
+                },
+                child: Container(
+                  width: 240,
+                  height: 40,
+                  decoration: BoxDecoration(
+                      gradient: const LinearGradient(
+                        colors: [
+                          Color.fromRGBO(143, 148, 251, 1),
+                          Color.fromRGBO(143, 148, 251, 0.6),
+                        ],
+                      ),
+                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                      //border: Border.all(color: Colors.white, width: 2),
+                      boxShadow: [
+                        const BoxShadow(
+                          offset: Offset(-6, -6),
+                          color: Colors.white,
+                          blurRadius: 12,
+                          spreadRadius: 1,
+                        ),
+                        BoxShadow(
+                          offset: const Offset(4, 4),
+                          color: Colors.grey.shade500,
+                          blurRadius: 4,
+                          spreadRadius: 1,
+                        ),
+                      ]),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "Delete Account",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontFamily: 'Poppins',
+                          fontSize: 16,
+                        ),
+                      ),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Icon(
+                        Icons.delete,
+                        color: Color.fromARGB(255, 255, 0, 0),
+                        size: 20,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
           ],
         ),
       ),
@@ -888,6 +979,20 @@ class _Getprofile2State extends State<Getprofile2> {
           'Absent': widget.doc['absent'] / 1,
         };
       });
+    }
+  }
+
+  void Deleteprofile(String docId) async {
+    DocumentReference documentRef =
+        FirebaseFirestore.instance.collection("users").doc("$docId");
+    try {
+      // Deleting the document
+      await documentRef.delete();
+      print("Document deleted successfully");
+      Navigator.push(
+          context, MaterialPageRoute(builder: ((context) => HomePage1())));
+    } catch (e) {
+      print("Error deleting document: $e");
     }
   }
 
@@ -995,7 +1100,6 @@ class _Getprofile2State extends State<Getprofile2> {
                       spreadRadius: 1,
                     ),
                   ]),
-                  
               child: Column(
                 children: [
                   Row(
@@ -1093,6 +1197,63 @@ class _Getprofile2State extends State<Getprofile2> {
                       Icon(
                         Icons.refresh,
                         color: Colors.white,
+                        size: 20,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(height: 30,),
+            Center(
+              child: GestureDetector(
+                onTap: () => {
+                  print("xxxxxxxxxxxxxxxx"),
+                  Deleteprofile("${widget.doc.id}")
+                },
+                child: Container(
+                  width: 240,
+                  height: 40,
+                  decoration: BoxDecoration(
+                      gradient: const LinearGradient(
+                        colors: [
+                          Color.fromRGBO(143, 148, 251, 1),
+                          Color.fromRGBO(143, 148, 251, 0.6),
+                        ],
+                      ),
+                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                      //border: Border.all(color: Colors.white, width: 2),
+                      boxShadow: [
+                        const BoxShadow(
+                          offset: Offset(-6, -6),
+                          color: Colors.white,
+                          blurRadius: 12,
+                          spreadRadius: 1,
+                        ),
+                        BoxShadow(
+                          offset: const Offset(4, 4),
+                          color: Colors.grey.shade500,
+                          blurRadius: 4,
+                          spreadRadius: 1,
+                        ),
+                      ]),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "Delete Account",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontFamily: 'Poppins',
+                          fontSize: 16,
+                        ),
+                      ),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Icon(
+                        Icons.delete,
+                        color: Color.fromARGB(255, 255, 0, 0),
                         size: 20,
                       ),
                     ],
