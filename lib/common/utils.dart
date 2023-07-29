@@ -500,7 +500,7 @@ class list extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        doc['first_name'],
+                        "${doc['first_name']!.length < 8 ? doc['first_name'] : doc['first_name']!.substring(0, 8)}",
                         style: TextStyle(
                           fontFamily: 'Poppins',
                           color: Color.fromRGBO(118, 125, 255, 1),
@@ -510,7 +510,7 @@ class list extends StatelessWidget {
                         width: 6,
                       ),
                       Text(
-                        doc['second_name'],
+                        "${doc['second_name']!.length < 8 ? doc['second_name'] : doc['second_name']!.substring(0, 8)}....",
                         style: TextStyle(
                           fontFamily: 'Poppins',
                           color: Color.fromRGBO(120, 127, 255, 1),
@@ -587,7 +587,7 @@ class list extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          doc['first_name'],
+                          "${doc['first_name']!.length < 8 ? doc['first_name'] : doc['first_name']!.substring(0, 8)}",
                           style: TextStyle(
                             fontFamily: 'Poppins',
                             color: Color.fromRGBO(118, 125, 255, 1),
@@ -597,7 +597,7 @@ class list extends StatelessWidget {
                           width: 6,
                         ),
                         Text(
-                          doc['second_name'],
+                          "${doc['second_name']!.length < 8 ? doc['second_name'] : doc['second_name']!.substring(0, 8)}....",
                           style: TextStyle(
                             fontFamily: 'Poppins',
                             color: Color.fromRGBO(120, 127, 255, 1),
@@ -765,6 +765,7 @@ class GetAss {
 }
 
 class listAss extends StatefulWidget {
+  String? by;
   String? Subject;
   String? topic;
   DateTime? x;
@@ -774,6 +775,7 @@ class listAss extends StatefulWidget {
   //DateTime
   listAss(
       {super.key,
+      required this.by,
       required this.Subject,
       required this.topic,
       required this.x,
@@ -867,9 +869,9 @@ class _listAssState extends State<listAss> {
     backgroundColor: Colors.transparent,
     elevation: 0,
   );
-  Future<String> uploadpdf(String fn, File file) async {
+  Future<String> uploadpdf(String fn, File file, String? by) async {
     final refer =
-        FirebaseStorage.instance.ref("Assignments/Hermoine/10/Answers/$fn.pdf");
+        FirebaseStorage.instance.ref("Assignments/$by/10/Answers/$fn.pdf");
 
     final uploadTask = refer.putFile(file);
 
@@ -880,7 +882,7 @@ class _listAssState extends State<listAss> {
     return downlink;
   }
 
-  void filepicker() async {
+  void filepicker(String? by) async {
     User? user = FirebaseAuth.instance.currentUser;
     FilePickerResult? result = await FilePicker.platform.pickFiles(
       type: FileType.custom,
@@ -892,7 +894,7 @@ class _listAssState extends State<listAss> {
 
       String fn = result.files[0].name;
 
-      final fownload = await uploadpdf(fn, file);
+      final fownload = await uploadpdf(fn, file, by);
 
       await FirebaseFirestore.instance.collection("Answers").add({
         "link": fownload,
@@ -1033,7 +1035,7 @@ class _listAssState extends State<listAss> {
               children: [
                 GestureDetector(
                   onTap: () {
-                    filepicker();
+                    filepicker(widget.by);
                   },
                   child: Container(
                     padding: EdgeInsets.all(10),
@@ -1850,7 +1852,7 @@ class _listzState extends State<listz> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        widget.doc['first_name'],
+                        "${widget.doc['first_name']!.length < 8 ? widget.doc['first_name'] : widget.doc['first_name']!.substring(0, 8)}",
                         style: const TextStyle(
                           fontFamily: 'Poppins',
                           color: Color.fromRGBO(118, 125, 255, 1),
@@ -1860,7 +1862,7 @@ class _listzState extends State<listz> {
                         width: 6,
                       ),
                       Text(
-                        widget.doc['second_name'],
+                        "${widget.doc['second_name']!.length < 8 ? widget.doc['second_name'] : widget.doc['second_name']!.substring(0, 8)}....",
                         style: TextStyle(
                           fontFamily: 'Poppins',
                           color: Color.fromRGBO(120, 127, 255, 1),
@@ -1986,9 +1988,11 @@ class Updateatt {
     if (doo != null) {
       //doo.removeWhere((element) => abs.contains(element));
       for (int i = 0; i < doo.length; i++) {
+        String email = doo[i].get('email');
         CollectionReference users =
             FirebaseFirestore.instance.collection("Attendance");
-        if ((abs.contains(doo[i])) == false) {
+        if (!abs.any((doc) => doc.get('email') == email)) {
+          print("www");
           await users.doc('${doo[i].get('email')}').set({
             '$ff': true,
           }, SetOptions(merge: true));
@@ -2068,9 +2072,10 @@ class Updateatt2 {
     if (doo != null) {
       //doo.removeWhere((element) => abs.contains(element));
       for (int i = 0; i < doo.length; i++) {
+        String email = doo[i].get('email');
         CollectionReference users =
             FirebaseFirestore.instance.collection("Attendance");
-        if ((abs.contains(doo[i])) == false) {
+        if (!abs.any((doc) => doc.get('email') == email)) {
           await users.doc('${doo[i].get('email')}').set({
             '$ff': true,
           }, SetOptions(merge: true));
@@ -2182,7 +2187,7 @@ class _listbState extends State<listb> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        widget.doc['first_name'],
+                        "${widget.doc['first_name']!.length < 8 ? widget.doc['first_name'] : widget.doc['first_name']!.substring(0, 8)}",
                         style: const TextStyle(
                           fontFamily: 'Poppins',
                           color: Color.fromRGBO(118, 125, 255, 1),
@@ -2192,7 +2197,7 @@ class _listbState extends State<listb> {
                         width: 6,
                       ),
                       Text(
-                        widget.doc['second_name'],
+                        "${widget.doc['second_name']!.length < 8 ? widget.doc['second_name'] : widget.doc['second_name']!.substring(0, 8)}....",
                         style: TextStyle(
                           fontFamily: 'Poppins',
                           color: Color.fromRGBO(120, 127, 255, 1),
@@ -2274,14 +2279,14 @@ class _listbState extends State<listb> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          widget.doc['first_name'],
+                          "${widget.doc['first_name']!.length < 8 ? widget.doc['first_name'] : widget.doc['first_name']!.substring(0, 8)}",
                           style: TextStyle(
                             fontFamily: 'Poppins',
                             color: Color.fromRGBO(93, 101, 255, 1),
                           ),
                         ),
                         Text(
-                          widget.doc['second_name'],
+                          "${widget.doc['second_name']!.length < 8 ? widget.doc['second_name'] : widget.doc['second_name']!.substring(0, 8)}....",
                           style: TextStyle(
                             fontFamily: 'Poppins',
                             color: Color.fromRGBO(93, 101, 255, 1),
@@ -2362,8 +2367,7 @@ class Getnotice {
       for (int i = 0; i < y.length; i++) {
         CollectionReference users =
             FirebaseFirestore.instance.collection("${y[i]['first_name']}");
-        QuerySnapshot snapshot =
-            await users.where('class', isEqualTo: x).get();
+        QuerySnapshot snapshot = await users.where('class', isEqualTo: x).get();
         doc = snapshot.docs.toList();
         fdoc = fdoc + doc;
       }
@@ -2396,8 +2400,7 @@ class Getnotice {
     for (int i = 0; i < y.length; i++) {
       CollectionReference users =
           FirebaseFirestore.instance.collection("${y[i]['first_name']}");
-      QuerySnapshot snapshot =
-          await users.get();
+      QuerySnapshot snapshot = await users.get();
       doc = snapshot.docs.toList();
       fdoc = fdoc + doc;
     }

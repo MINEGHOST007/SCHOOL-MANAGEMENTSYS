@@ -108,6 +108,7 @@ class _AddassState extends State<Addass> {
     final db = FirebaseFirestore.instance;
     if (fnxx != null) {
       var ass = {
+        "by" : fnxx,
         "Subject": sub,
         "Topic": top,
         "assign": DateTime.now(),

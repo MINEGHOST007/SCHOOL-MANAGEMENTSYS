@@ -9,11 +9,15 @@ import 'firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:edusphere/presentation/screens/splashscreen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/services.dart';
+
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
+  .then((_) {
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
     initialRoute :'/splash',
@@ -38,4 +42,6 @@ void main() async{
       // //'/academic calender': (context)=> (),//teacher can add tests
     },
   ));
+}
+);
 }

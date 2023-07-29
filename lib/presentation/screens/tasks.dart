@@ -23,6 +23,7 @@ class _tasksState extends State<tasks> {
   List<DateTime?> x = [];
   List<DateTime?> y = [];
   List<String?> urr = [];
+  List<String?> by = [];
   int i = 0;
   int counter = 1;
   int len = 0;
@@ -38,6 +39,7 @@ class _tasksState extends State<tasks> {
           len = doc.length;
           for (i = 0; i < doc.length; i++) {
             print("ccccccccccccccccccccccc");
+            by.add(doc[i]!['by']);
             dub.add(doc[i]!['Subject']);
             topic.add(doc[i]!['Topic']);
             x.add((doc[i]!['assign'] as Timestamp).toDate());
@@ -50,11 +52,13 @@ class _tasksState extends State<tasks> {
     } else if (role == "teacher") {
       GetAss ga = GetAss();
       List<DocumentSnapshot?>? doc = await ga.getassignment2();
+
       if (doc![0] != null) {
         setState(() {
           len = doc.length;
           for (i = 0; i < doc.length; i++) {
             print("ccccccccccccccccccccccc");
+            by.add(doc[i]!['by']);
             dub.add(doc[i]!['Subject']);
             topic.add(doc[i]!['Topic']);
             x.add((doc[i]!['assign'] as Timestamp).toDate());
@@ -203,6 +207,7 @@ class _tasksState extends State<tasks> {
                         child: Column(
                           children: [
                             listAss(
+                              by: "${by[i]}",
                               Subject: "${dub[i]}",
                               topic: "${topic[i]}",
                               x: x[i],
@@ -336,8 +341,7 @@ class _noticesState extends State<notices> {
           }
         });
       }
-    }
-    else if(role == "principal"){
+    } else if (role == "principal") {
       GetAss ga = GetAss();
       List<DocumentSnapshot?>? doc = await ga.getassignment2();
       if (doc![0] != null) {
