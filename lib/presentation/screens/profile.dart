@@ -57,9 +57,7 @@ import 'package:edusphere/presentation/screens/load.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
-import 'package:persistent_bottom_nav_bar_v2/persistent-tab-view.dart';
 import 'package:pie_chart/pie_chart.dart';
 
 class Profilepage extends StatefulWidget {
@@ -89,7 +87,7 @@ class _ProfilepageState extends State<Profilepage> {
     setState(() {
       count = 0;
     });
-    return Future.delayed(Duration(seconds: 3));
+    return Future.delayed(const Duration(seconds: 3));
   }
 
   Future getDocId() async {
@@ -111,7 +109,6 @@ class _ProfilepageState extends State<Profilepage> {
 
   int count = 0;
   Future getDocId2() async {
-    String? roleee;
     await FirebaseFirestore.instance.collection('users').get().then(
           (value) => value.docs.forEach((element) async {
             print(element.reference.id);
@@ -233,8 +230,8 @@ class _ProfilepageState extends State<Profilepage> {
         backgroundColor: Colors.grey[300],
         body: LiquidPullToRefresh(
           onRefresh: refresh,
-          color: Color.fromRGBO(109, 116, 255, 1),
-          backgroundColor: Color.fromARGB(255, 138, 156, 255),
+          color: const Color.fromRGBO(109, 116, 255, 1),
+          backgroundColor: const Color.fromARGB(255, 138, 156, 255),
           height: 100,
           child: SingleChildScrollView(
             child: Column(
@@ -244,7 +241,7 @@ class _ProfilepageState extends State<Profilepage> {
                 ),
                 Center(
                   child: Container(
-                    margin: EdgeInsets.only(top: 15),
+                    margin: const EdgeInsets.only(top: 15),
                     padding: const EdgeInsets.all(10),
                     height: 100,
                     decoration: BoxDecoration(
@@ -254,10 +251,10 @@ class _ProfilepageState extends State<Profilepage> {
                         boxShadow: [
                           BoxShadow(
                             color: Colors.grey.shade500,
-                            offset: Offset(4, 4),
+                            offset: const Offset(4, 4),
                             blurRadius: 10,
                           ),
-                          BoxShadow(
+                          const BoxShadow(
                             color: Colors.white,
                             offset: Offset(-4, -4),
                             blurRadius: 10,
@@ -272,18 +269,18 @@ class _ProfilepageState extends State<Profilepage> {
                 const SizedBox(
                   height: 25,
                 ),
-                Center(
+                const Center(
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Icon(Icons.star_border_purple500),
-                      const Text(
+                      Icon(Icons.star_border_purple500),
+                      Text(
                         "You are logged in as Student",
                         style: TextStyle(
                           fontFamily: 'Poppins',
                         ),
                       ),
-                      const Icon(Icons.star_border_purple500),
+                      Icon(Icons.star_border_purple500),
                     ],
                   ),
                 ),
@@ -315,19 +312,19 @@ class _ProfilepageState extends State<Profilepage> {
                           boxShadow: [
                             BoxShadow(
                               color: Colors.grey.shade500,
-                              offset: Offset(4, 4),
+                              offset: const Offset(4, 4),
                               blurRadius: 10,
                             ),
-                            BoxShadow(
+                            const BoxShadow(
                               color: Colors.white,
                               offset: Offset(-4, -4),
                               blurRadius: 10,
                             ),
                           ]),
-                      child: Row(
+                      child: const Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          const Text(
+                          Text(
                             "Edit Profile",
                             style: TextStyle(
                               color: Colors.white,
@@ -335,10 +332,10 @@ class _ProfilepageState extends State<Profilepage> {
                               fontSize: 16,
                             ),
                           ),
-                          const SizedBox(
+                          SizedBox(
                             width: 10,
                           ),
-                          const Icon(
+                          Icon(
                             Icons.edit,
                             color: Colors.white,
                             size: 20,
@@ -354,7 +351,7 @@ class _ProfilepageState extends State<Profilepage> {
                   padding: const EdgeInsets.all(25),
                   decoration: BoxDecoration(
                       color: Colors.grey[300],
-                      borderRadius: BorderRadius.only(
+                      borderRadius: const BorderRadius.only(
                         topLeft: Radius.circular(10),
                         topRight: Radius.circular(10),
                         bottomLeft: Radius.circular(10),
@@ -363,11 +360,11 @@ class _ProfilepageState extends State<Profilepage> {
                       boxShadow: [
                         BoxShadow(
                           color: Colors.grey.shade500,
-                          offset: Offset(6, 6),
+                          offset: const Offset(6, 6),
                           blurRadius: 12,
                           spreadRadius: 1,
                         ),
-                        BoxShadow(
+                        const BoxShadow(
                           color: Colors.white,
                           offset: Offset(-6, -6),
                           blurRadius: 12,
@@ -411,12 +408,12 @@ class _ProfilepageState extends State<Profilepage> {
                       const SizedBox(
                         height: 25,
                       ),
-                      Container(
+                      SizedBox(
                         width: 500,
                         height: 150,
                         child: PieChart(
                           dataMap: dataMap,
-                          colorList: [
+                          colorList: const [
                             Color.fromRGBO(143, 148, 251, 1),
                             Color.fromRGBO(255, 255, 255, 1),
                           ],
@@ -527,8 +524,8 @@ class _ProfilepageState extends State<Profilepage> {
         ),
         backgroundColor: Colors.grey[300],
         body: LiquidPullToRefresh(
-          color: Color.fromRGBO(109, 116, 255, 1),
-          backgroundColor: Color.fromARGB(255, 138, 156, 255),
+          color: const Color.fromRGBO(109, 116, 255, 1),
+          backgroundColor: const Color.fromARGB(255, 138, 156, 255),
           height: 100,
           onRefresh: refresh,
           child: SingleChildScrollView(
@@ -568,18 +565,18 @@ class _ProfilepageState extends State<Profilepage> {
                 const SizedBox(
                   height: 25,
                 ),
-                Center(
+                const Center(
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Icon(Icons.star_border_purple500),
-                      const Text(
+                      Icon(Icons.star_border_purple500),
+                      Text(
                         "You are logged in as Teacher",
                         style: TextStyle(
                           fontFamily: 'Poppins',
                         ),
                       ),
-                      const Icon(Icons.star_border_purple500),
+                      Icon(Icons.star_border_purple500),
                     ],
                   ),
                 ),
@@ -611,19 +608,19 @@ class _ProfilepageState extends State<Profilepage> {
                           boxShadow: [
                             BoxShadow(
                               color: Colors.grey.shade500,
-                              offset: Offset(2, 2),
+                              offset: const Offset(2, 2),
                               blurRadius: 1,
                             ),
-                            BoxShadow(
+                            const BoxShadow(
                               color: Colors.white,
                               offset: Offset(-2, -2),
                               blurRadius: 1,
                             ),
                           ]),
-                      child: Row(
+                      child: const Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          const Text(
+                          Text(
                             "Edit Profile",
                             style: TextStyle(
                               color: Colors.white,
@@ -631,10 +628,10 @@ class _ProfilepageState extends State<Profilepage> {
                               fontSize: 16,
                             ),
                           ),
-                          const SizedBox(
+                          SizedBox(
                             width: 10,
                           ),
-                          const Icon(
+                          Icon(
                             Icons.edit,
                             color: Colors.white,
                             size: 20,
@@ -650,7 +647,7 @@ class _ProfilepageState extends State<Profilepage> {
                   padding: const EdgeInsets.all(25),
                   decoration: BoxDecoration(
                       color: Colors.grey.shade300,
-                      borderRadius: BorderRadius.only(
+                      borderRadius: const BorderRadius.only(
                         topLeft: Radius.circular(10),
                         topRight: Radius.circular(10),
                         bottomLeft: Radius.circular(10),
@@ -687,13 +684,13 @@ class _ProfilepageState extends State<Profilepage> {
                       const SizedBox(
                         height: 25,
                       ),
-                      Container(
+                      SizedBox(
                         width: 500,
                         height: 150,
                         child: PieChart(
                           dataMap: dataMap,
                           colorList: [
-                            Color.fromRGBO(143, 148, 251, 1),
+                            const Color.fromRGBO(143, 148, 251, 1),
                             Colors.grey.shade100
                           ],
                         ),
@@ -788,7 +785,7 @@ class _deciderState extends State<decider> {
   @override
   Widget build(BuildContext context) {
     if (role == "") {
-      return Loading();
+      return const Loading();
     } else if (role == "principal") {
       return Scaffold(
         resizeToAvoidBottomInset: false,
@@ -840,8 +837,8 @@ class _deciderState extends State<decider> {
         ),
         backgroundColor: Colors.grey[300],
         body: LiquidPullToRefresh(
-          color: Color.fromRGBO(109, 116, 255, 1),
-          backgroundColor: Color.fromARGB(255, 138, 156, 255),
+          color: const Color.fromRGBO(109, 116, 255, 1),
+          backgroundColor: const Color.fromARGB(255, 138, 156, 255),
           height: 100,
           onRefresh: refresh,
           child: SingleChildScrollView(
@@ -881,18 +878,18 @@ class _deciderState extends State<decider> {
                 const SizedBox(
                   height: 25,
                 ),
-                Center(
+                const Center(
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Icon(Icons.star_border_purple500),
-                      const Text(
+                      Icon(Icons.star_border_purple500),
+                      Text(
                         "PRINCIPAL",
                         style: TextStyle(
                           fontFamily: 'Poppins',
                         ),
                       ),
-                      const Icon(Icons.star_border_purple500),
+                      Icon(Icons.star_border_purple500),
                     ],
                   ),
                 ),
@@ -924,19 +921,19 @@ class _deciderState extends State<decider> {
                           boxShadow: [
                             BoxShadow(
                               color: Colors.grey.shade500,
-                              offset: Offset(2, 2),
+                              offset: const Offset(2, 2),
                               blurRadius: 1,
                             ),
-                            BoxShadow(
+                            const BoxShadow(
                               color: Colors.white,
                               offset: Offset(-2, -2),
                               blurRadius: 1,
                             ),
                           ]),
-                      child: Row(
+                      child: const Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          const Text(
+                          Text(
                             "Edit Profile",
                             style: TextStyle(
                               color: Colors.white,
@@ -944,10 +941,10 @@ class _deciderState extends State<decider> {
                               fontSize: 16,
                             ),
                           ),
-                          const SizedBox(
+                          SizedBox(
                             width: 10,
                           ),
-                          const Icon(
+                          Icon(
                             Icons.edit,
                             color: Colors.white,
                             size: 20,
@@ -963,7 +960,7 @@ class _deciderState extends State<decider> {
                   padding: const EdgeInsets.all(25),
                   decoration: BoxDecoration(
                       color: Colors.grey.shade300,
-                      borderRadius: BorderRadius.only(
+                      borderRadius: const BorderRadius.only(
                         topLeft: Radius.circular(10),
                         topRight: Radius.circular(10),
                         bottomLeft: Radius.circular(10),
@@ -1049,7 +1046,7 @@ class _deciderState extends State<decider> {
         ),
       );
     } else {
-      return Profilepage();
+      return const Profilepage();
     }
   }
 }

@@ -2,8 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:edusphere/data/providers.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:intl/intl.dart';
 
@@ -112,27 +110,20 @@ class _acadcalenderState extends State<acadcalender> {
         FirebaseFirestore.instance.collection('Attendance');
     print("zzzzzzzzzzzz");
     DocumentSnapshot snapshot = await users.doc('${user!.email}').get();
-    if (snapshot != null) {
-      attendance = snapshot;
-      print(attendance!['2023-06-30']);
-      setState(() {
-        attendance = attendance;
-        data = snapshot.data() as Map<String, dynamic>?;
-      });
-    }
+    attendance = snapshot;
+    print(attendance!['2023-06-30']);
+    setState(() {
+      attendance = attendance;
+      data = snapshot.data() as Map<String, dynamic>?;
+    });
   }
 
   List<DocumentSnapshot> jj = [];
   void eve(DateTime day) async {
     String z = DateFormat('yyyy-MM-dd').format(day);
-    CollectionReference events = FirebaseFirestore.instance.collection("$z");
+    CollectionReference events = FirebaseFirestore.instance.collection(z);
     QuerySnapshot snapshot = await events.get();
-    if (snapshot != null) {
-      jj = snapshot.docs.toList();
-      // setState(() {
-      //   jj = jj;
-      // });
-    }
+    jj = snapshot.docs.toList();
   }
 
   @override
@@ -173,7 +164,7 @@ class _acadcalenderState extends State<acadcalender> {
                 margin: const EdgeInsets.all(30),
                 width: 350,
                 height: 400,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.only(
                       bottomLeft: Radius.circular(10),
@@ -238,12 +229,12 @@ class _acadcalenderState extends State<acadcalender> {
                         data = attendance!.data() as Map<String, dynamic>?;
                         if (data != null) {
                           if (data!.containsKey(z)) {
-                            if (attendance![z])
+                            if (attendance![z]) {
                               return Row(
                                 children: [
                                   Expanded(
                                     child: Container(
-                                      decoration: BoxDecoration(
+                                      decoration: const BoxDecoration(
                                         shape: BoxShape.circle,
                                         color: Color.fromARGB(
                                             100, 140, 255, 144),
@@ -252,12 +243,12 @@ class _acadcalenderState extends State<acadcalender> {
                                   ),
                                 ],
                               );
-                            else
+                            } else {
                               return Row(
                                 children: [
                                   Expanded(
                                     child: Container(
-                                      decoration: BoxDecoration(
+                                      decoration: const BoxDecoration(
                                         shape: BoxShape.circle,
                                         color:
                                             Color.fromARGB(98, 255, 124, 124),
@@ -266,6 +257,7 @@ class _acadcalenderState extends State<acadcalender> {
                                   ),
                                 ],
                               );
+                            }
                           }
                         }
                       }
@@ -273,12 +265,13 @@ class _acadcalenderState extends State<acadcalender> {
                         return Container(
                           width: 10,
                           height: 10,
-                          decoration: BoxDecoration(
+                          decoration: const BoxDecoration(
                             shape: BoxShape.circle,
                             color: Color.fromARGB(98, 255, 124, 124),
                           ),
                         );
                       }
+                      return null;
                       // eve(day);
                       // if (jj.isNotEmpty) {
                       //   // return Container(
@@ -304,22 +297,22 @@ class _acadcalenderState extends State<acadcalender> {
                 if(role == "principal")
                 Center(
                   child: Container(
-                    padding: EdgeInsets.all(20),
-                    child: Center(
+                    padding: const EdgeInsets.all(20),
+                    child: const Center(
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Icon(Icons.star_border_purple500,
+                      Icon(Icons.star_border_purple500,
                       color: Color.fromARGB(255, 0, 0, 0),
                       ),
-                      const Text(
+                      Text(
                         "You have no work here",
                         style: TextStyle(
                           fontFamily: 'Poppins',
                           color: Color.fromARGB(255, 0, 0, 0),
                         ),
                       ),
-                      const Icon(Icons.star_border_purple500,
+                      Icon(Icons.star_border_purple500,
                       color: Color.fromARGB(255, 0, 0, 0),),
                     ],
                   ),
@@ -329,22 +322,22 @@ class _acadcalenderState extends State<acadcalender> {
                 if(role == "teacher")
                 Center(
                   child: Container(
-                    padding: EdgeInsets.all(20),
-                    child: Center(
+                    padding: const EdgeInsets.all(20),
+                    child: const Center(
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Icon(Icons.star_border_purple500,
+                      Icon(Icons.star_border_purple500,
                       color: Color.fromARGB(255, 0, 0, 0),
                       ),
-                      const Text(
+                      Text(
                         "Contact Principal for any ambiguity",
                         style: TextStyle(
                           fontFamily: 'Poppins',
                           color: Color.fromARGB(255, 0, 0, 0),
                         ),
                       ),
-                      const Icon(Icons.star_border_purple500,
+                      Icon(Icons.star_border_purple500,
                       color: Color.fromARGB(255, 0, 0, 0),),
                     ],
                   ),
@@ -512,12 +505,12 @@ class _acadcalenderState extends State<acadcalender> {
                         data = attendance!.data() as Map<String, dynamic>?;
                         if (data != null) {
                           if (data!.containsKey(z)) {
-                            if (attendance![z])
+                            if (attendance![z]) {
                               return Row(
                                 children: [
                                   Expanded(
                                     child: Container(
-                                      decoration: BoxDecoration(
+                                      decoration: const BoxDecoration(
                                         shape: BoxShape.circle,
                                         color: Color.fromARGB(
                                             100, 140, 255, 144),
@@ -526,12 +519,12 @@ class _acadcalenderState extends State<acadcalender> {
                                   ),
                                 ],
                               );
-                            else
+                            } else {
                               return Row(
                                 children: [
                                   Expanded(
                                     child: Container(
-                                      decoration: BoxDecoration(
+                                      decoration: const BoxDecoration(
                                         shape: BoxShape.circle,
                                         color:
                                             Color.fromARGB(98, 255, 124, 124),
@@ -540,6 +533,7 @@ class _acadcalenderState extends State<acadcalender> {
                                   ),
                                 ],
                               );
+                            }
                           }
                         }
                       }
@@ -548,12 +542,13 @@ class _acadcalenderState extends State<acadcalender> {
                         return Container(
                           width: 10,
                           height: 10,
-                          decoration: BoxDecoration(
+                          decoration: const BoxDecoration(
                             shape: BoxShape.circle,
                             color: Color.fromARGB(98, 255, 124, 124),
                           ),
                         );
                       }
+                      return null;
                       // return Expanded(
                       //   child: Container(
                       //     decoration: BoxDecoration(
@@ -574,22 +569,22 @@ class _acadcalenderState extends State<acadcalender> {
             ),
                 Center(
                   child: Container(
-                    padding: EdgeInsets.all(20),
-                    child: Center(
+                    padding: const EdgeInsets.all(20),
+                    child: const Center(
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Icon(Icons.star_border_purple500,
+                      Icon(Icons.star_border_purple500,
                       color: Color.fromARGB(255, 0, 0, 0),
                       ),
-                      const Text(
+                      Text(
                         "Contact your teachers for any ambiguity",
                         style: TextStyle(
                           fontFamily: 'Poppins',
                           color: Color.fromARGB(255, 0, 0, 0),
                         ),
                       ),
-                      const Icon(Icons.star_border_purple500,
+                      Icon(Icons.star_border_purple500,
                       color: Color.fromARGB(255, 0, 0, 0),),
                     ],
                   ),

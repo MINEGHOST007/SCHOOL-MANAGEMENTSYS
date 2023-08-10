@@ -1,8 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:intl/intl.dart';
 
@@ -26,14 +24,12 @@ class _AttendanceState extends State<Attendance> {
         FirebaseFirestore.instance.collection('Attendance');
     print("zzzzzzzzzzzz");
     DocumentSnapshot snapshot = await users.doc('${user!.email}').get();
-    if (snapshot != null) {
-      attendance = snapshot;
-      print(attendance!['2023-06-30']);
-      setState(() {
-        attendance = attendance;
-        data = snapshot.data() as Map<String, dynamic>?;
-      });
-    }
+    attendance = snapshot;
+    print(attendance!['2023-06-30']);
+    setState(() {
+      attendance = attendance;
+      data = snapshot.data() as Map<String, dynamic>?;
+    });
   }
 
   Color determineDotColor(bool attendanceValue) {
@@ -124,12 +120,12 @@ class _AttendanceState extends State<Attendance> {
                     data = attendance!.data() as Map<String, dynamic>?;
                     if(data != null ){
                       if (data!.containsKey(z)){
-                      if(attendance![z])
-                      return Row(
+                      if(attendance![z]) {
+                        return Row(
                         children: [
                           Expanded(
                             child: Container(
-                              decoration: BoxDecoration(
+                              decoration: const BoxDecoration(
                                 shape: BoxShape.circle,
                                 color: Color.fromARGB(100, 140, 255, 144),
                               ),
@@ -137,12 +133,12 @@ class _AttendanceState extends State<Attendance> {
                           ),
                         ],
                       );
-                    else
-                      return Row(
+                      } else {
+                        return Row(
                         children: [
                           Expanded(
                             child: Container(
-                              decoration: BoxDecoration(
+                              decoration: const BoxDecoration(
                                 shape: BoxShape.circle,
                                 color: Color.fromARGB(98, 255, 124, 124),
                               ),
@@ -150,10 +146,12 @@ class _AttendanceState extends State<Attendance> {
                           ),
                         ],
                       );
+                      }
                     }
                     
                     }
                   }
+                  return null;
                   // return Expanded(
                   //   child: Container(
                   //     decoration: BoxDecoration(

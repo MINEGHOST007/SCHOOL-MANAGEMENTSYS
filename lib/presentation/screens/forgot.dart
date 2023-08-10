@@ -22,7 +22,7 @@ class _forgotState extends State<forgot> {
       await FirebaseAuth.instance
           .sendPasswordResetEmail(email: emailcontroller.text.trim());
       showsuccess();
-    } on FirebaseAuthException catch (e) {
+    } on FirebaseAuthException {
       showerror();
     }
   }
@@ -69,7 +69,7 @@ class _forgotState extends State<forgot> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color.fromRGBO(143, 148, 251, 1),
+        backgroundColor: const Color.fromRGBO(143, 148, 251, 1),
         elevation: 0,
       ),
       body: Center(
@@ -136,8 +136,8 @@ class _forgotState extends State<forgot> {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(8.0),
               ),
-              color: Color.fromRGBO(143, 148, 251, 1),
-              child: Text(
+              color: const Color.fromRGBO(143, 148, 251, 1),
+              child: const Text(
                 "Reset Password",
                 style: TextStyle(
                   color: Colors.white,

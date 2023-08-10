@@ -43,11 +43,14 @@
 //   }
 // }
 
+// ignore_for_file: unused_local_variable
+
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:edusphere/data/providers.dart';
 import 'package:edusphere/presentation/screens/acadcal.dart';
+import 'package:edusphere/presentation/screens/addass.dart';
 import 'package:edusphere/presentation/screens/home.dart';
 import 'package:edusphere/presentation/screens/load.dart';
 import 'package:edusphere/presentation/screens/profile.dart';
@@ -57,15 +60,10 @@ import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent-tab-view.dart';
-import 'package:pie_chart/pie_chart.dart';
 import 'package:http/http.dart' as http;
-import 'dart:io';
-import 'package:http/http.dart' as http;
-import 'package:path_provider/path_provider.dart';
 import 'package:flutter_file_downloader/flutter_file_downloader.dart';
 import 'package:edusphere/data/absentee_list.dart';
 
@@ -126,34 +124,34 @@ class BottomNavBar extends StatefulWidget {
 }
 
 class _BottomNavBarState extends State<BottomNavBar> {
-  PersistentTabController _controller =
+  final PersistentTabController _controller =
       PersistentTabController(initialIndex: 0);
   @override
   Widget build(BuildContext context) {
     List<PersistentBottomNavBarItem> _navBarsItems() {
       return [
         PersistentBottomNavBarItem(
-          icon: Icon(Icons.home),
+          icon: const Icon(Icons.home),
           title: "Home",
-          activeColorPrimary: Color.fromARGB(255, 67, 95, 255),
+          activeColorPrimary: const Color.fromARGB(255, 67, 95, 255),
           inactiveColorPrimary: Colors.black,
         ),
         PersistentBottomNavBarItem(
-          icon: Icon(Icons.person),
+          icon: const Icon(Icons.person),
           title: "Profile",
-          activeColorPrimary: Color.fromARGB(255, 67, 95, 255),
+          activeColorPrimary: const Color.fromARGB(255, 67, 95, 255),
           inactiveColorPrimary: Colors.black,
         ),
         PersistentBottomNavBarItem(
-          icon: Icon(Icons.edit_document),
+          icon: const Icon(Icons.edit_document),
           title: "Tasks",
-          activeColorPrimary: Color.fromARGB(255, 67, 95, 255),
+          activeColorPrimary: const Color.fromARGB(255, 67, 95, 255),
           inactiveColorPrimary: Colors.black,
         ),
         PersistentBottomNavBarItem(
-          icon: Icon(Icons.calendar_view_month_outlined),
+          icon: const Icon(Icons.calendar_view_month_outlined),
           title: "Calender",
-          activeColorPrimary: Color.fromARGB(255, 67, 95, 255),
+          activeColorPrimary: const Color.fromARGB(255, 67, 95, 255),
           inactiveColorPrimary: Colors.black,
         ),
       ];
@@ -161,10 +159,10 @@ class _BottomNavBarState extends State<BottomNavBar> {
 
     List<Widget> _buildScreens() {
       return [
-        HomePage(),
-        Profilepage(),
-        tasks(),
-        acadcalender(),
+        const HomePage(),
+        const Profilepage(),
+        const tasks(),
+        const acadcalender(),
       ];
     }
 
@@ -208,6 +206,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
   }
 }
 
+// ignore: must_be_immutable
 class Cardclass extends StatefulWidget {
   Cardclass({super.key, required this.subs});
   String subs;
@@ -262,8 +261,6 @@ class _CardclassState extends State<Cardclass> {
 
   @override
   Widget build(BuildContext context) {
-    Color xx = const Color.fromRGBO(143, 148, 251, 0.6);
-    Color yy = const Color.fromRGBO(143, 148, 251, 1);
     if (role == "teacher" || role == "principal") {
       return GestureDetector(
         onTap: () => {getRole(context)},
@@ -271,13 +268,13 @@ class _CardclassState extends State<Cardclass> {
             1.6,
             Container(
               padding:
-                  EdgeInsets.only(top: 10, left: 18, right: 18, bottom: 20),
+                  const EdgeInsets.only(top: 10, left: 18, right: 18, bottom: 20),
               height: 120,
               width: 120,
-              margin: EdgeInsets.only(top: 25, left: 15, right: 15, bottom: 25),
+              margin: const EdgeInsets.only(top: 25, left: 15, right: 15, bottom: 25),
               alignment: Alignment.topCenter,
               decoration: BoxDecoration(
-                  borderRadius: BorderRadius.only(
+                  borderRadius: const BorderRadius.only(
                     topLeft: Radius.circular(10),
                     topRight: Radius.circular(10),
                     bottomLeft: Radius.circular(10),
@@ -294,11 +291,11 @@ class _CardclassState extends State<Cardclass> {
                   boxShadow: [
                     BoxShadow(
                       color: Colors.grey.shade500,
-                      offset: Offset(4, 4),
+                      offset: const Offset(4, 4),
                       blurRadius: 15,
                       spreadRadius: 1,
                     ),
-                    BoxShadow(
+                    const BoxShadow(
                       color: Colors.white,
                       offset: Offset(-4, -4),
                       blurRadius: 15,
@@ -324,13 +321,13 @@ class _CardclassState extends State<Cardclass> {
             onTap: () => {getRole(context)},
             child: Container(
               padding:
-                  EdgeInsets.only(top: 10, left: 18, right: 18, bottom: 20),
+                  const EdgeInsets.only(top: 10, left: 18, right: 18, bottom: 20),
               height: 170,
               width: 120,
-              margin: EdgeInsets.only(top: 20, bottom: 25, left: 15, right: 18),
+              margin: const EdgeInsets.only(top: 20, bottom: 25, left: 15, right: 18),
               alignment: Alignment.topCenter,
               decoration: BoxDecoration(
-                  borderRadius: BorderRadius.only(
+                  borderRadius: const BorderRadius.only(
                     topLeft: Radius.circular(10),
                     topRight: Radius.circular(10),
                     bottomLeft: Radius.circular(10),
@@ -344,11 +341,11 @@ class _CardclassState extends State<Cardclass> {
                   boxShadow: [
                     BoxShadow(
                       color: Colors.grey.shade600,
-                      offset: Offset(6, 6),
+                      offset: const Offset(6, 6),
                       blurRadius: 15,
                       spreadRadius: 1,
                     ),
-                    BoxShadow(
+                    const BoxShadow(
                       color: Colors.white,
                       offset: Offset(-6, -6),
                       blurRadius: 10,
@@ -364,7 +361,7 @@ class _CardclassState extends State<Cardclass> {
                   ),
                   Text(
                     widget.subs,
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Color.fromARGB(255, 75, 75, 75),
                       fontFamily: 'Poppins',
                       fontSize: 12,
@@ -379,6 +376,7 @@ class _CardclassState extends State<Cardclass> {
   }
 }
 
+// ignore: must_be_immutable
 class Cardclass2 extends StatelessWidget {
   Cardclass2({super.key, required this.subs, required this.cls});
   String subs;
@@ -402,15 +400,15 @@ class Cardclass2 extends StatelessWidget {
     return GestureDetector(
       onTap: () => {clickcard(context)},
       child: Container(
-        margin: EdgeInsets.all(10),
+        margin: const EdgeInsets.all(10),
         child: Container(
-          padding: EdgeInsets.only(top: 10, left: 18, right: 18, bottom: 20),
+          padding: const EdgeInsets.only(top: 10, left: 18, right: 18, bottom: 20),
           height: 120,
           width: double.infinity,
-          margin: EdgeInsets.only(right: 15),
+          margin: const EdgeInsets.only(right: 15),
           alignment: Alignment.topCenter,
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.only(
+              borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(10),
                 topRight: Radius.circular(10),
                 bottomLeft: Radius.circular(10),
@@ -425,11 +423,11 @@ class Cardclass2 extends StatelessWidget {
               boxShadow: [
                 BoxShadow(
                   color: Colors.grey.shade500,
-                  offset: Offset(4, 4),
+                  offset: const Offset(4, 4),
                   blurRadius: 15,
                   spreadRadius: 1,
                 ),
-                BoxShadow(
+                const BoxShadow(
                   color: Colors.white,
                   offset: Offset(-4, -4),
                   blurRadius: 15,
@@ -441,12 +439,12 @@ class Cardclass2 extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Image.asset(
-                'assets/images/${subs}.png',
+                'assets/images/$subs.png',
                 fit: BoxFit.contain,
               ),
               Text(
                 subs,
-                style: TextStyle(
+                style: const TextStyle(
                   color: Color.fromARGB(255, 82, 82, 82),
                   fontWeight: FontWeight.bold,
                 ),
@@ -459,6 +457,7 @@ class Cardclass2 extends StatelessWidget {
   }
 }
 
+// ignore: must_be_immutable
 class list extends StatelessWidget {
   DocumentSnapshot doc;
   String? role;
@@ -469,17 +468,17 @@ class list extends StatelessWidget {
     print(doc);
     if (role == "student") {
       return Container(
-        margin: EdgeInsets.only(bottom: 10),
+        margin: const EdgeInsets.only(bottom: 10),
         width: 500,
         height: 75,
-        padding: EdgeInsets.all(5),
+        padding: const EdgeInsets.all(5),
         decoration: BoxDecoration(
             border: Border.all(
-                color: Color.fromARGB(0, 0, 0, 0), style: BorderStyle.solid)),
+                color: const Color.fromARGB(0, 0, 0, 0), style: BorderStyle.solid)),
         child: Row(
           children: [
             Container(
-              padding: EdgeInsets.all(10),
+              padding: const EdgeInsets.all(10),
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(50),
@@ -489,7 +488,7 @@ class list extends StatelessWidget {
                 fit: BoxFit.fitHeight,
               ),
             ),
-            SizedBox(
+            const SizedBox(
               width: 10,
             ),
             Expanded(
@@ -501,24 +500,24 @@ class list extends StatelessWidget {
                     children: [
                       Text(
                         "${doc['first_name']!.length < 8 ? doc['first_name'] : doc['first_name']!.substring(0, 8)}",
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontFamily: 'Poppins',
                           color: Color.fromRGBO(118, 125, 255, 1),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 6,
                       ),
                       Text(
                         "${doc['second_name']!.length < 8 ? doc['second_name'] : doc['second_name']!.substring(0, 8)}....",
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontFamily: 'Poppins',
                           color: Color.fromRGBO(120, 127, 255, 1),
                         ),
                       ),
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 8,
                   ),
                   Text(doc['email']),
@@ -529,7 +528,6 @@ class list extends StatelessWidget {
         ),
       );
     } else if (role == "principal") {
-      double att = doc['present'] * 100 / (doc['absent'] + doc['present']);
       double x = doc['present'] / 1;
       double y = doc['absent'] / 1;
       Map<String, double> dataMap = {
@@ -537,18 +535,19 @@ class list extends StatelessWidget {
         'Absent': y,
       };
       void clickprofile(Map<String, double> dataMapx, DocumentSnapshot docx) {
-        if (docx['role'] == "student")
+        if (docx['role'] == "student") {
           Navigator.push(
             context,
             MaterialPageRoute(
                 builder: (context) => Getprofile(pie: dataMapx, doc: docx)),
           );
-        else
+        } else {
           Navigator.push(
             context,
             MaterialPageRoute(
                 builder: (context) => Getprofile2(pie: dataMapx, doc: docx)),
           );
+        }
       }
 
       return GestureDetector(
@@ -556,17 +555,17 @@ class list extends StatelessWidget {
           clickprofile(dataMap, doc);
         },
         child: Container(
-          margin: EdgeInsets.only(bottom: 10),
+          margin: const EdgeInsets.only(bottom: 10),
           width: 500,
           height: 75,
-          padding: EdgeInsets.all(5),
+          padding: const EdgeInsets.all(5),
           decoration: BoxDecoration(
               border: Border.all(
-                  color: Color.fromARGB(0, 0, 0, 0), style: BorderStyle.solid)),
+                  color: const Color.fromARGB(0, 0, 0, 0), style: BorderStyle.solid)),
           child: Row(
             children: [
               Container(
-                padding: EdgeInsets.all(10),
+                padding: const EdgeInsets.all(10),
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(50),
@@ -576,7 +575,7 @@ class list extends StatelessWidget {
                   fit: BoxFit.fitHeight,
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 width: 10,
               ),
               Expanded(
@@ -588,24 +587,24 @@ class list extends StatelessWidget {
                       children: [
                         Text(
                           "${doc['first_name']!.length < 8 ? doc['first_name'] : doc['first_name']!.substring(0, 8)}",
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontFamily: 'Poppins',
                             color: Color.fromRGBO(118, 125, 255, 1),
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 6,
                         ),
                         Text(
                           "${doc['second_name']!.length < 8 ? doc['second_name'] : doc['second_name']!.substring(0, 8)}....",
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontFamily: 'Poppins',
                             color: Color.fromRGBO(120, 127, 255, 1),
                           ),
                         ),
                       ],
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 8,
                     ),
                     Text(doc['email']),
@@ -617,7 +616,6 @@ class list extends StatelessWidget {
         ),
       );
     } else {
-      double att = doc['present'] * 100 / (doc['absent'] + doc['present']);
       double x = doc['present'] / 1;
       double y = doc['absent'] / 1;
       Map<String, double> dataMap = {
@@ -637,17 +635,17 @@ class list extends StatelessWidget {
           clickprofile(dataMap, doc);
         },
         child: Container(
-          margin: EdgeInsets.only(bottom: 10),
+          margin: const EdgeInsets.only(bottom: 10),
           width: 500,
           height: 75,
-          padding: EdgeInsets.all(5),
+          padding: const EdgeInsets.all(5),
           decoration: BoxDecoration(
               border: Border.all(
-                  color: Color.fromARGB(0, 0, 0, 0), style: BorderStyle.solid)),
+                  color: const Color.fromARGB(0, 0, 0, 0), style: BorderStyle.solid)),
           child: Row(
             children: [
               Container(
-                padding: EdgeInsets.all(10),
+                padding: const EdgeInsets.all(10),
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(50),
@@ -657,7 +655,7 @@ class list extends StatelessWidget {
                   fit: BoxFit.contain,
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 width: 10,
               ),
               Expanded(
@@ -669,14 +667,14 @@ class list extends StatelessWidget {
                       children: [
                         Text(
                           doc['name'],
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontFamily: 'Poppins',
                             color: Color.fromRGBO(93, 101, 255, 1),
                           ),
                         ),
                       ],
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 8,
                     ),
                     Text(doc['email']),
@@ -744,14 +742,12 @@ class GetAss {
       doc = snapshot.docs.toList();
       fdoc = fdoc + doc;
     }
-    if (fdoc != null) return fdoc;
+ return fdoc;
   }
 
   Future<List<DocumentSnapshot?>?> getassignment2() async {
     List<DocumentSnapshot> doc = [];
     List<DocumentSnapshot> fdoc = [];
-    Getteacherdocs x = Getteacherdocs();
-    List<DocumentSnapshot> y = await x.getteacher();
     Getname gx = Getname();
     String? zz = await gx.getRolefirst();
     if (zz != null) {
@@ -759,11 +755,13 @@ class GetAss {
       QuerySnapshot snapshot = await users.get();
       doc = snapshot.docs.toList();
       fdoc = fdoc + doc;
-      if (fdoc != null) return fdoc;
+ return fdoc;
     }
+    return null;
   }
 }
 
+// ignore: must_be_immutable
 class listAss extends StatefulWidget {
   String? by;
   String? Subject;
@@ -794,9 +792,9 @@ class _listAssState extends State<listAss> {
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
         Container(
-          margin: EdgeInsets.only(bottom: 80),
+          margin: const EdgeInsets.only(bottom: 80),
           height: 40,
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             color: Color.fromARGB(0, 224, 224, 224),
             borderRadius: BorderRadius.all(Radius.circular(20)),
           ),
@@ -805,17 +803,17 @@ class _listAssState extends State<listAss> {
               radius: 16,
               lineWidth: 10,
               // percent: progressx,
-              progressColor: Color.fromRGBO(110, 118, 255, 1),
-              backgroundColor: Color.fromRGBO(162, 166, 255, 1),
+              progressColor: const Color.fromRGBO(110, 118, 255, 1),
+              backgroundColor: const Color.fromRGBO(162, 166, 255, 1),
               circularStrokeCap: CircularStrokeCap.round,
-              center: Icon(
+              center: const Icon(
                 Icons.upload_file_rounded,
                 color: Color.fromRGBO(110, 118, 255, 1),
               ),
             ),
           ),
         ),
-        Center(
+        const Center(
             child: Text(
           "Uploading",
           style: TextStyle(
@@ -834,9 +832,9 @@ class _listAssState extends State<listAss> {
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
         Container(
-          margin: EdgeInsets.only(bottom: 80),
+          margin: const EdgeInsets.only(bottom: 80),
           height: 40,
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             color: Color.fromARGB(0, 224, 224, 224),
             borderRadius: BorderRadius.all(Radius.circular(20)),
           ),
@@ -845,17 +843,17 @@ class _listAssState extends State<listAss> {
               radius: 16,
               lineWidth: 10,
               // percent: progressx,
-              progressColor: Color.fromRGBO(110, 118, 255, 1),
-              backgroundColor: Color.fromRGBO(162, 166, 255, 1),
+              progressColor: const Color.fromRGBO(110, 118, 255, 1),
+              backgroundColor: const Color.fromRGBO(162, 166, 255, 1),
               circularStrokeCap: CircularStrokeCap.round,
-              center: Icon(
+              center: const Icon(
                 Icons.done_all_rounded,
                 color: Color.fromRGBO(110, 118, 255, 1),
               ),
             ),
           ),
         ),
-        Center(
+        const Center(
             child: Text(
           "Completed",
           style: TextStyle(
@@ -898,7 +896,7 @@ class _listAssState extends State<listAss> {
 
       await FirebaseFirestore.instance.collection("Answers").add({
         "link": fownload,
-        "name": "$fn",
+        "name": fn,
         "topic": "${widget.topic}",
         "by": user!.email
       });
@@ -931,7 +929,7 @@ class _listAssState extends State<listAss> {
 
     if (snapshot.docs.isNotEmpty) {
       xo = "Finished";
-      xvv = Color.fromARGB(255, 104, 104, 104);
+      xvv = const Color.fromARGB(255, 104, 104, 104);
     }
   }
 
@@ -943,7 +941,7 @@ class _listAssState extends State<listAss> {
   }
 
   String xo = "Unfinished";
-  Color xvv = Color.fromRGBO(149, 155, 255, 0.836);
+  Color xvv = const Color.fromRGBO(149, 155, 255, 0.836);
 
   @override
   Widget build(BuildContext context) {
@@ -958,16 +956,16 @@ class _listAssState extends State<listAss> {
                 Container(
                   width: 80,
                   height: 20,
-                  margin: EdgeInsets.only(top: 4, left: 3, bottom: 5),
-                  padding: EdgeInsets.all(2),
-                  decoration: BoxDecoration(
+                  margin: const EdgeInsets.only(top: 4, left: 3, bottom: 5),
+                  padding: const EdgeInsets.all(2),
+                  decoration: const BoxDecoration(
                     borderRadius: BorderRadius.all(Radius.circular(25)),
                     color: Color.fromARGB(255, 255, 255, 255),
                   ),
                   child: Center(
                       child: Text(
                     "${widget.Subject}",
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Color.fromRGBO(109, 116, 255, 1),
                       fontSize: 10,
                     ),
@@ -977,7 +975,7 @@ class _listAssState extends State<listAss> {
             ),
             Text(
               "${widget.topic}",
-              style: TextStyle(fontFamily: 'Poppins'),
+              style: const TextStyle(fontFamily: 'Poppins'),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -1022,12 +1020,12 @@ class _listAssState extends State<listAss> {
                   width: 48,
                 ),
                 Text(
-                  "$xo",
+                  xo,
                   style: TextStyle(color: Colors.grey[600]),
                 ),
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 25,
             ),
             Row(
@@ -1038,12 +1036,12 @@ class _listAssState extends State<listAss> {
                     filepicker(widget.by);
                   },
                   child: Container(
-                    padding: EdgeInsets.all(10),
+                    padding: const EdgeInsets.all(10),
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(25)),
+                      borderRadius: const BorderRadius.all(Radius.circular(25)),
                       color: xvv,
                     ),
-                    child: Row(
+                    child: const Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Icon(
@@ -1051,7 +1049,7 @@ class _listAssState extends State<listAss> {
                           color: Colors.white,
                           size: 12,
                         ),
-                        const SizedBox(
+                        SizedBox(
                           width: 10,
                         ),
                         Center(
@@ -1072,7 +1070,7 @@ class _listAssState extends State<listAss> {
                       url: "${widget.urr}".trim(),
                       onProgress: (String? fileName, double progress) {
                         setState(() {
-                          this.progressx = progress;
+                          progressx = progress;
                           print(progress);
                         });
                         ScaffoldMessenger.of(context).showSnackBar(
@@ -1082,9 +1080,9 @@ class _listAssState extends State<listAss> {
                               children: [
                                 Expanded(
                                   child: Container(
-                                    margin: EdgeInsets.only(bottom: 60),
+                                    margin: const EdgeInsets.only(bottom: 60),
                                     height: 40,
-                                    decoration: BoxDecoration(
+                                    decoration: const BoxDecoration(
                                       color: Color.fromARGB(0, 224, 224, 224),
                                       borderRadius:
                                           BorderRadius.all(Radius.circular(20)),
@@ -1095,12 +1093,12 @@ class _listAssState extends State<listAss> {
                                         lineWidth: 10,
                                         percent: progressx,
                                         progressColor:
-                                            Color.fromRGBO(110, 118, 255, 1),
+                                            const Color.fromRGBO(110, 118, 255, 1),
                                         backgroundColor:
-                                            Color.fromRGBO(162, 166, 255, 1),
+                                            const Color.fromRGBO(162, 166, 255, 1),
                                         circularStrokeCap:
                                             CircularStrokeCap.round,
-                                        center: Icon(
+                                        center: const Icon(
                                           Icons.downloading_rounded,
                                           color:
                                               Color.fromRGBO(110, 118, 255, 1),
@@ -1120,17 +1118,17 @@ class _listAssState extends State<listAss> {
                     ),
                   },
                   child: Container(
-                    padding: EdgeInsets.all(10),
-                    decoration: BoxDecoration(
+                    padding: const EdgeInsets.all(10),
+                    decoration: const BoxDecoration(
                       borderRadius: BorderRadius.all(Radius.circular(25)),
-                      gradient: const LinearGradient(
+                      gradient: LinearGradient(
                         colors: [
                           Color.fromRGBO(143, 148, 251, 1),
                           Color.fromRGBO(143, 148, 251, 0.6),
                         ],
                       ),
                     ),
-                    child: Row(
+                    child: const Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Icon(
@@ -1138,7 +1136,7 @@ class _listAssState extends State<listAss> {
                           color: Colors.white,
                           size: 12,
                         ),
-                        const SizedBox(
+                        SizedBox(
                           width: 10,
                         ),
                         Center(
@@ -1171,16 +1169,16 @@ class _listAssState extends State<listAss> {
                       Container(
                         width: 80,
                         height: 20,
-                        margin: EdgeInsets.only(top: 4, left: 0, bottom: 5),
-                        padding: EdgeInsets.all(0),
-                        decoration: BoxDecoration(
+                        margin: const EdgeInsets.only(top: 4, left: 0, bottom: 5),
+                        padding: const EdgeInsets.all(0),
+                        decoration: const BoxDecoration(
                           borderRadius: BorderRadius.all(Radius.circular(25)),
                           color: Colors.white,
                         ),
                         child: Center(
                           child: Text(
                             "${widget.Subject}",
-                            style: TextStyle(
+                            style: const TextStyle(
                               color: Color.fromRGBO(93, 101, 255, 1),
                               fontSize: 10,
                             ),
@@ -1192,7 +1190,7 @@ class _listAssState extends State<listAss> {
                   context),
               Text(
                 "${widget.topic}",
-                style: TextStyle(fontFamily: 'Poppins'),
+                style: const TextStyle(fontFamily: 'Poppins'),
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -1235,56 +1233,113 @@ class _listAssState extends State<listAss> {
               const SizedBox(
                 height: 25,
               ),
-              GestureDetector(
-                onTap: () => {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => GetAnswers(topic: widget.topic)),
-                  ),
-                },
-                child: FadeAnimation2(
-                    1.6,
-                    Center(
-                      child: Container(
-                        width: 200,
-                        padding: EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.all(Radius.circular(25)),
-                            gradient: const LinearGradient(
-                              colors: [
-                                Color.fromRGBO(143, 148, 251, 1),
-                                Color.fromRGBO(143, 148, 251, 0.6),
-                              ],
-                            )
-                            // border: Border.all(
-                            //     color: Colors.white,
-                            //     width: 3,
-                            //     style: BorderStyle.solid),
-                            ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(
-                              Icons.view_carousel,
-                              color: Colors.white,
-                              size: 12,
-                            ),
-                            const SizedBox(
-                              width: 10,
-                            ),
-                            Center(
-                              child: Text(
-                                "View Answers",
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 12),
-                              ),
-                            ),
-                          ],
-                        ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  GestureDetector(
+                    onTap: () => {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => GetAnswers(topic: widget.topic)),
                       ),
-                    ),
-                    context),
+                    },
+                    child: FadeAnimation2(
+                        1.6,
+                        Center(
+                          child: Container(
+                            width: 180,
+                            padding: const EdgeInsets.all(10),
+                            decoration: const BoxDecoration(
+                                borderRadius: BorderRadius.all(Radius.circular(25)),
+                                gradient: LinearGradient(
+                                  colors: [
+                                    Color.fromRGBO(143, 148, 251, 1),
+                                    Color.fromRGBO(143, 148, 251, 0.6),
+                                  ],
+                                )
+                                // border: Border.all(
+                                //     color: Colors.white,
+                                //     width: 3,
+                                //     style: BorderStyle.solid),
+                                ),
+                            child: const Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  Icons.view_carousel,
+                                  color: Colors.white,
+                                  size: 12,
+                                ),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                Center(
+                                  child: Text(
+                                    "View Answers",
+                                    style: TextStyle(
+                                        color: Colors.white, fontSize: 12),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        context),
+                  ),
+                  GestureDetector(
+                    onTap: () => {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => EditAss(subject: "${widget.Subject}",topic: "${widget.topic}",)),
+                      ),
+                    },
+                    child: FadeAnimation2(
+                        1.6,
+                        Center(
+                          child: Container(
+                            width: 80,
+                            padding: const EdgeInsets.all(10),
+                            decoration: const BoxDecoration(
+                                borderRadius: BorderRadius.all(Radius.circular(25)),
+                                gradient: LinearGradient(
+                                  colors: [
+                                    Color.fromRGBO(143, 148, 251, 1),
+                                    Color.fromRGBO(143, 148, 251, 0.6),
+                                  ],
+                                )
+                                // border: Border.all(
+                                //     color: Colors.white,
+                                //     width: 3,
+                                //     style: BorderStyle.solid),
+                                ),
+                            child: const Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  Icons.edit,
+                                  color: Colors.white,
+                                  size: 12,
+                                ),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                Center(
+                                  child: Text(
+                                    "Edit",
+                                    style: TextStyle(
+                                        color: Colors.white, fontSize: 12),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        context),
+                  ),
+                  
+                ],
               ),
             ],
           ),
@@ -1294,6 +1349,7 @@ class _listAssState extends State<listAss> {
   }
 }
 
+// ignore: must_be_immutable
 class listAss2 extends StatefulWidget {
   String? Subject;
   String? topic;
@@ -1320,9 +1376,9 @@ class _listAss2State extends State<listAss2> {
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
         Container(
-          margin: EdgeInsets.only(bottom: 80),
+          margin: const EdgeInsets.only(bottom: 80),
           height: 40,
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             color: Color.fromARGB(0, 224, 224, 224),
             borderRadius: BorderRadius.all(Radius.circular(20)),
           ),
@@ -1331,17 +1387,17 @@ class _listAss2State extends State<listAss2> {
               radius: 16,
               lineWidth: 10,
               // percent: progressx,
-              progressColor: Color.fromRGBO(110, 118, 255, 1),
-              backgroundColor: Color.fromRGBO(162, 166, 255, 1),
+              progressColor: const Color.fromRGBO(110, 118, 255, 1),
+              backgroundColor: const Color.fromRGBO(162, 166, 255, 1),
               circularStrokeCap: CircularStrokeCap.round,
-              center: Icon(
+              center: const Icon(
                 Icons.upload_file_rounded,
                 color: Color.fromRGBO(110, 118, 255, 1),
               ),
             ),
           ),
         ),
-        Center(
+        const Center(
             child: Text(
           "Uploading",
           style: TextStyle(
@@ -1360,9 +1416,9 @@ class _listAss2State extends State<listAss2> {
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
         Container(
-          margin: EdgeInsets.only(bottom: 80),
+          margin: const EdgeInsets.only(bottom: 80),
           height: 40,
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             color: Color.fromARGB(0, 224, 224, 224),
             borderRadius: BorderRadius.all(Radius.circular(20)),
           ),
@@ -1371,17 +1427,17 @@ class _listAss2State extends State<listAss2> {
               radius: 16,
               lineWidth: 10,
               // percent: progressx,
-              progressColor: Color.fromRGBO(110, 118, 255, 1),
-              backgroundColor: Color.fromRGBO(162, 166, 255, 1),
+              progressColor: const Color.fromRGBO(110, 118, 255, 1),
+              backgroundColor: const Color.fromRGBO(162, 166, 255, 1),
               circularStrokeCap: CircularStrokeCap.round,
-              center: Icon(
+              center: const Icon(
                 Icons.done_all_rounded,
                 color: Color.fromRGBO(110, 118, 255, 1),
               ),
             ),
           ),
         ),
-        Center(
+        const Center(
             child: Text(
           "Completed",
           style: TextStyle(
@@ -1424,7 +1480,7 @@ class _listAss2State extends State<listAss2> {
 
       await FirebaseFirestore.instance.collection("Answers").add({
         "link": fownload,
-        "name": "$fn",
+        "name": fn,
         "topic": "${widget.topic}",
         "by": user!.email
       });
@@ -1457,7 +1513,7 @@ class _listAss2State extends State<listAss2> {
 
     if (snapshot.docs.isNotEmpty) {
       xo = "Finished";
-      xvv = Color.fromARGB(255, 104, 104, 104);
+      xvv = const Color.fromARGB(255, 104, 104, 104);
     }
   }
 
@@ -1469,7 +1525,7 @@ class _listAss2State extends State<listAss2> {
   }
 
   String xo = "Unfinished";
-  Color xvv = Color.fromRGBO(149, 155, 255, 0.836);
+  Color xvv = const Color.fromRGBO(149, 155, 255, 0.836);
 
   @override
   Widget build(BuildContext context) {
@@ -1487,16 +1543,16 @@ class _listAss2State extends State<listAss2> {
                     Container(
                       width: 80,
                       height: 20,
-                      margin: EdgeInsets.only(top: 4, left: 0, bottom: 5),
-                      padding: EdgeInsets.all(0),
-                      decoration: BoxDecoration(
+                      margin: const EdgeInsets.only(top: 4, left: 0, bottom: 5),
+                      padding: const EdgeInsets.all(0),
+                      decoration: const BoxDecoration(
                         borderRadius: BorderRadius.all(Radius.circular(25)),
                         color: Colors.white,
                       ),
                       child: Center(
                         child: Text(
                           "${widget.Subject}",
-                          style: TextStyle(
+                          style: const TextStyle(
                             color: Color.fromRGBO(93, 101, 255, 1),
                             fontSize: 10,
                           ),
@@ -1508,7 +1564,7 @@ class _listAss2State extends State<listAss2> {
                 context),
             Text(
               "${widget.topic}",
-              style: TextStyle(fontFamily: 'Poppins'),
+              style: const TextStyle(fontFamily: 'Poppins'),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -1539,6 +1595,7 @@ class _listAss2State extends State<listAss2> {
   }
 }
 
+// ignore: must_be_immutable
 class GetAnswers extends StatefulWidget {
   String? topic;
   GetAnswers({super.key, required this.topic});
@@ -1568,18 +1625,19 @@ class _GetAnswersState extends State<GetAnswers> {
   Widget build(BuildContext context) {
     getdata();
     print("object");
-    if (docs != null)
+    // ignore: unnecessary_null_comparison
+    if (docs != null) {
       return Scaffold(
         appBar: AppBar(
           centerTitle: true,
           title: Text("Answers to ${widget.topic}"),
-          backgroundColor: Color.fromRGBO(109, 116, 255, 1),
+          backgroundColor: const Color.fromRGBO(109, 116, 255, 1),
         ),
         backgroundColor: Colors.grey[300],
         body: Column(
           children: [
             Container(
-              padding: EdgeInsets.all(15),
+              padding: const EdgeInsets.all(15),
               child: TextField(
                 onChanged: (value) => value,
                 decoration: InputDecoration(
@@ -1595,7 +1653,7 @@ class _GetAnswersState extends State<GetAnswers> {
               ),
             ),
             Container(
-              margin: EdgeInsets.only(left: 20, right: 20, top: 10),
+              margin: const EdgeInsets.only(left: 20, right: 20, top: 10),
               decoration: BoxDecoration(
                   color: Colors.grey[300],
                   borderRadius: BorderRadius.circular(27),
@@ -1620,11 +1678,13 @@ class _GetAnswersState extends State<GetAnswers> {
           ],
         ),
       );
-    else
-      return Loading();
+    } else {
+      return const Loading();
+    }
   }
 }
 
+// ignore: must_be_immutable
 class listx extends StatefulWidget {
   DocumentSnapshot doc;
   listx({super.key, required this.doc});
@@ -1640,20 +1700,20 @@ class _listxState extends State<listx> {
     return FadeAnimation3(
         1.6,
         Container(
-          margin: EdgeInsets.only(bottom: 10),
+          margin: const EdgeInsets.only(bottom: 10),
           width: 500,
           height: 120,
-          padding: EdgeInsets.all(5),
+          padding: const EdgeInsets.all(5),
           decoration: BoxDecoration(
               border: Border.all(
-                  color: Color.fromARGB(0, 0, 0, 0), style: BorderStyle.solid)),
+                  color: const Color.fromARGB(0, 0, 0, 0), style: BorderStyle.solid)),
           child: Row(
             children: [
               Image.asset(
                 'assets/images/assignment.png',
                 fit: BoxFit.fitHeight,
               ),
-              SizedBox(
+              const SizedBox(
                 width: 10,
               ),
               Expanded(
@@ -1663,27 +1723,27 @@ class _listxState extends State<listx> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text(
+                        const Text(
                           "By",
                           style: TextStyle(fontFamily: 'Poppins'),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 6,
                         ),
                         Text(
                           widget.doc['by'],
-                          style: TextStyle(fontFamily: 'Poppins'),
+                          style: const TextStyle(fontFamily: 'Poppins'),
                         ),
                       ],
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 8,
                     ),
                     Text(
                       widget.doc['name'],
-                      style: TextStyle(fontFamily: 'Poppins'),
+                      style: const TextStyle(fontFamily: 'Poppins'),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 18,
                     ),
                     GestureDetector(
@@ -1694,7 +1754,7 @@ class _listxState extends State<listx> {
                           url: "${widget.doc['link']}".trim(),
                           onProgress: (String? fileName, double progress) {
                             setState(() {
-                              this.progressx = progress;
+                              progressx = progress;
                               print(progress);
                             });
                             ScaffoldMessenger.of(context).showSnackBar(
@@ -1704,9 +1764,9 @@ class _listxState extends State<listx> {
                                   children: [
                                     Expanded(
                                       child: Container(
-                                        margin: EdgeInsets.only(bottom: 60),
+                                        margin: const EdgeInsets.only(bottom: 60),
                                         height: 40,
-                                        decoration: BoxDecoration(
+                                        decoration: const BoxDecoration(
                                           color: Colors.transparent,
                                           borderRadius: BorderRadius.all(
                                               Radius.circular(20)),
@@ -1716,13 +1776,13 @@ class _listxState extends State<listx> {
                                             radius: 18,
                                             lineWidth: 10,
                                             percent: progressx,
-                                            progressColor: Color.fromRGBO(
+                                            progressColor: const Color.fromRGBO(
                                                 110, 118, 255, 1),
-                                            backgroundColor: Color.fromRGBO(
+                                            backgroundColor: const Color.fromRGBO(
                                                 162, 166, 255, 1),
                                             circularStrokeCap:
                                                 CircularStrokeCap.round,
-                                            center: Icon(
+                                            center: const Icon(
                                               Icons.downloading_rounded,
                                               color: Color.fromRGBO(
                                                   110, 118, 255, 1),
@@ -1744,9 +1804,9 @@ class _listxState extends State<listx> {
                       child: Container(
                         width: 130,
                         height: 40,
-                        padding: EdgeInsets.all(10),
+                        padding: const EdgeInsets.all(10),
                         decoration: BoxDecoration(
-                            borderRadius: BorderRadius.all(Radius.circular(25)),
+                            borderRadius: const BorderRadius.all(Radius.circular(25)),
                             //color: Color.fromARGB(255, 148, 109, 255),
                             // border: Border.all(
                             //     color: Colors.white,
@@ -1772,7 +1832,7 @@ class _listxState extends State<listx> {
                                 spreadRadius: 1,
                               ),
                             ]),
-                        child: Row(
+                        child: const Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Icon(
@@ -1780,7 +1840,7 @@ class _listxState extends State<listx> {
                               color: Colors.white,
                               size: 12,
                             ),
-                            const SizedBox(
+                            SizedBox(
                               width: 10,
                             ),
                             Center(
@@ -1804,6 +1864,9 @@ class _listxState extends State<listx> {
   }
 }
 
+
+
+// ignore: must_be_immutable
 class listz extends StatefulWidget {
   DocumentSnapshot doc;
   String? role;
@@ -1821,17 +1884,17 @@ class _listzState extends State<listz> {
     print(widget.doc);
     if (widget.role == "student") {
       return Container(
-        margin: EdgeInsets.only(bottom: 10),
+        margin: const EdgeInsets.only(bottom: 10),
         width: 500,
         height: 75,
-        padding: EdgeInsets.all(5),
+        padding: const EdgeInsets.all(5),
         decoration: BoxDecoration(
             border: Border.all(
-                color: Color.fromARGB(0, 0, 0, 0), style: BorderStyle.solid)),
+                color: const Color.fromARGB(0, 0, 0, 0), style: BorderStyle.solid)),
         child: Row(
           children: [
             Container(
-              padding: EdgeInsets.all(10),
+              padding: const EdgeInsets.all(10),
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(50),
@@ -1841,7 +1904,7 @@ class _listzState extends State<listz> {
                 fit: BoxFit.fitHeight,
               ),
             ),
-            SizedBox(
+            const SizedBox(
               width: 10,
             ),
             Expanded(
@@ -1858,19 +1921,19 @@ class _listzState extends State<listz> {
                           color: Color.fromRGBO(118, 125, 255, 1),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 6,
                       ),
                       Text(
                         "${widget.doc['second_name']!.length < 8 ? widget.doc['second_name'] : widget.doc['second_name']!.substring(0, 8)}....",
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontFamily: 'Poppins',
                           color: Color.fromRGBO(120, 127, 255, 1),
                         ),
                       ),
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 8,
                   ),
                   Text(widget.doc['email']),
@@ -1881,15 +1944,6 @@ class _listzState extends State<listz> {
         ),
       );
     } else {
-      double att = widget.doc['present'] *
-          100 /
-          (widget.doc['absent'] + widget.doc['present']);
-      double x = widget.doc['present'] / 1;
-      double y = widget.doc['absent'] / 1;
-      Map<String, double> dataMap = {
-        'Present': x,
-        'Absent': y,
-      };
 
       void clickprofile(DocumentSnapshot docx) {
         if (absentee!.contains(docx)) {
@@ -1913,17 +1967,17 @@ class _listzState extends State<listz> {
           clickprofile(widget.doc);
         },
         child: Container(
-          margin: EdgeInsets.only(bottom: 10),
+          margin: const EdgeInsets.only(bottom: 10),
           width: 500,
           height: 75,
-          padding: EdgeInsets.all(5),
+          padding: const EdgeInsets.all(5),
           decoration: BoxDecoration(
               border: Border.all(
-                  color: Color.fromARGB(0, 0, 0, 0), style: BorderStyle.solid)),
+                  color: const Color.fromARGB(0, 0, 0, 0), style: BorderStyle.solid)),
           child: Row(
             children: [
               Container(
-                padding: EdgeInsets.all(10),
+                padding: const EdgeInsets.all(10),
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(50),
@@ -1933,7 +1987,7 @@ class _listzState extends State<listz> {
                   fit: BoxFit.contain,
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 width: 10,
               ),
               Expanded(
@@ -1945,19 +1999,19 @@ class _listzState extends State<listz> {
                       children: [
                         Text(
                           widget.doc['name'],
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontFamily: 'Poppins',
                             color: Color.fromRGBO(93, 101, 255, 1),
                           ),
                         ),
                         if (absentee!.contains(widget.doc))
-                          Icon(
+                          const Icon(
                             Icons.done_all,
                             color: Color.fromRGBO(109, 116, 255, 1),
                           ),
                       ],
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 8,
                     ),
                     Text(widget.doc['email']),
@@ -1980,33 +2034,21 @@ class Updateatt {
           FirebaseFirestore.instance.collection("Attendance");
 
       await users.doc('${abs[i].get('email')}').set({
-        '$ff': false,
+        ff: false,
       }, SetOptions(merge: true));
     }
     Getstudentdocs x = Getstudentdocs();
     List<DocumentSnapshot> doo = await x.getteacher();
-    if (doo != null) {
-      //doo.removeWhere((element) => abs.contains(element));
-      for (int i = 0; i < doo.length; i++) {
-        String email = doo[i].get('email');
-        CollectionReference users =
-            FirebaseFirestore.instance.collection("Attendance");
-        if (!abs.any((doc) => doc.get('email') == email)) {
-          print("www");
-          await users.doc('${doo[i].get('email')}').set({
-            '$ff': true,
-          }, SetOptions(merge: true));
-        }
+    for (int i = 0; i < doo.length; i++) {
+      String email = doo[i].get('email');
+      CollectionReference users =
+          FirebaseFirestore.instance.collection("Attendance");
+      if (!abs.any((doc) => doc.get('email') == email)) {
+        print("www");
+        await users.doc('${doo[i].get('email')}').set({
+          ff: true,
+        }, SetOptions(merge: true));
       }
-      //   for (int i = 0; i < doo.length; i++) {
-      //   print(abs[i]);
-      //   CollectionReference users =
-      //       FirebaseFirestore.instance.collection("Attendance");
-
-      //   await users.doc('${doo[i].get('email')}').set({
-      //     '$ff': true,
-      //   }, SetOptions(merge: true));
-      // }
     }
 
     uppate();
@@ -2064,32 +2106,20 @@ class Updateatt2 {
           FirebaseFirestore.instance.collection("Attendance");
 
       await users.doc('${abs[i].get('email')}').set({
-        '$ff': false,
+        ff: false,
       }, SetOptions(merge: true));
     }
     Getteacherdocs x = Getteacherdocs();
     List<DocumentSnapshot> doo = await x.getteacher();
-    if (doo != null) {
-      //doo.removeWhere((element) => abs.contains(element));
-      for (int i = 0; i < doo.length; i++) {
-        String email = doo[i].get('email');
-        CollectionReference users =
-            FirebaseFirestore.instance.collection("Attendance");
-        if (!abs.any((doc) => doc.get('email') == email)) {
-          await users.doc('${doo[i].get('email')}').set({
-            '$ff': true,
-          }, SetOptions(merge: true));
-        }
+    for (int i = 0; i < doo.length; i++) {
+      String email = doo[i].get('email');
+      CollectionReference users =
+          FirebaseFirestore.instance.collection("Attendance");
+      if (!abs.any((doc) => doc.get('email') == email)) {
+        await users.doc('${doo[i].get('email')}').set({
+          ff: true,
+        }, SetOptions(merge: true));
       }
-      //   for (int i = 0; i < doo.length; i++) {
-      //   print(abs[i]);
-      //   CollectionReference users =
-      //       FirebaseFirestore.instance.collection("Attendance");
-
-      //   await users.doc('${doo[i].get('email')}').set({
-      //     '$ff': true,
-      //   }, SetOptions(merge: true));
-      // }
     }
 
     uppate();
@@ -2139,6 +2169,7 @@ class Updateatt2 {
   }
 }
 
+// ignore: must_be_immutable
 class listb extends StatefulWidget {
   DocumentSnapshot doc;
   String? role;
@@ -2156,17 +2187,17 @@ class _listbState extends State<listb> {
     print(widget.doc);
     if (widget.role == "student") {
       return Container(
-        margin: EdgeInsets.only(bottom: 10),
+        margin: const EdgeInsets.only(bottom: 10),
         width: 500,
         height: 75,
-        padding: EdgeInsets.all(5),
+        padding: const EdgeInsets.all(5),
         decoration: BoxDecoration(
             border: Border.all(
-                color: Color.fromARGB(0, 0, 0, 0), style: BorderStyle.solid)),
+                color: const Color.fromARGB(0, 0, 0, 0), style: BorderStyle.solid)),
         child: Row(
           children: [
             Container(
-              padding: EdgeInsets.all(10),
+              padding: const EdgeInsets.all(10),
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(50),
@@ -2176,7 +2207,7 @@ class _listbState extends State<listb> {
                 fit: BoxFit.fitHeight,
               ),
             ),
-            SizedBox(
+            const SizedBox(
               width: 10,
             ),
             Expanded(
@@ -2193,19 +2224,19 @@ class _listbState extends State<listb> {
                           color: Color.fromRGBO(118, 125, 255, 1),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 6,
                       ),
                       Text(
                         "${widget.doc['second_name']!.length < 8 ? widget.doc['second_name'] : widget.doc['second_name']!.substring(0, 8)}....",
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontFamily: 'Poppins',
                           color: Color.fromRGBO(120, 127, 255, 1),
                         ),
                       ),
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 8,
                   ),
                   Text(widget.doc['email']),
@@ -2215,6 +2246,7 @@ class _listbState extends State<listb> {
           ],
         ),
       );
+    // ignore: duplicate_ignore
     } else {
       double att = widget.doc['present'] *
           100 /
@@ -2248,17 +2280,17 @@ class _listbState extends State<listb> {
           clickprofile(widget.doc);
         },
         child: Container(
-          margin: EdgeInsets.only(bottom: 10),
+          margin: const EdgeInsets.only(bottom: 10),
           width: 500,
           height: 75,
-          padding: EdgeInsets.all(5),
+          padding: const EdgeInsets.all(5),
           decoration: BoxDecoration(
               border: Border.all(
-                  color: Color.fromARGB(0, 0, 0, 0), style: BorderStyle.solid)),
+                  color: const Color.fromARGB(0, 0, 0, 0), style: BorderStyle.solid)),
           child: Row(
             children: [
               Container(
-                padding: EdgeInsets.all(10),
+                padding: const EdgeInsets.all(10),
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(50),
@@ -2268,7 +2300,7 @@ class _listbState extends State<listb> {
                   fit: BoxFit.contain,
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 width: 10,
               ),
               Expanded(
@@ -2280,26 +2312,26 @@ class _listbState extends State<listb> {
                       children: [
                         Text(
                           "${widget.doc['first_name']!.length < 8 ? widget.doc['first_name'] : widget.doc['first_name']!.substring(0, 8)}",
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontFamily: 'Poppins',
                             color: Color.fromRGBO(93, 101, 255, 1),
                           ),
                         ),
                         Text(
                           "${widget.doc['second_name']!.length < 8 ? widget.doc['second_name'] : widget.doc['second_name']!.substring(0, 8)}....",
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontFamily: 'Poppins',
                             color: Color.fromRGBO(93, 101, 255, 1),
                           ),
                         ),
                         if (absentee!.contains(widget.doc))
-                          Icon(
+                          const Icon(
                             Icons.done_all,
                             color: Color.fromRGBO(109, 116, 255, 1),
                           ),
                       ],
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 8,
                     ),
                     Text(widget.doc['email']),
@@ -2372,7 +2404,7 @@ class Getnotice {
         fdoc = fdoc + doc;
       }
     }
-    if (fdoc != null) return fdoc;
+ return fdoc;
   }
 
   Future<List<DocumentSnapshot?>?> getassignment2() async {
@@ -2387,8 +2419,9 @@ class Getnotice {
       QuerySnapshot snapshot = await users.get();
       doc = snapshot.docs.toList();
       fdoc = fdoc + doc;
-      if (fdoc != null) return fdoc;
+ return fdoc;
     }
+    return null;
   }
 
   Future<List<DocumentSnapshot?>?> getassignment3() async {
@@ -2404,6 +2437,6 @@ class Getnotice {
       doc = snapshot.docs.toList();
       fdoc = fdoc + doc;
     }
-    if (fdoc != null) return fdoc;
+ return fdoc;
   }
 }

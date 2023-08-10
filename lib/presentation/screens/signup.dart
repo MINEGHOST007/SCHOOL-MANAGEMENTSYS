@@ -16,7 +16,7 @@ class _SignupState extends State<Signup> {
   final cpcontroller = TextEditingController();
   var category = 0;
   Color _contcolor1 = const Color.fromRGBO(183, 194, 255, 1);
-  Color _contcolor2 = Color.fromARGB(255, 255, 255, 255);
+  Color _contcolor2 = const Color.fromARGB(255, 255, 255, 255);
   void changeColor1() {
     category = 0;
     setState(() {
@@ -30,7 +30,7 @@ class _SignupState extends State<Signup> {
   void changeColor2() {
     category = 1;
     setState(() {
-      _contcolor1 = Color.fromARGB(255, 255, 255, 255);
+      _contcolor1 = const Color.fromARGB(255, 255, 255, 255);
       _contcolor2 = const Color.fromRGBO(183, 194, 255, 1);
     });
     print("CREATE ACCOUYNT");
@@ -45,8 +45,9 @@ class _SignupState extends State<Signup> {
         );
         showsuccess();
         signUserIn(emailcontroller, pcontroller);
-      } else
+      } else {
         showerror2();
+      }
     } on FirebaseAuthException catch (e) {
       print(e);
       showerror();
@@ -158,7 +159,7 @@ class _SignupState extends State<Signup> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: Colors.white,
-      body: Container(
+      body: SizedBox(
         width: MediaQuery.of(context).size.width,
         child: SingleChildScrollView(
           child: Column(
@@ -240,7 +241,7 @@ class _SignupState extends State<Signup> {
               ),
               Padding(
                 padding:
-                    EdgeInsets.only(left: 30, top: 10, right: 30, bottom: 25),
+                    const EdgeInsets.only(left: 30, top: 10, right: 30, bottom: 25),
                 child: Column(
                   children: [
                     Container(

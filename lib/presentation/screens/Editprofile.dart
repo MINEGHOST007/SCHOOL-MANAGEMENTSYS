@@ -4,8 +4,6 @@ import 'package:edusphere/presentation/widgets/animations.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 
 class Editpage extends StatefulWidget {
   const Editpage({super.key});
@@ -25,8 +23,9 @@ class _EditpageState extends State<Editpage> {
     if (cls != null && namecontroller != "") {
       Updatename(cls: cls, name: namecontroller).getRole();
       showsuccess();
-    } else
+    } else {
       showerror();
+    }
   }
 
   void showerror() {
@@ -56,7 +55,7 @@ class _EditpageState extends State<Editpage> {
       if (x[i]['email'] == user!.email) {
         String docId = x[i].id;
         DocumentReference documentRef =
-            FirebaseFirestore.instance.collection("users").doc("$docId");
+            FirebaseFirestore.instance.collection("users").doc(docId);
         try {
           // Deleting the document
           await documentRef.delete();
@@ -92,11 +91,11 @@ class _EditpageState extends State<Editpage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           "Edit profile details",
           style: TextStyle(fontFamily: 'Poppins'),
         ),
-        backgroundColor: Color.fromRGBO(109, 116, 255, 1),
+        backgroundColor: const Color.fromRGBO(109, 116, 255, 1),
       ),
       backgroundColor: Colors.grey[300],
       body: SingleChildScrollView(
@@ -106,9 +105,9 @@ class _EditpageState extends State<Editpage> {
                 1.6,
                 Container(
                   margin:
-                      EdgeInsets.only(top: 80, left: 40, right: 40, bottom: 60),
+                      const EdgeInsets.only(top: 80, left: 40, right: 40, bottom: 60),
                   width: 500,
-                  padding: EdgeInsets.only(
+                  padding: const EdgeInsets.only(
                       top: 100, left: 50, right: 50, bottom: 30),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
@@ -132,7 +131,7 @@ class _EditpageState extends State<Editpage> {
                       ]),
                   child: Column(
                     children: [
-                      Text(
+                      const Text(
                         "Edit name",
                         style: TextStyle(
                           fontFamily: 'Poppins',
@@ -154,7 +153,7 @@ class _EditpageState extends State<Editpage> {
                       const SizedBox(
                         height: 27.5,
                       ),
-                      Text(
+                      const Text(
                         "Edit class",
                         style: TextStyle(
                           fontFamily: 'Poppins',
@@ -163,7 +162,7 @@ class _EditpageState extends State<Editpage> {
                       Center(
                         child: DropdownButton<int>(
                           value: cls,
-                          hint: Text('Select your class'),
+                          hint: const Text('Select your class'),
                           items: List.generate(10, (index) {
                             return DropdownMenuItem<int>(
                               value: index + 1,
@@ -195,7 +194,7 @@ class _EditpageState extends State<Editpage> {
                                   ],
                                 ),
                                 borderRadius:
-                                    BorderRadius.all(Radius.circular(10)),
+                                    const BorderRadius.all(Radius.circular(10)),
                                 boxShadow: [
                                   const BoxShadow(
                                     offset: Offset(-6, -6),
@@ -210,7 +209,7 @@ class _EditpageState extends State<Editpage> {
                                     spreadRadius: 1,
                                   ),
                                 ]),
-                            child: Row(
+                            child: const Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Text(
@@ -253,7 +252,7 @@ class _EditpageState extends State<Editpage> {
                               Color.fromRGBO(143, 148, 251, 0.6),
                             ],
                           ),
-                          borderRadius: BorderRadius.all(Radius.circular(10)),
+                          borderRadius: const BorderRadius.all(Radius.circular(10)),
                           boxShadow: [
                             const BoxShadow(
                               offset: Offset(-6, -6),
@@ -268,7 +267,7 @@ class _EditpageState extends State<Editpage> {
                               spreadRadius: 1,
                             ),
                           ]),
-                      child: Row(
+                      child: const Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
@@ -300,6 +299,7 @@ class _EditpageState extends State<Editpage> {
   }
 }
 
+// ignore: must_be_immutable
 class Editpage2 extends StatefulWidget {
   String email;
   Editpage2({super.key, required this.email});
@@ -344,21 +344,21 @@ class _Editpage2State extends State<Editpage2> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           "Edit Attendance details",
           style: TextStyle(fontFamily: 'Poppins'),
         ),
-        backgroundColor: Color.fromRGBO(109, 116, 255, 1),
+        backgroundColor: const Color.fromRGBO(109, 116, 255, 1),
       ),
       backgroundColor: Colors.grey[300],
       body: SingleChildScrollView(
         child: Column(
           children: [
             Container(
-              margin: EdgeInsets.only(top: 80, left: 40, right: 40, bottom: 60),
+              margin: const EdgeInsets.only(top: 80, left: 40, right: 40, bottom: 60),
               width: 500,
               padding:
-                  EdgeInsets.only(top: 60, left: 50, right: 50, bottom: 30),
+                  const EdgeInsets.only(top: 60, left: 50, right: 50, bottom: 30),
               decoration: BoxDecoration(
                   color: Colors.grey[300],
                   borderRadius: BorderRadius.circular(10),
@@ -385,15 +385,15 @@ class _Editpage2State extends State<Editpage2> {
                     height: 7.5,
                   ),
                   Text(
-                    "${widget.email}",
-                    style: TextStyle(
+                    widget.email,
+                    style: const TextStyle(
                       fontFamily: 'Poppins',
                     ),
                   ),
                   const SizedBox(
                     height: 27.5,
                   ),
-                  Text(
+                  const Text(
                     "Edit present",
                     style: TextStyle(
                       fontFamily: 'Poppins',
@@ -413,7 +413,7 @@ class _Editpage2State extends State<Editpage2> {
                   const SizedBox(
                     height: 17.5,
                   ),
-                  Text(
+                  const Text(
                     "Edit absent",
                     style: TextStyle(
                       fontFamily: 'Poppins',
@@ -446,7 +446,7 @@ class _Editpage2State extends State<Editpage2> {
                                 Color.fromRGBO(143, 148, 251, 0.6),
                               ],
                             ),
-                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                            borderRadius: const BorderRadius.all(Radius.circular(10)),
                             // border: Border.all(color: Colors.white, width: 2),
                             boxShadow: [
                               const BoxShadow(
@@ -462,7 +462,7 @@ class _Editpage2State extends State<Editpage2> {
                                 spreadRadius: 1,
                               ),
                             ]),
-                        child: Row(
+                        child: const Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
@@ -505,7 +505,7 @@ class _Editpage2State extends State<Editpage2> {
                           Color.fromRGBO(143, 148, 251, 0.6),
                         ],
                       ),
-                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                      borderRadius: const BorderRadius.all(Radius.circular(10)),
                       //border: Border.all(color: Colors.white, width: 2),
                       boxShadow: [
                         const BoxShadow(
@@ -521,7 +521,7 @@ class _Editpage2State extends State<Editpage2> {
                           spreadRadius: 1,
                         ),
                       ]),
-                  child: Row(
+                  child: const Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
@@ -571,8 +571,9 @@ class _Editpage3State extends State<Editpage3> {
     if (namecontroller != "" && namecontroller2 != "") {
       Updatename3(fname: namecontroller, sname: namecontroller2).getRole();
       showsuccess();
-    } else
+    } else {
       showerror();
+    }
   }
 
   void showerror() {
@@ -602,7 +603,7 @@ class _Editpage3State extends State<Editpage3> {
       if (x[i]['email'] == user!.email) {
         String docId = x[i].id;
         DocumentReference documentRef =
-            FirebaseFirestore.instance.collection("users").doc("$docId");
+            FirebaseFirestore.instance.collection("users").doc(docId);
         try {
           // Deleting the document
           await documentRef.delete();
@@ -638,21 +639,21 @@ class _Editpage3State extends State<Editpage3> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           "Edit profile details",
           style: TextStyle(fontFamily: 'Poppins'),
         ),
-        backgroundColor: Color.fromRGBO(109, 116, 255, 1),
+        backgroundColor: const Color.fromRGBO(109, 116, 255, 1),
       ),
       backgroundColor: Colors.grey[300],
       body: SingleChildScrollView(
         child: Column(
           children: [
             Container(
-              margin: EdgeInsets.only(top: 80, left: 40, right: 40, bottom: 60),
+              margin: const EdgeInsets.only(top: 80, left: 40, right: 40, bottom: 60),
               width: 500,
               padding:
-                  EdgeInsets.only(top: 100, left: 50, right: 50, bottom: 30),
+                  const EdgeInsets.only(top: 100, left: 50, right: 50, bottom: 30),
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
                   color: Colors.grey[300],
@@ -675,7 +676,7 @@ class _Editpage3State extends State<Editpage3> {
                   ]),
               child: Column(
                 children: [
-                  Text(
+                  const Text(
                     "Edit first name",
                     style: TextStyle(
                       fontFamily: 'Poppins',
@@ -697,7 +698,7 @@ class _Editpage3State extends State<Editpage3> {
                   const SizedBox(
                     height: 27.5,
                   ),
-                  Text(
+                  const Text(
                     "Edit second name",
                     style: TextStyle(
                       fontFamily: 'Poppins',
@@ -732,7 +733,7 @@ class _Editpage3State extends State<Editpage3> {
                                 Color.fromRGBO(143, 148, 251, 0.6),
                               ],
                             ),
-                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                            borderRadius: const BorderRadius.all(Radius.circular(10)),
                             //border: Border.all(color: Colors.white, width: 2),
                             boxShadow: [
                               const BoxShadow(
@@ -748,7 +749,7 @@ class _Editpage3State extends State<Editpage3> {
                                 spreadRadius: 1,
                               ),
                             ]),
-                        child: Row(
+                        child: const Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
@@ -788,7 +789,7 @@ class _Editpage3State extends State<Editpage3> {
                           Color.fromRGBO(143, 148, 251, 0.6),
                         ],
                       ),
-                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                      borderRadius: const BorderRadius.all(Radius.circular(10)),
                       //border: Border.all(color: Colors.white, width: 2),
                       boxShadow: [
                         const BoxShadow(
@@ -804,7 +805,7 @@ class _Editpage3State extends State<Editpage3> {
                           spreadRadius: 1,
                         ),
                       ]),
-                  child: Row(
+                  child: const Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(

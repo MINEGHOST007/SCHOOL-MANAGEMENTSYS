@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Loading extends StatefulWidget {
   const Loading({Key? key}) : super(key: key);
@@ -15,11 +14,10 @@ class _LoadingState extends State<Loading> {
     final String email;
     final String password;
     if (ModalRoute.of(context)!.settings.arguments != null) {
-      final Map<String, dynamic>? arguments =
+      final Map<String, dynamic> arguments =
           ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
-      email = arguments!['email'];
+      email = arguments['email'];
       password = arguments['password'];
-      var categoryfinal = arguments['category'];
       try {
       await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: email,

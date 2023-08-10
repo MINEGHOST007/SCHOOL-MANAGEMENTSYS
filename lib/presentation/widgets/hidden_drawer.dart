@@ -1,7 +1,6 @@
 import 'package:edusphere/data/providers.dart';
 import 'package:edusphere/presentation/screens/addass.dart';
 import 'package:edusphere/presentation/screens/addatt.dart';
-import 'package:edusphere/presentation/screens/attendance.dart';
 import 'package:edusphere/presentation/screens/tasks.dart';
 import 'package:flutter/material.dart';
 import 'package:hidden_drawer_menu/hidden_drawer_menu.dart';
@@ -24,23 +23,23 @@ class _HiddenDrawerState extends State<HiddenDrawer> {
       ScreenHiddenDrawer(
           ItemHiddenMenu(
               name: 'Assignments',
-              baseStyle: TextStyle(
+              baseStyle: const TextStyle(
                 fontWeight: FontWeight.w700,
               ),
-              selectedStyle: TextStyle(
+              selectedStyle: const TextStyle(
                 fontFamily: 'Poppins',
               )),
-          tasks()),
+          const tasks()),
           ScreenHiddenDrawer(
           ItemHiddenMenu(
               name: 'Notices',
-              baseStyle: TextStyle(
+              baseStyle: const TextStyle(
                 fontWeight: FontWeight.w700,
               ),
-              selectedStyle: TextStyle(
+              selectedStyle: const TextStyle(
                 fontFamily: 'Poppins',
               )),
-          notices()),
+          const notices()),
     ];
     getrole();
   }
@@ -49,10 +48,11 @@ class _HiddenDrawerState extends State<HiddenDrawer> {
   void getrole() async {
     GetUserNamee gu = GetUserNamee();
     role = await gu.getRole();
-    if(role != null)
-    setState(() {
+    if(role != null) {
+      setState(() {
       role = role;
     });
+    }
   }
 
   @override
@@ -62,43 +62,43 @@ class _HiddenDrawerState extends State<HiddenDrawer> {
       ScreenHiddenDrawer(
           ItemHiddenMenu(
               name: 'Your Assignments',
-              baseStyle: TextStyle(
+              baseStyle: const TextStyle(
                 fontWeight: FontWeight.w700,
               ),
-              selectedStyle: TextStyle(
+              selectedStyle: const TextStyle(
                 fontFamily: 'Poppins',
               )),
-          tasks()),
+          const tasks()),
       ScreenHiddenDrawer(
           ItemHiddenMenu(
               name: 'Add Assignments',
-              baseStyle: TextStyle(
+              baseStyle: const TextStyle(
                 fontWeight: FontWeight.w700,
               ),
-              selectedStyle: TextStyle(
+              selectedStyle: const TextStyle(
                 fontFamily: 'Poppins',
               )),
-          Addass()),
+          const Addass()),
                 ScreenHiddenDrawer(
           ItemHiddenMenu(
               name: 'Add Attendance',
-              baseStyle: TextStyle(
+              baseStyle: const TextStyle(
                 fontWeight: FontWeight.w700,
               ),
-              selectedStyle: TextStyle(
+              selectedStyle: const TextStyle(
                 fontFamily: 'Poppins',
               )),
-          addAtt()),
+          const addAtt()),
           ScreenHiddenDrawer(
           ItemHiddenMenu(
               name: 'Notices',
-              baseStyle: TextStyle(
+              baseStyle: const TextStyle(
                 fontWeight: FontWeight.w700,
               ),
-              selectedStyle: TextStyle(
+              selectedStyle: const TextStyle(
                 fontFamily: 'Poppins',
               )),
-          notices()),
+          const notices()),
     ];
     }
     else if(role == "principal"){
@@ -106,43 +106,43 @@ class _HiddenDrawerState extends State<HiddenDrawer> {
       ScreenHiddenDrawer(
           ItemHiddenMenu(
               name: 'Your Notices',
-              baseStyle: TextStyle(
+              baseStyle: const TextStyle(
                 fontWeight: FontWeight.w700,
               ),
-              selectedStyle: TextStyle(
+              selectedStyle: const TextStyle(
                 fontFamily: 'Poppins',
               )),
-          notices()),
+          const notices()),
       ScreenHiddenDrawer(
           ItemHiddenMenu(
               name: 'Add Notices',
-              baseStyle: TextStyle(
+              baseStyle: const TextStyle(
                 fontWeight: FontWeight.w700,
               ),
-              selectedStyle: TextStyle(
+              selectedStyle: const TextStyle(
                 fontFamily: 'Poppins',
               )),
-          deciderrr()),
+          const deciderrr()),
                 ScreenHiddenDrawer(
           ItemHiddenMenu(
               name: 'Add Attendance',
-              baseStyle: TextStyle(
+              baseStyle: const TextStyle(
                 fontWeight: FontWeight.w700,
               ),
-              selectedStyle: TextStyle(
+              selectedStyle: const TextStyle(
                 fontFamily: 'Poppins',
               )),
-          addteachatt()),
+          const addteachatt()),
     ];
     }
     return HiddenDrawerMenu(
-      backgroundColorAppBar: Color.fromRGBO(109, 116, 255, 1),
+      backgroundColorAppBar: const Color.fromRGBO(109, 116, 255, 1),
       isTitleCentered: true,
-      backgroundColorMenu: Color.fromRGBO(144, 150, 255, 0.749),
+      backgroundColorMenu: const Color.fromRGBO(144, 150, 255, 0.749),
       screens: pages,
       initPositionSelected: 0,
       slidePercent: 55,
-      backgroundColorContent: Color.fromARGB(0, 0, 0, 0),
+      backgroundColorContent: const Color.fromARGB(0, 0, 0, 0),
     );
   }
 }

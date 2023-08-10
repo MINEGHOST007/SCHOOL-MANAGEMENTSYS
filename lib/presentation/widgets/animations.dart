@@ -6,7 +6,7 @@ class FadeAnimation extends StatelessWidget{
   final Widget child;
   final BuildContext context;
 
-  const FadeAnimation(this.delay, this.child, this.context);
+  const FadeAnimation(this.delay, this.child, this.context, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +58,7 @@ class FadeAnimation2 extends StatelessWidget{
   final Widget child;
   final BuildContext context;
 
-  const FadeAnimation2(this.delay, this.child, this.context);
+  const FadeAnimation2(this.delay, this.child, this.context, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -110,7 +110,7 @@ class FadeAnimation3 extends StatelessWidget{
   final Widget child;
   final BuildContext context;
 
-  const FadeAnimation3(this.delay, this.child, this.context);
+  const FadeAnimation3(this.delay, this.child, this.context, {super.key});
 
   @override
   Widget build(BuildContext context) {

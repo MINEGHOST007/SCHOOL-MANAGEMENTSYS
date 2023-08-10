@@ -1,13 +1,7 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:edusphere/common/utils.dart';
-import 'package:edusphere/presentation/screens/auth.dart';
 import 'package:edusphere/presentation/widgets/animations.dart';
 import 'package:edusphere/services/authservice.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:edusphere/main.dart';
-import 'package:edusphere/firebase_options.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 class Signin extends StatefulWidget {
   const Signin({Key? key}) : super(key: key);
@@ -21,7 +15,7 @@ class _SigninState extends State<Signin> {
   final passwordController = TextEditingController();
   var category = 0;
   Color _contcolor1 = const Color.fromRGBO(183, 194, 255, 1);
-  Color _contcolor2 = Color.fromARGB(255, 255, 255, 255);
+  Color _contcolor2 = const Color.fromARGB(255, 255, 255, 255);
   void signUserIn() async {
     Navigator.pushNamed(
       context,
@@ -48,7 +42,7 @@ class _SigninState extends State<Signin> {
   void changeColor2() {
     category = 1;
     setState(() {
-      _contcolor1 = Color.fromARGB(255, 255, 255, 255);
+      _contcolor1 = const Color.fromARGB(255, 255, 255, 255);
       _contcolor2 = const Color.fromRGBO(183, 194, 255, 1);
     });
     print("CREATE ACCOUYNT");
@@ -60,7 +54,7 @@ class _SigninState extends State<Signin> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: Colors.white,
-      body: Container(
+      body: SizedBox(
         width: MediaQuery.of(context).size.width,
         child: SingleChildScrollView(
           child: Column(

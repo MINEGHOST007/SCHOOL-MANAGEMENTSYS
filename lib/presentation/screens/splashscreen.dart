@@ -1,4 +1,3 @@
-import 'dart:ui';
 
 import 'package:flutter/material.dart';
 // import 'dart:math';
@@ -15,7 +14,6 @@ class _SplashState extends State<Splash> with TickerProviderStateMixin {
  
   @override
   Widget build(BuildContext context) {
-    final double width = MediaQuery.of(context).size.width;
     return WillPopScope(
       onWillPop: () async {
         return false;
@@ -26,7 +24,7 @@ class _SplashState extends State<Splash> with TickerProviderStateMixin {
         //backgroundColor: const Color.fromRGBO(156, 126, 215, 0.25),
         //backgroundColor:const Color.fromRGBO(215, 169, 255, 0.25) ,
 
-        body: Container(
+        body: SizedBox(
           // decoration: BoxDecoration(
           //   image: DecorationImage(
           //     image: AssetImage('assets/images/hs.gif'),
@@ -36,14 +34,14 @@ class _SplashState extends State<Splash> with TickerProviderStateMixin {
           width: double.infinity,
           child: Stack(
             children: [
-              Container(
+              const SizedBox(
                 
                 width: double.infinity,
                 child: Image(image: AssetImage('assets/images/hx.png'),
                 fit: BoxFit.fitHeight,
                 ),
               ),
-              Container(
+              const SizedBox(
                 
                 width: double.infinity,
                 child: Image(image: AssetImage('assets/images/hs.gif'),
@@ -124,8 +122,8 @@ class _SplashState extends State<Splash> with TickerProviderStateMixin {
                     const SizedBox(
                       height: 15,
                     ),
-                    Row(
-                      children: const [
+                    const Row(
+                      children: [
                         Text(
                           'EduSphere',
                           style: TextStyle(
@@ -183,7 +181,7 @@ class _SplashState extends State<Splash> with TickerProviderStateMixin {
                                         color: Colors.grey.withOpacity(0.5),
                                         spreadRadius: 2,
                                         blurRadius: 5,
-                                        offset: Offset(0, 3),
+                                        offset: const Offset(0, 3),
                                       ),
                                     ],
                                     borderRadius: BorderRadius.circular(50),
@@ -198,7 +196,7 @@ class _SplashState extends State<Splash> with TickerProviderStateMixin {
                                           color: Colors.grey.withOpacity(0.5),
                                           spreadRadius: 2,
                                           blurRadius: 5,
-                                          offset: Offset(0, 3),
+                                          offset: const Offset(0, 3),
                                         ),
                                       ],
                                       borderRadius: BorderRadius.circular(50),
@@ -243,7 +241,7 @@ class _SplashState extends State<Splash> with TickerProviderStateMixin {
                                         color: Colors.grey.withOpacity(0.5),
                                         spreadRadius: 2,
                                         blurRadius: 5,
-                                        offset: Offset(0, 3),
+                                        offset: const Offset(0, 3),
                                       ),
                                     ],
                                     borderRadius: BorderRadius.circular(50),
@@ -260,7 +258,7 @@ class _SplashState extends State<Splash> with TickerProviderStateMixin {
                                           color: Colors.grey.withOpacity(0.5),
                                           spreadRadius: 2,
                                           blurRadius: 5,
-                                          offset: Offset(0, 3),
+                                          offset: const Offset(0, 3),
                                         ),
                                       ],
                                       gradient: const LinearGradient(

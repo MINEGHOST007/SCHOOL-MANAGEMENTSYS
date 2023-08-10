@@ -2,9 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:edusphere/common/utils.dart';
 import 'package:edusphere/data/providers.dart';
 import 'package:edusphere/presentation/widgets/animations.dart';
+import 'package:edusphere/services/notification.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:edusphere/data/absentee_list.dart';
 import 'package:intl/intl.dart';
 import 'package:percent_indicator/percent_indicator.dart';
@@ -34,6 +33,12 @@ class _addAttState extends State<addAtt> {
         ff = DateFormat('yyyy-MM-dd').format(value!);
       });
     });
+  }
+
+  void gettoken() async {
+    String? token = await getFcm();
+    print("tokeen :");
+    print(token);
   }
 
   Future<void> retreive() async {
@@ -78,13 +83,13 @@ class _addAttState extends State<addAtt> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            SizedBox(
+            const SizedBox(
               height: 30,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                Text(
+                const Text(
                   "Select class",
                   style: TextStyle(
                     fontFamily: 'Poppins',
@@ -93,7 +98,7 @@ class _addAttState extends State<addAtt> {
                 Center(
                   child: DropdownButton<int>(
                     value: cls,
-                    hint: Text('select class'),
+                    hint: const Text('select class'),
                     items: List.generate(10, (index) {
                       return DropdownMenuItem<int>(
                         value: index + 1,
@@ -109,14 +114,14 @@ class _addAttState extends State<addAtt> {
                 ),
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Container(
-                  child: Text(
+                  child: const Text(
                     "Select Date : ",
                     style: TextStyle(
                       fontFamily: 'Poppins',
@@ -139,7 +144,7 @@ class _addAttState extends State<addAtt> {
                           color: Colors.grey.withOpacity(0.5),
                           spreadRadius: 2,
                           blurRadius: 5,
-                          offset: Offset(0, 3),
+                          offset: const Offset(0, 3),
                         ),
                       ],
                       borderRadius: BorderRadius.circular(50),
@@ -148,7 +153,7 @@ class _addAttState extends State<addAtt> {
                     child: Container(
                       width: 180,
                       height: 77.5,
-                      padding: EdgeInsets.all(10),
+                      padding: const EdgeInsets.all(10),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(50),
                         //shape: BoxShape.circle,
@@ -157,15 +162,15 @@ class _addAttState extends State<addAtt> {
                             color: Colors.grey.withOpacity(0.5),
                             spreadRadius: 2,
                             blurRadius: 5,
-                            offset: Offset(0, 3),
+                            offset: const Offset(0, 3),
                           ),
                         ],
-                        color: Color.fromRGBO(117, 123, 255, 1),
+                        color: const Color.fromRGBO(117, 123, 255, 1),
                       ),
                       child: Center(
                         child: Text(
                           ff,
-                          style: TextStyle(
+                          style: const TextStyle(
                             color: Colors.white,
                             fontSize: 12,
                             letterSpacing: 1.4,
@@ -179,10 +184,10 @@ class _addAttState extends State<addAtt> {
                 ),
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 40,
             ),
-            Row(
+            const Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 Text(
@@ -193,7 +198,7 @@ class _addAttState extends State<addAtt> {
                 ),
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             Column(
@@ -202,7 +207,7 @@ class _addAttState extends State<addAtt> {
                     1.6,
                     Container(
                       margin: const EdgeInsets.all(20),
-                      padding: EdgeInsets.only(left: 15, right: 15),
+                      padding: const EdgeInsets.only(left: 15, right: 15),
                       width: 500,
                       decoration: BoxDecoration(
                           color: Colors.grey.shade300,
@@ -258,7 +263,7 @@ class _addAttState extends State<addAtt> {
                     context),
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             Center(
@@ -274,9 +279,9 @@ class _addAttState extends State<addAtt> {
                           children: [
                             Expanded(
                               child: Container(
-                                margin: EdgeInsets.only(bottom: 60),
+                                margin: const EdgeInsets.only(bottom: 60),
                                 height: 70,
-                                decoration: BoxDecoration(
+                                decoration: const BoxDecoration(
                                   color: Color.fromARGB(0, 224, 224, 224),
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(20)),
@@ -285,11 +290,11 @@ class _addAttState extends State<addAtt> {
                                   radius: 28,
                                   lineWidth: 10,
                                   progressColor:
-                                      Color.fromRGBO(110, 118, 255, 1),
+                                      const Color.fromRGBO(110, 118, 255, 1),
                                   backgroundColor:
-                                      Color.fromRGBO(162, 166, 255, 1),
+                                      const Color.fromRGBO(162, 166, 255, 1),
                                   circularStrokeCap: CircularStrokeCap.round,
-                                  center: Icon(
+                                  center: const Icon(
                                     Icons.done_all_outlined,
                                     color: Color.fromRGBO(110, 118, 255, 1),
                                   ),
@@ -315,7 +320,7 @@ class _addAttState extends State<addAtt> {
                           Color.fromRGBO(143, 148, 251, 0.6),
                         ],
                       ),
-                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                      borderRadius: const BorderRadius.all(Radius.circular(10)),
                       // border: Border.all(color: Colors.white, width: 2),
                       boxShadow: [
                         const BoxShadow(
@@ -331,7 +336,7 @@ class _addAttState extends State<addAtt> {
                           spreadRadius: 1,
                         ),
                       ]),
-                  child: Row(
+                  child: const Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
@@ -355,9 +360,20 @@ class _addAttState extends State<addAtt> {
                 ),
               ),
             ),
-            SizedBox(
+            GestureDetector(
+              onTap: () {
+                gettoken();
+              },
+              child: Container(
+                height: 20,
+                width: 30,
+                color: Colors.black,
+              ),
+            ),
+            const SizedBox(
               height: 60,
             ),
+            
           ],
         ),
       ),
@@ -436,14 +452,14 @@ class _addteachattState extends State<addteachatt> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            SizedBox(
+            const SizedBox(
               height: 30,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Container(
-                  child: Text(
+                  child: const Text(
                     "Select Date : ",
                     style: TextStyle(
                       fontFamily: 'Poppins',
@@ -466,7 +482,7 @@ class _addteachattState extends State<addteachatt> {
                           color: Colors.grey.withOpacity(0.5),
                           spreadRadius: 2,
                           blurRadius: 5,
-                          offset: Offset(0, 3),
+                          offset: const Offset(0, 3),
                         ),
                       ],
                       borderRadius: BorderRadius.circular(50),
@@ -475,7 +491,7 @@ class _addteachattState extends State<addteachatt> {
                     child: Container(
                       width: 180,
                       height: 77.5,
-                      padding: EdgeInsets.all(10),
+                      padding: const EdgeInsets.all(10),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(50),
                         //shape: BoxShape.circle,
@@ -484,15 +500,15 @@ class _addteachattState extends State<addteachatt> {
                             color: Colors.grey.withOpacity(0.5),
                             spreadRadius: 2,
                             blurRadius: 5,
-                            offset: Offset(0, 3),
+                            offset: const Offset(0, 3),
                           ),
                         ],
-                        color: Color.fromRGBO(117, 123, 255, 1),
+                        color: const Color.fromRGBO(117, 123, 255, 1),
                       ),
                       child: Center(
                         child: Text(
                           ff,
-                          style: TextStyle(
+                          style: const TextStyle(
                             color: Colors.white,
                             fontSize: 12,
                             letterSpacing: 1.4,
@@ -506,10 +522,10 @@ class _addteachattState extends State<addteachatt> {
                 ),
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 40,
             ),
-            Row(
+            const Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 Text(
@@ -520,7 +536,7 @@ class _addteachattState extends State<addteachatt> {
                 ),
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             Column(
@@ -529,7 +545,7 @@ class _addteachattState extends State<addteachatt> {
                     1.6,
                     Container(
                       margin: const EdgeInsets.all(20),
-                      padding: EdgeInsets.only(left: 15, right: 15),
+                      padding: const EdgeInsets.only(left: 15, right: 15),
                       width: 500,
                       decoration: BoxDecoration(
                           color: Colors.grey.shade300,
@@ -585,7 +601,7 @@ class _addteachattState extends State<addteachatt> {
                     context),
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             Center(
@@ -601,9 +617,9 @@ class _addteachattState extends State<addteachatt> {
                           children: [
                             Expanded(
                               child: Container(
-                                margin: EdgeInsets.only(bottom: 60),
+                                margin: const EdgeInsets.only(bottom: 60),
                                 height: 70,
-                                decoration: BoxDecoration(
+                                decoration: const BoxDecoration(
                                   color: Color.fromARGB(0, 224, 224, 224),
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(20)),
@@ -612,11 +628,11 @@ class _addteachattState extends State<addteachatt> {
                                   radius: 28,
                                   lineWidth: 10,
                                   progressColor:
-                                      Color.fromRGBO(110, 118, 255, 1),
+                                      const Color.fromRGBO(110, 118, 255, 1),
                                   backgroundColor:
-                                      Color.fromRGBO(162, 166, 255, 1),
+                                      const Color.fromRGBO(162, 166, 255, 1),
                                   circularStrokeCap: CircularStrokeCap.round,
-                                  center: Icon(
+                                  center: const Icon(
                                     Icons.done_all_outlined,
                                     color: Color.fromRGBO(110, 118, 255, 1),
                                   ),
@@ -642,7 +658,7 @@ class _addteachattState extends State<addteachatt> {
                           Color.fromRGBO(143, 148, 251, 0.6),
                         ],
                       ),
-                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                      borderRadius: const BorderRadius.all(Radius.circular(10)),
                       // border: Border.all(color: Colors.white, width: 2),
                       boxShadow: [
                         const BoxShadow(
@@ -658,7 +674,7 @@ class _addteachattState extends State<addteachatt> {
                           spreadRadius: 1,
                         ),
                       ]),
-                  child: Row(
+                  child: const Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
@@ -682,7 +698,7 @@ class _addteachattState extends State<addteachatt> {
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 60,
             ),
           ],

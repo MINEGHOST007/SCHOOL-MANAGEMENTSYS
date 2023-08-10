@@ -26,9 +26,9 @@ public final class GeneratedPluginRegistrant {
       Log.e(TAG, "Error registering plugin cloud_functions, io.flutter.plugins.firebase.functions.FlutterFirebaseFunctionsPlugin", e);
     }
     try {
-      flutterEngine.getPlugins().add(new com.aboutkai.easy_pdf_viewer.EasyPdfViewerPlugin());
+      flutterEngine.getPlugins().add(new dev.kaichi.easy_pdf_viewer.EasyPdfViewerPlugin());
     } catch(Exception e) {
-      Log.e(TAG, "Error registering plugin easy_pdf_viewer, com.aboutkai.easy_pdf_viewer.EasyPdfViewerPlugin", e);
+      Log.e(TAG, "Error registering plugin easy_pdf_viewer, dev.kaichi.easy_pdf_viewer.EasyPdfViewerPlugin", e);
     }
     try {
       flutterEngine.getPlugins().add(new com.mr.flutter.plugin.filepicker.FilePickerPlugin());
@@ -44,6 +44,11 @@ public final class GeneratedPluginRegistrant {
       flutterEngine.getPlugins().add(new io.flutter.plugins.firebase.core.FlutterFirebaseCorePlugin());
     } catch(Exception e) {
       Log.e(TAG, "Error registering plugin firebase_core, io.flutter.plugins.firebase.core.FlutterFirebaseCorePlugin", e);
+    }
+    try {
+      flutterEngine.getPlugins().add(new io.flutter.plugins.firebase.messaging.FlutterFirebaseMessagingPlugin());
+    } catch(Exception e) {
+      Log.e(TAG, "Error registering plugin firebase_messaging, io.flutter.plugins.firebase.messaging.FlutterFirebaseMessagingPlugin", e);
     }
     try {
       flutterEngine.getPlugins().add(new io.flutter.plugins.firebase.storage.FlutterFirebaseStoragePlugin());

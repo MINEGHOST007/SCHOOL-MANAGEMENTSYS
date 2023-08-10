@@ -141,11 +141,7 @@ import 'package:edusphere/presentation/widgets/hidden_drawer.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:edusphere/presentation/screens/acadcal.dart';
-import 'package:edusphere/presentation/screens/home.dart';
 import 'package:edusphere/presentation/screens/profile.dart';
-import 'package:edusphere/presentation/screens/tasks.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent-tab-view.dart';
 
 class HomePage extends StatefulWidget {
@@ -157,7 +153,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   navigate() {}
-  PersistentTabController _controller =
+  final PersistentTabController _controller =
       PersistentTabController(initialIndex: 0);
   @override
   Widget build(BuildContext context) {
@@ -168,28 +164,28 @@ class _HomePageState extends State<HomePage> {
           title: "Home",
           activeColorSecondary: const Color.fromARGB(255, 67, 95, 255),
           activeColorPrimary: Colors.white,
-          inactiveColorPrimary: Color.fromARGB(255, 56, 56, 56),
+          inactiveColorPrimary: const Color.fromARGB(255, 56, 56, 56),
         ),
         PersistentBottomNavBarItem(
           icon: const Icon(Icons.person),
           title: "Profile",
           activeColorSecondary: const Color.fromARGB(255, 67, 95, 255),
           activeColorPrimary: Colors.white,
-          inactiveColorPrimary: Color.fromARGB(255, 56, 56, 56),
+          inactiveColorPrimary: const Color.fromARGB(255, 56, 56, 56),
         ),
         PersistentBottomNavBarItem(
           icon: const Icon(Icons.edit_document),
           title: "Tasks",
           activeColorSecondary: const Color.fromARGB(255, 67, 95, 255),
           activeColorPrimary: Colors.white,
-          inactiveColorPrimary: Color.fromARGB(255, 56, 56, 56),
+          inactiveColorPrimary: const Color.fromARGB(255, 56, 56, 56),
         ),
         PersistentBottomNavBarItem(
           icon: const Icon(Icons.calendar_today_rounded),
           title: "Calender",
           activeColorSecondary: const Color.fromARGB(255, 67, 95, 255),
           activeColorPrimary: Colors.white,
-          inactiveColorPrimary: Color.fromARGB(255, 56, 56, 56),
+          inactiveColorPrimary: const Color.fromARGB(255, 56, 56, 56),
         ),
       ];
     }
@@ -226,7 +222,7 @@ class _HomePageState extends State<HomePage> {
         ),
       ]),
       child: Container(
-        margin: EdgeInsets.only(top: 0, bottom: 10, right: 00, left: 00),
+        margin: const EdgeInsets.only(top: 0, bottom: 10, right: 00, left: 00),
         child: ClipRRect(
           borderRadius: const BorderRadius.only(
             topLeft: Radius.circular(30),
@@ -461,7 +457,7 @@ class _HomePage1State extends State<HomePage1> {
   @override
   Widget build(BuildContext context) {
     retrieveTeachers();
-    if (count == 1 && cx == 1 && role != "principal")
+    if (count == 1 && cx == 1 && role != "principal") {
       return Scaffold(
         resizeToAvoidBottomInset: false,
         // appBar: AppBar(
@@ -519,14 +515,14 @@ class _HomePage1State extends State<HomePage1> {
         body: SingleChildScrollView(
           child: Column(
             children: [
-              Container(
+              SizedBox(
                 width: 500,
                 height: 220,
                 child: AppBar(
                   leading: Container(),
                   elevation: 0,
                   toolbarHeight: 200,
-                  backgroundColor: Color.fromARGB(0, 224, 224, 224),
+                  backgroundColor: const Color.fromARGB(0, 224, 224, 224),
                   actions: [
                     IconButton(
                         onPressed: signUserOut,
@@ -639,7 +635,7 @@ class _HomePage1State extends State<HomePage1> {
                             1.6,
                             Container(
                               margin: const EdgeInsets.all(20),
-                              padding: EdgeInsets.only(left: 15, right: 15),
+                              padding: const EdgeInsets.only(left: 15, right: 15),
                               width: 500,
                               decoration: BoxDecoration(
                                   color: Colors.grey.shade300,
@@ -708,7 +704,7 @@ class _HomePage1State extends State<HomePage1> {
           ),
         ),
       );
-    else if (role == "principal") {
+    } else if (role == "principal") {
       print("Prinviprinciprinci");
       return Scaffold(
         resizeToAvoidBottomInset: false,
@@ -767,14 +763,14 @@ class _HomePage1State extends State<HomePage1> {
         body: SingleChildScrollView(
           child: Column(
             children: [
-              Container(
+              SizedBox(
                 width: 500,
                 height: 200,
                 child: AppBar(
                   leading: Container(),
                   elevation: 0,
                   toolbarHeight: 150,
-                  backgroundColor: Color.fromARGB(0, 224, 224, 224),
+                  backgroundColor: const Color.fromARGB(0, 224, 224, 224),
                   actions: [
                     IconButton(
                         onPressed: signUserOut,
@@ -840,14 +836,14 @@ class _HomePage1State extends State<HomePage1> {
                         const SizedBox(
                           height: 10,
                         ),
-                        Row(
+                        const Row(
                           children: [
-                            const SizedBox(
+                            SizedBox(
                               width: 15,
                             ),
                             Text(
                               "Classes",
-                              style: const TextStyle(
+                              style: TextStyle(
                                 fontFamily: 'Poppins',
                                 fontSize: 17.5,
                                 color: Color.fromARGB(255, 0, 0, 0),
@@ -865,14 +861,14 @@ class _HomePage1State extends State<HomePage1> {
                         const SizedBox(
                           height: 15,
                         ),
-                        Row(
+                        const Row(
                           children: [
-                            const SizedBox(
+                            SizedBox(
                               width: 15,
                             ),
                             Text(
                               "Students",
-                              style: const TextStyle(
+                              style: TextStyle(
                                 fontFamily: 'Poppins',
                                 fontSize: 17.5,
                                 color: Color.fromARGB(255, 0, 0, 0),
@@ -887,7 +883,7 @@ class _HomePage1State extends State<HomePage1> {
                             1.6,
                             Container(
                               margin: const EdgeInsets.all(20),
-                              padding: EdgeInsets.only(left: 15, right: 15),
+                              padding: const EdgeInsets.only(left: 15, right: 15),
                               width: 500,
                               decoration: BoxDecoration(
                                   color: Colors.grey.shade300,
@@ -949,14 +945,14 @@ class _HomePage1State extends State<HomePage1> {
                         const SizedBox(
                           height: 30,
                         ),
-                        Row(
+                        const Row(
                           children: [
-                            const SizedBox(
+                            SizedBox(
                               width: 15,
                             ),
                             Text(
                               "Teachers",
-                              style: const TextStyle(
+                              style: TextStyle(
                                 fontFamily: 'Poppins',
                                 fontSize: 17.5,
                                 color: Color.fromARGB(255, 0, 0, 0),
@@ -971,7 +967,7 @@ class _HomePage1State extends State<HomePage1> {
                             1.6,
                             Container(
                               margin: const EdgeInsets.all(20),
-                              padding: EdgeInsets.only(left: 15, right: 15),
+                              padding: const EdgeInsets.only(left: 15, right: 15),
                               width: 500,
                               decoration: BoxDecoration(
                                   color: Colors.grey.shade300,
@@ -1043,7 +1039,8 @@ class _HomePage1State extends State<HomePage1> {
         ),
       );
       //return const Placeholder();
-    } else
-      return Loading();
+    } else {
+      return const Loading();
+    }
   }
 }

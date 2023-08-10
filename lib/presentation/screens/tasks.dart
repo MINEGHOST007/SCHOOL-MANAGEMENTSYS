@@ -1,13 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:edusphere/common/utils.dart';
 import 'package:edusphere/data/providers.dart';
-import 'package:edusphere/presentation/screens/load.dart';
 import 'package:edusphere/presentation/widgets/animations.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:flutter_file_downloader/flutter_file_downloader.dart';
 import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 
 class tasks extends StatefulWidget {
@@ -80,11 +76,11 @@ class _tasksState extends State<tasks> {
 
   @override
   Widget build(BuildContext context) {
-    if (dub.isEmpty || topic.isEmpty || x.isEmpty || y.isEmpty)
+    if (dub.isEmpty || topic.isEmpty || x.isEmpty || y.isEmpty) {
       return Scaffold(
         body: Column(
           children: [
-            Center(
+            const Center(
               child: Padding(
                 padding: EdgeInsets.all(0.0),
                 child: SpinKitWaveSpinner(
@@ -103,12 +99,12 @@ class _tasksState extends State<tasks> {
           ],
         ),
       );
-    else {
+    } else {
       return Scaffold(
         backgroundColor: Colors.grey[300],
         body: LiquidPullToRefresh(
-          color: Color.fromRGBO(109, 116, 255, 1),
-          backgroundColor: Color.fromARGB(255, 138, 156, 255),
+          color: const Color.fromRGBO(109, 116, 255, 1),
+          backgroundColor: const Color.fromARGB(255, 138, 156, 255),
           height: 100,
           onRefresh: getdata,
           child: SingleChildScrollView(
@@ -171,11 +167,11 @@ class _tasksState extends State<tasks> {
                   FadeAnimation2(
                       1.6,
                       Container(
-                        margin: EdgeInsets.all(20),
-                        padding: EdgeInsets.only(
+                        margin: const EdgeInsets.all(20),
+                        padding: const EdgeInsets.only(
                             top: 15, bottom: 15, left: 25, right: 15),
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(10)),
+                          borderRadius: const BorderRadius.all(Radius.circular(10)),
                           color: Colors.grey[300],
                           // border: Border.all(
                           //     color: Color.fromARGB(255, 0, 0, 0),
@@ -184,18 +180,18 @@ class _tasksState extends State<tasks> {
                           boxShadow: [
                             BoxShadow(
                               color: Colors.grey.shade500,
-                              offset: Offset(4, 4),
+                              offset: const Offset(4, 4),
                               blurRadius: 15,
                               spreadRadius: 1,
                             ),
-                            BoxShadow(
+                            const BoxShadow(
                               color: Colors.white,
                               offset: Offset(-4, -4),
                               blurRadius: 15,
                               spreadRadius: 1,
                             )
                           ],
-                          image: DecorationImage(
+                          image: const DecorationImage(
                             image: AssetImage(
                               'assets/images/xyz.jpg',
                             ),
@@ -208,8 +204,8 @@ class _tasksState extends State<tasks> {
                           children: [
                             listAss(
                               by: "${by[i]}",
-                              Subject: "${dub[i]}",
-                              topic: "${topic[i]}",
+                              Subject: dub[i],
+                              topic: topic[i],
                               x: x[i],
                               y: y[i],
                               urr: urr[i],
@@ -219,7 +215,7 @@ class _tasksState extends State<tasks> {
                         ),
                       ),
                       context),
-                SizedBox(
+                const SizedBox(
                   height: 80,
                 ),
                 // Container(
@@ -368,11 +364,11 @@ class _noticesState extends State<notices> {
 
   @override
   Widget build(BuildContext context) {
-    if (dub.isEmpty || topic.isEmpty || x.isEmpty)
+    if (dub.isEmpty || topic.isEmpty || x.isEmpty) {
       return Scaffold(
         body: Column(
           children: [
-            Center(
+            const Center(
               child: Padding(
                 padding: EdgeInsets.all(0.0),
                 child: SpinKitWaveSpinner(
@@ -391,12 +387,12 @@ class _noticesState extends State<notices> {
           ],
         ),
       );
-    else {
+    } else {
       return Scaffold(
         backgroundColor: Colors.grey[300],
         body: LiquidPullToRefresh(
-          color: Color.fromRGBO(109, 116, 255, 1),
-          backgroundColor: Color.fromARGB(255, 138, 156, 255),
+          color: const Color.fromRGBO(109, 116, 255, 1),
+          backgroundColor: const Color.fromARGB(255, 138, 156, 255),
           height: 100,
           onRefresh: getdata,
           child: SingleChildScrollView(
@@ -459,11 +455,11 @@ class _noticesState extends State<notices> {
                   FadeAnimation2(
                       1.6,
                       Container(
-                        margin: EdgeInsets.all(20),
-                        padding: EdgeInsets.only(
+                        margin: const EdgeInsets.all(20),
+                        padding: const EdgeInsets.only(
                             top: 15, bottom: 15, left: 25, right: 15),
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(10)),
+                          borderRadius: const BorderRadius.all(Radius.circular(10)),
                           color: Colors.grey[300],
                           // border: Border.all(
                           //     color: Color.fromARGB(255, 0, 0, 0),
@@ -472,18 +468,18 @@ class _noticesState extends State<notices> {
                           boxShadow: [
                             BoxShadow(
                               color: Colors.grey.shade500,
-                              offset: Offset(4, 4),
+                              offset: const Offset(4, 4),
                               blurRadius: 15,
                               spreadRadius: 1,
                             ),
-                            BoxShadow(
+                            const BoxShadow(
                               color: Colors.white,
                               offset: Offset(-4, -4),
                               blurRadius: 15,
                               spreadRadius: 1,
                             )
                           ],
-                          image: DecorationImage(
+                          image: const DecorationImage(
                             image: AssetImage(
                               'assets/images/xyz.jpg',
                             ),
@@ -495,8 +491,8 @@ class _noticesState extends State<notices> {
                         child: Column(
                           children: [
                             listAss2(
-                              Subject: "${dub[i]}",
-                              topic: "${topic[i]}",
+                              Subject: dub[i],
+                              topic: topic[i],
                               x: x[i],
                               role: role,
                             ),
@@ -504,7 +500,7 @@ class _noticesState extends State<notices> {
                         ),
                       ),
                       context),
-                SizedBox(
+                const SizedBox(
                   height: 80,
                 ),
                 // Container(

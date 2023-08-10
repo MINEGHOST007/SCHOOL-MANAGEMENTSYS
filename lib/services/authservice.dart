@@ -43,14 +43,11 @@
 //   }
 // }
 
-import 'package:edusphere/data/providers.dart';
-import 'package:edusphere/presentation/screens/signup.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import '../presentation/screens/signup.dart';
 
 class Authservice {
   final GoogleSignIn _googleSignIn = GoogleSignIn();

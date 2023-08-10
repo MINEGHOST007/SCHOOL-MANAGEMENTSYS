@@ -5,13 +5,11 @@ import 'package:edusphere/presentation/screens/home.dart';
 import 'package:edusphere/presentation/screens/load.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:pie_chart/pie_chart.dart';
-import 'package:flutter_file_downloader/flutter_file_downloader.dart';
 
 class GetUserName extends StatefulWidget {
   final String documentId;
-  GetUserName({required this.documentId});
+  const GetUserName({super.key, required this.documentId});
 
   @override
   State<GetUserName> createState() => _GetUserNameState();
@@ -30,7 +28,7 @@ class _GetUserNameState extends State<GetUserName> {
                 value.data!.data() as Map<String, dynamic>;
             return Text('role: ${data['role']} email: ${data['email']}');
           }
-          return Text('loading...');
+          return const Text('loading...');
         });
   }
 }
@@ -44,7 +42,7 @@ String Streamget(String? email, List<String> DocIds) {
       print(value);
       if (value.exists) {
         Map<String, dynamic> dataaa = value.data() as Map<String, dynamic>;
-        if (dataaa['email'] == email) ;
+        if (dataaa['email'] == email) {}
         role = dataaa['role'];
       }
     });
@@ -193,9 +191,9 @@ class Getname {
         await users.where('email', isEqualTo: user!.email).get();
     if (snapshot.docs.isNotEmpty) {
       DocumentSnapshot doc = snapshot.docs.first;
-      if (doc['role'] == "student")
+      if (doc['role'] == "student") {
         return doc['name'] as String?;
-      else {
+      } else {
         String? fn = "${doc['first_name']} ${doc['second_name']}";
         return fn;
       }
@@ -211,9 +209,9 @@ class Getname {
         await users.where('email', isEqualTo: user!.email).get();
     if (snapshot.docs.isNotEmpty) {
       DocumentSnapshot doc = snapshot.docs.first;
-      if (doc['role'] == "student")
+      if (doc['role'] == "student") {
         return doc['name'] as String?;
-      else {
+      } else {
         String? fn = "${doc['first_name']}";
         return fn;
       }
@@ -256,7 +254,6 @@ class Updatename3 {
   Updatename3({required this.fname, required this.sname});
 
   void getRole() async {
-    String? dup = "$cls";
     print("kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk");
     User? user = FirebaseAuth.instance.currentUser;
     CollectionReference users = FirebaseFirestore.instance.collection('users');
@@ -286,7 +283,6 @@ class Updatename2 {
     print(name);
     print(cls);
     print("kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk");
-    User? user = FirebaseAuth.instance.currentUser;
     CollectionReference users = FirebaseFirestore.instance.collection('users');
 
     QuerySnapshot snapshot = await users.where('email', isEqualTo: email).get();
@@ -347,7 +343,7 @@ class Getrollno {
   Future<int?> getrn() async {
     GetUserNamee hb = GetUserNamee();
     String? role = await hb.getRole();
-    if (role != null && role != "principal") {
+    if (role != null && role != "principal"&& role != "teacher") {
       List<DocumentSnapshot>? studentList = [];
       Getstudentdocs gs = Getstudentdocs();
       studentList = await gs.getteacher();
@@ -378,6 +374,7 @@ class Getrollno {
   }
 }
 
+// ignore: must_be_immutable
 class GetSyllabus extends StatefulWidget {
   String collecti;
   String? role;
@@ -393,19 +390,17 @@ class _GetSyllabusState extends State<GetSyllabus> {
   Getclass gc = Getclass();
   int count = 0;
   void Getdocs() async {
-    Subject = await FirebaseFirestore.instance.collection(widget.collecti);
+    Subject = FirebaseFirestore.instance.collection(widget.collecti);
 
-    if (Subject != null) {
-      String? cls = await gc.getRole();
-      if (cls != null && count == 0) {
-        Getsyl gs = Getsyl(documentId: cls, coll: widget.collecti);
-        data = await gs.getRole();
-        print(data);
-        setState(() {
-          data = data;
-          count = 1;
-        });
-      }
+    String? cls = await gc.getRole();
+    if (cls != null && count == 0) {
+      Getsyl gs = Getsyl(documentId: cls, coll: widget.collecti);
+      data = await gs.getRole();
+      print(data);
+      setState(() {
+        data = data;
+        count = 1;
+      });
     }
   }
 
@@ -415,8 +410,8 @@ class _GetSyllabusState extends State<GetSyllabus> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("Syllabus"),
-        backgroundColor: Color.fromRGBO(109, 116, 255, 1),
+        title: const Text("Syllabus"),
+        backgroundColor: const Color.fromRGBO(109, 116, 255, 1),
       ),
       backgroundColor: Colors.grey[300],
       body: data != null
@@ -427,20 +422,20 @@ class _GetSyllabusState extends State<GetSyllabus> {
                 var value = data![key];
                 return Container(
                   margin:
-                      EdgeInsets.only(top: 15, bottom: 5, left: 15, right: 15),
-                  padding: EdgeInsets.symmetric(vertical: 10),
+                      const EdgeInsets.only(top: 15, bottom: 5, left: 15, right: 15),
+                  padding: const EdgeInsets.symmetric(vertical: 10),
                   decoration: BoxDecoration(
                     // border: Border.all(color: Colors.black),
                     color: Colors.grey[300],
-                    borderRadius: BorderRadius.all(Radius.circular(27)),
+                    borderRadius: const BorderRadius.all(Radius.circular(27)),
                     boxShadow: [
                       BoxShadow(
                         color: Colors.grey.shade500,
-                        offset: Offset(4, 4),
+                        offset: const Offset(4, 4),
                         blurRadius: 15,
                         spreadRadius: 1,
                       ),
-                      BoxShadow(
+                      const BoxShadow(
                         color: Colors.white,
                         offset: Offset(-4, -4),
                         blurRadius: 15,
@@ -451,18 +446,19 @@ class _GetSyllabusState extends State<GetSyllabus> {
                   child: ListTile(
                     title: Text(
                       " Chapter $key : ${value.toString()}",
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontFamily: 'Poppins',
                       ),
                     ),
                   ),
                 );
               })
-          : Loading(),
+          : const Loading(),
     );
   }
 }
 
+// ignore: must_be_immutable
 class GetSubjects extends StatelessWidget {
   String cls;
   GetSubjects({super.key, required this.cls});
@@ -474,13 +470,13 @@ class GetSubjects extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text(
+        title: const Text(
           "Subjects",
           style: TextStyle(
             fontFamily: 'Poppins',
           ),
         ),
-        backgroundColor: Color.fromRGBO(109, 116, 255, 1),
+        backgroundColor: const Color.fromRGBO(109, 116, 255, 1),
         // leading: Container(),
         // actions: [
         //   IconButton(
@@ -518,6 +514,7 @@ class GetSubjects extends StatelessWidget {
   }
 }
 
+// ignore: must_be_immutable
 class GetSyllabus2 extends StatefulWidget {
   String collecti;
   String cls;
@@ -533,19 +530,17 @@ class _GetSyllabus2State extends State<GetSyllabus2> {
   Getclass gc = Getclass();
   int count = 0;
   void Getdocs() async {
-    Subject = await FirebaseFirestore.instance.collection(widget.collecti);
+    Subject = FirebaseFirestore.instance.collection(widget.collecti);
 
-    if (Subject != null) {
-      String? cls = widget.cls;
-      if (count == 0) {
-        Getsyl gs = Getsyl(documentId: cls, coll: widget.collecti);
-        data = await gs.getRole();
-        print(data);
-        setState(() {
-          data = data;
-          count = 1;
-        });
-      }
+    String? cls = widget.cls;
+    if (count == 0) {
+      Getsyl gs = Getsyl(documentId: cls, coll: widget.collecti);
+      data = await gs.getRole();
+      print(data);
+      setState(() {
+        data = data;
+        count = 1;
+      });
     }
   }
 
@@ -554,8 +549,8 @@ class _GetSyllabus2State extends State<GetSyllabus2> {
     Getdocs();
     return Scaffold(
       appBar: AppBar(
-        title: Text("Syllabus"),
-        backgroundColor: Color.fromRGBO(96, 104, 255, 1),
+        title: const Text("Syllabus"),
+        backgroundColor: const Color.fromRGBO(96, 104, 255, 1),
       ),
       backgroundColor: Colors.grey[300],
       body: data != null
@@ -565,32 +560,32 @@ class _GetSyllabus2State extends State<GetSyllabus2> {
                 var key = data!.keys.elementAt(index);
                 var value = data![key];
                 return Container(
-                  margin: EdgeInsets.all(15),
-                  padding: EdgeInsets.symmetric(vertical: 10),
+                  margin: const EdgeInsets.all(15),
+                  padding: const EdgeInsets.symmetric(vertical: 10),
                   decoration: BoxDecoration(
                     color: Colors.grey[300],
                     boxShadow: [
                       BoxShadow(
                         color: Colors.grey.shade500,
-                        offset: Offset(6, 6),
+                        offset: const Offset(6, 6),
                         blurRadius: 15,
                         spreadRadius: 1,
                       ),
-                      BoxShadow(
+                      const BoxShadow(
                         color: Colors.white,
                         offset: Offset(-6, -6),
                         blurRadius: 10,
                         spreadRadius: 1,
                       )
                     ],
-                    borderRadius: BorderRadius.all(Radius.circular(20)),
+                    borderRadius: const BorderRadius.all(Radius.circular(20)),
                   ),
                   child: Column(
                     children: [
                       ListTile(
                         title: Text(
                           " Chapter $key : ${value.toString()}",
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontFamily: 'Poppins',
                           ),
                         ),
@@ -599,11 +594,12 @@ class _GetSyllabus2State extends State<GetSyllabus2> {
                   ),
                 );
               })
-          : Loading(),
+          : const Loading(),
     );
   }
 }
 
+// ignore: must_be_immutable
 class Getprofile extends StatefulWidget {
   Map<String, double> pie;
   DocumentSnapshot doc;
@@ -619,35 +615,33 @@ class _GetprofileState extends State<Getprofile> {
     Getstudentdocs gs = Getstudentdocs();
     teacherList = await gs.getteacher();
     print("refresssssssssssssssssssss");
-    if (teacherList != null) {
-      setState(() {
-        print("refresssssssssssssssssssss");
-        teacherList = teacherList!
-            .where((user) => user['email']
-                .toString()
-                .toLowerCase()
-                .contains(widget.doc['email'].toLowerCase()))
-            .toList();
-        widget.doc = teacherList!.first;
-        print(widget.doc['present']);
+    setState(() {
+      print("refresssssssssssssssssssss");
+      teacherList = teacherList!
+          .where((user) => user['email']
+              .toString()
+              .toLowerCase()
+              .contains(widget.doc['email'].toLowerCase()))
+          .toList();
+      widget.doc = teacherList!.first;
+      print(widget.doc['present']);
 
-        widget.pie = {
-          'Present': widget.doc['present'] / 1,
-          'Absent': widget.doc['absent'] / 1,
-        };
-      });
-    }
+      widget.pie = {
+        'Present': widget.doc['present'] / 1,
+        'Absent': widget.doc['absent'] / 1,
+      };
+    });
   }
 
   void Deleteprofile(String docId) async {
     DocumentReference documentRef =
-        FirebaseFirestore.instance.collection("users").doc("$docId");
+        FirebaseFirestore.instance.collection("users").doc(docId);
     try {
       // Deleting the document
       await documentRef.delete();
       print("Document deleted successfully");
       Navigator.push(
-          context, MaterialPageRoute(builder: ((context) => HomePage1())));
+          context, MaterialPageRoute(builder: ((context) => const HomePage1())));
     } catch (e) {
       print("Error deleting document: $e");
     }
@@ -677,8 +671,8 @@ class _GetprofileState extends State<Getprofile> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text("Student Profile"),
-        backgroundColor: Color.fromARGB(255, 98, 122, 255),
+        title: const Text("Student Profile"),
+        backgroundColor: const Color.fromARGB(255, 98, 122, 255),
       ),
       backgroundColor: Colors.grey[300],
       body: Container(
@@ -707,7 +701,7 @@ class _GetprofileState extends State<Getprofile> {
                           Color.fromRGBO(143, 148, 251, 1),
                         ],
                       ),
-                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                      borderRadius: const BorderRadius.all(Radius.circular(10)),
                       //border: Border.all(color: Colors.white, width: 2),
                       boxShadow: [
                         const BoxShadow(
@@ -723,7 +717,7 @@ class _GetprofileState extends State<Getprofile> {
                           spreadRadius: 1,
                         ),
                       ]),
-                  child: Row(
+                  child: const Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
@@ -747,16 +741,16 @@ class _GetprofileState extends State<Getprofile> {
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 35,
             ),
             Container(
               width: 500,
-              margin: EdgeInsets.all(20),
-              padding: EdgeInsets.all(25),
+              margin: const EdgeInsets.all(20),
+              padding: const EdgeInsets.all(25),
               decoration: BoxDecoration(
                   color: Colors.grey[300],
-                  borderRadius: BorderRadius.only(
+                  borderRadius: const BorderRadius.only(
                     topLeft: Radius.circular(10),
                     topRight: Radius.circular(10),
                     bottomLeft: Radius.circular(10),
@@ -783,11 +777,11 @@ class _GetprofileState extends State<Getprofile> {
                     children: [
                       Text(
                         "Name : ${widget.doc['name']}",
-                        style: TextStyle(fontFamily: 'Poppins'),
+                        style: const TextStyle(fontFamily: 'Poppins'),
                       ),
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 15,
                   ),
                   Row(
@@ -795,29 +789,29 @@ class _GetprofileState extends State<Getprofile> {
                     children: [
                       Text(
                         "Class : ${widget.doc['class']}",
-                        style: TextStyle(fontFamily: 'Poppins'),
+                        style: const TextStyle(fontFamily: 'Poppins'),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 6,
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 6,
                       ),
                       Text(
                         "Roll No : ${widget.doc['roll']} ",
-                        style: TextStyle(fontFamily: 'Poppins'),
+                        style: const TextStyle(fontFamily: 'Poppins'),
                       ),
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 25,
                   ),
-                  Container(
+                  SizedBox(
                     width: 500,
                     height: 150,
                     child: PieChart(
                       dataMap: widget.pie,
-                      colorList: [
+                      colorList: const [
                         Color.fromRGBO(143, 148, 251, 1),
                         Color.fromRGBO(255, 255, 255, 1),
                       ],
@@ -826,7 +820,7 @@ class _GetprofileState extends State<Getprofile> {
                 ],
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 15,
             ),
             Center(
@@ -842,7 +836,7 @@ class _GetprofileState extends State<Getprofile> {
                           Color.fromRGBO(143, 148, 251, 1),
                         ],
                       ),
-                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                      borderRadius: const BorderRadius.all(Radius.circular(10)),
                       boxShadow: [
                         const BoxShadow(
                           offset: Offset(-6, -6),
@@ -857,7 +851,7 @@ class _GetprofileState extends State<Getprofile> {
                           spreadRadius: 1,
                         ),
                       ]),
-                  child: Row(
+                  child: const Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
@@ -888,7 +882,7 @@ class _GetprofileState extends State<Getprofile> {
               child: GestureDetector(
                 onTap: () => {
                   print("xxxxxxxxxxxxxxxx"),
-                  Deleteprofile("${widget.doc.id}")
+                  Deleteprofile(widget.doc.id)
                 },
                 child: Container(
                   width: 240,
@@ -900,7 +894,7 @@ class _GetprofileState extends State<Getprofile> {
                           Color.fromRGBO(143, 148, 251, 0.6),
                         ],
                       ),
-                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                      borderRadius: const BorderRadius.all(Radius.circular(10)),
                       //border: Border.all(color: Colors.white, width: 2),
                       boxShadow: [
                         const BoxShadow(
@@ -916,7 +910,7 @@ class _GetprofileState extends State<Getprofile> {
                           spreadRadius: 1,
                         ),
                       ]),
-                  child: Row(
+                  child: const Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
@@ -947,6 +941,7 @@ class _GetprofileState extends State<Getprofile> {
   }
 }
 
+// ignore: must_be_immutable
 class Getprofile2 extends StatefulWidget {
   Map<String, double> pie;
   DocumentSnapshot doc;
@@ -962,35 +957,33 @@ class _Getprofile2State extends State<Getprofile2> {
     Getteacherdocs gs = Getteacherdocs();
     teacherList = await gs.getteacher();
     print("refresssssssssssssssssssss");
-    if (teacherList != null) {
-      setState(() {
-        print("refresssssssssssssssssssss");
-        teacherList = teacherList!
-            .where((user) => user['email']
-                .toString()
-                .toLowerCase()
-                .contains(widget.doc['email'].toLowerCase()))
-            .toList();
-        widget.doc = teacherList!.first;
-        print(widget.doc['present']);
+    setState(() {
+      print("refresssssssssssssssssssss");
+      teacherList = teacherList!
+          .where((user) => user['email']
+              .toString()
+              .toLowerCase()
+              .contains(widget.doc['email'].toLowerCase()))
+          .toList();
+      widget.doc = teacherList!.first;
+      print(widget.doc['present']);
 
-        widget.pie = {
-          'Present': widget.doc['present'] / 1,
-          'Absent': widget.doc['absent'] / 1,
-        };
-      });
-    }
+      widget.pie = {
+        'Present': widget.doc['present'] / 1,
+        'Absent': widget.doc['absent'] / 1,
+      };
+    });
   }
 
   void Deleteprofile(String docId) async {
     DocumentReference documentRef =
-        FirebaseFirestore.instance.collection("users").doc("$docId");
+        FirebaseFirestore.instance.collection("users").doc(docId);
     try {
       // Deleting the document
       await documentRef.delete();
       print("Document deleted successfully");
       Navigator.push(
-          context, MaterialPageRoute(builder: ((context) => HomePage1())));
+          context, MaterialPageRoute(builder: ((context) => const HomePage1())));
     } catch (e) {
       print("Error deleting document: $e");
     }
@@ -1001,8 +994,8 @@ class _Getprofile2State extends State<Getprofile2> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text("Teacher Profile"),
-        backgroundColor: Color.fromARGB(255, 98, 122, 255),
+        title: const Text("Teacher Profile"),
+        backgroundColor: const Color.fromARGB(255, 98, 122, 255),
       ),
       backgroundColor: Colors.grey[300],
       body: Container(
@@ -1031,7 +1024,7 @@ class _Getprofile2State extends State<Getprofile2> {
                           Color.fromRGBO(143, 148, 251, 1),
                         ],
                       ),
-                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                      borderRadius: const BorderRadius.all(Radius.circular(10)),
                       //border: Border.all(color: Colors.white, width: 2),
                       boxShadow: [
                         const BoxShadow(
@@ -1047,7 +1040,7 @@ class _Getprofile2State extends State<Getprofile2> {
                           spreadRadius: 1,
                         ),
                       ]),
-                  child: Row(
+                  child: const Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
@@ -1071,16 +1064,16 @@ class _Getprofile2State extends State<Getprofile2> {
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 35,
             ),
             Container(
               width: 500,
-              margin: EdgeInsets.all(20),
-              padding: EdgeInsets.all(25),
+              margin: const EdgeInsets.all(20),
+              padding: const EdgeInsets.all(25),
               decoration: BoxDecoration(
                   color: Colors.grey[300],
-                  borderRadius: BorderRadius.only(
+                  borderRadius: const BorderRadius.only(
                     topLeft: Radius.circular(10),
                     topRight: Radius.circular(10),
                     bottomLeft: Radius.circular(10),
@@ -1107,21 +1100,21 @@ class _Getprofile2State extends State<Getprofile2> {
                     children: [
                       Text(
                         "Name : ${widget.doc['first_name']}",
-                        style: TextStyle(fontFamily: 'Poppins'),
+                        style: const TextStyle(fontFamily: 'Poppins'),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 6,
                       ),
                       Text(
                         "${widget.doc['second_name']}",
-                        style: TextStyle(fontFamily: 'Poppins'),
+                        style: const TextStyle(fontFamily: 'Poppins'),
                       ),
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 15,
                   ),
-                  Row(
+                  const Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       SizedBox(
@@ -1132,15 +1125,15 @@ class _Getprofile2State extends State<Getprofile2> {
                       ),
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 25,
                   ),
-                  Container(
+                  SizedBox(
                     width: 500,
                     height: 150,
                     child: PieChart(
                       dataMap: widget.pie,
-                      colorList: [
+                      colorList: const [
                         Color.fromRGBO(143, 148, 251, 1),
                         Color.fromRGBO(255, 255, 255, 1),
                       ],
@@ -1149,7 +1142,7 @@ class _Getprofile2State extends State<Getprofile2> {
                 ],
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 15,
             ),
             Center(
@@ -1165,7 +1158,7 @@ class _Getprofile2State extends State<Getprofile2> {
                           Color.fromRGBO(143, 148, 251, 1),
                         ],
                       ),
-                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                      borderRadius: const BorderRadius.all(Radius.circular(10)),
                       boxShadow: [
                         const BoxShadow(
                           offset: Offset(-6, -6),
@@ -1180,7 +1173,7 @@ class _Getprofile2State extends State<Getprofile2> {
                           spreadRadius: 1,
                         ),
                       ]),
-                  child: Row(
+                  child: const Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
@@ -1209,7 +1202,7 @@ class _Getprofile2State extends State<Getprofile2> {
               child: GestureDetector(
                 onTap: () => {
                   print("xxxxxxxxxxxxxxxx"),
-                  Deleteprofile("${widget.doc.id}")
+                  Deleteprofile(widget.doc.id)
                 },
                 child: Container(
                   width: 240,
@@ -1221,7 +1214,7 @@ class _Getprofile2State extends State<Getprofile2> {
                           Color.fromRGBO(143, 148, 251, 0.6),
                         ],
                       ),
-                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                      borderRadius: const BorderRadius.all(Radius.circular(10)),
                       //border: Border.all(color: Colors.white, width: 2),
                       boxShadow: [
                         const BoxShadow(
@@ -1237,7 +1230,7 @@ class _Getprofile2State extends State<Getprofile2> {
                           spreadRadius: 1,
                         ),
                       ]),
-                  child: Row(
+                  child: const Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
