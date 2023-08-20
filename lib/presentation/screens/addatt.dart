@@ -24,11 +24,22 @@ class _addAttState extends State<addAtt> {
 
   void showdatepicker() {
     showDatePicker(
-            context: context,
-            initialDate: DateTime.now(),
-            firstDate: DateTime(2022),
-            lastDate: DateTime.now())
-        .then((value) {
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(2022),
+      lastDate: DateTime.now(),
+      builder: (context, child) {
+        return Theme(
+            data: ThemeData.light().copyWith(
+              primaryColor: const Color.fromRGBO(109, 116, 255, 1),
+              colorScheme: const ColorScheme.light(
+                  primary: Color.fromRGBO(109, 116, 255, 1)),
+              buttonTheme:
+                  const ButtonThemeData(textTheme: ButtonTextTheme.primary),
+            ),
+            child: child!);
+      },
+    ).then((value) {
       setState(() {
         ff = DateFormat('yyyy-MM-dd').format(value!);
       });
@@ -360,20 +371,9 @@ class _addAttState extends State<addAtt> {
                 ),
               ),
             ),
-            GestureDetector(
-              onTap: () {
-                gettoken();
-              },
-              child: Container(
-                height: 20,
-                width: 30,
-                color: Colors.black,
-              ),
-            ),
             const SizedBox(
               height: 60,
             ),
-            
           ],
         ),
       ),
@@ -398,11 +398,21 @@ class _addteachattState extends State<addteachatt> {
 
   void showdatepicker() {
     showDatePicker(
-            context: context,
-            initialDate: DateTime.now(),
-            firstDate: DateTime(2022),
-            lastDate: DateTime.now())
-        .then((value) {
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(2022),
+      lastDate: DateTime.now(),
+      builder: (context, child) {
+        return Theme(
+            data: ThemeData.light().copyWith(
+              primaryColor: const Color.fromRGBO(109, 116, 255, 1),
+              colorScheme:
+                  const ColorScheme.light(primary: Color.fromRGBO(109, 116, 255, 1)),
+              buttonTheme: const ButtonThemeData(textTheme: ButtonTextTheme.primary),
+            ),
+            child: child!);
+      },
+    ).then((value) {
       setState(() {
         ff = DateFormat('yyyy-MM-dd').format(value!);
       });
